@@ -236,6 +236,24 @@ p {
   font-size: 12px;
   letter-spacing: 0.16em;
 }
+.social-links {
+    margin-top: 60px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    transition: opacity 0.2s ease;
+}
+
+.social-links a:hover {
+    opacity: 0.5;
+}
 
 .social-links a:hover {
   color: var(--text);
