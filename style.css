@@ -220,3 +220,23 @@ p {
     min-height: 260px;
   }
 }
+
+
+.social-links {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+}
+
+.social-links a {
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.social-links a:hover {
+  color: var(--text);
+}
