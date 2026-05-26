@@ -1,42 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HVEM ER DU? — Objektiv Kritique</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HVEM ER DU? | Objektiv Kritique</title>
   <link rel="stylesheet" href="../style.css" />
+  <style>
+    .quiz-shell{max-width:980px;margin:0 auto;padding:80px 20px 120px}.quiz-kicker{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:#999}.quiz-title{font-size:clamp(2.5rem,9vw,6.5rem);line-height:.9;margin:18px 0 28px;letter-spacing:.04em}.quiz-lead{max-width:760px;font-size:1.15rem;line-height:1.7;color:#ddd}.privacy-card,.question-card,.result-card{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.035);padding:28px;margin-top:34px}.privacy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.privacy-grid span{border:1px solid rgba(255,255,255,.16);padding:14px;text-align:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}.quiz-btn{background:#fff;color:#000;border:0;padding:14px 22px;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;margin-top:22px}.quiz-btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}.quiz-meta{display:flex;justify-content:space-between;gap:20px;color:#999;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px}.layer-intro{color:#bbb;line-height:1.6;margin-bottom:26px;border-left:1px solid #777;padding-left:18px}.question-text{font-size:clamp(1.7rem,4vw,3.2rem);line-height:1.08;margin:0 0 24px}.answers{display:grid;gap:12px}.answer-btn{text-align:left;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18);padding:18px 16px;font-size:1rem;cursor:pointer}.answer-btn:hover{border-color:#fff;background:rgba(255,255,255,.06)}.quiz-nav{display:flex;justify-content:space-between;margin-top:22px}.wardrobe{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.18);margin-top:28px}.wardrobe-module{padding:22px;border-right:1px solid rgba(255,255,255,.18);min-height:270px}.wardrobe-module:last-child{border-right:0}.wardrobe-module h3{font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;margin:0 0 8px}.state{font-size:1.45rem;text-transform:uppercase;margin:0 0 16px}.result-text{color:#ddd;line-height:1.55}.result-note{margin-top:30px;color:#aaa;line-height:1.6}.hidden{display:none!important}@media(max-width:800px){.privacy-grid,.wardrobe{grid-template-columns:1fr}.wardrobe-module{border-right:0;border-bottom:1px solid rgba(255,255,255,.18)}.wardrobe-module:last-child{border-bottom:0}.quiz-shell{padding-top:45px}.privacy-card,.question-card,.result-card{padding:20px}}
+  </style>
 </head>
 <body>
-  <div class="noise"></div>
-  <header class="site-header">
-    <a href="../index.html" class="brand">OBJEKTIV KRITIQUE</a>
-    <nav><a href="../index.html#projekter">Arkiv</a><a href="../index.html#kontakt">Kontakt</a></nav>
-  </header>
+  <main class="quiz-shell">
+    <a class="quiz-kicker" href="../index.html">← Objektiv Kritique</a>
 
-  <main class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Projekt 02</p>
-      <h1>HVEM ER DU?</h1>
-      <p class="hero-text">
-        En kunstnerisk identitetsanalyse om data, signaler, påklædning, udklædning,
-        autenticitet og den fremtid man forsøger at blive læst ind i.
-      </p>
-    </div>
+    <section id="intro">
+      <p class="quiz-kicker">Interaktivt kunstprojekt</p>
+      <h1 class="quiz-title">HVEM ER DU?</h1>
+      <p class="quiz-lead">En quiz om identitet, tøj, sociale signaler og de kræfter, der former os. Den handler ikke om at finde din type. Den handler om at se, hvilke lag du er lavet af.</p>
+
+      <div class="privacy-card">
+        <div class="privacy-grid">
+          <span>Ingen cookies</span>
+          <span>Ingen tracking</span>
+          <span>Ingen profilering</span>
+        </div>
+        <p>Denne quiz gemmer ingen data. Dine svar forlader aldrig din browser.</p>
+        <p>Der er ingen annoncer. Ingen database. Ingen skjult analyse.</p>
+        <p>Derfor behøver du heller ikke læse om GDPR. Objektiv Kritique har ingen interesse i dine personoplysninger.</p>
+        <p>Vi er interesserede i identitet. Ikke data.</p>
+        <button class="quiz-btn" id="startBtn">Start quizzen</button>
+      </div>
+    </section>
+
+    <section id="quiz" class="hidden">
+      <div class="question-card">
+        <div class="quiz-meta">
+          <span id="questionCount"></span>
+          <span id="layerName"></span>
+        </div>
+        <div class="layer-intro" id="layerIntro"></div>
+        <h2 class="question-text" id="questionText"></h2>
+        <div class="answers" id="answers"></div>
+        <div class="quiz-nav">
+          <button class="quiz-btn secondary" id="backBtn">Tilbage</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="result" class="hidden">
+      <p class="quiz-kicker">Resultat</p>
+      <h1 class="quiz-title">Din personlige garderobe</h1>
+      <p class="quiz-lead">Dette er ikke en diagnose. Det er et spejl. Fire lag i dit udtryk, din arv, din krop og din retning.</p>
+      <div class="wardrobe" id="wardrobe"></div>
+      <p class="result-note">Abdul og Katja er ikke modsætninger. De er variationer af samme menneskelige mekanisme: social tilpasning, identitetsperformance og længslen efter frihed.</p>
+      <button class="quiz-btn secondary" id="restartBtn">Tag quizzen igen</button>
+    </section>
   </main>
-
-  <section class="section narrow">
-    <p class="section-label">Model</p>
-    <h2>Individ. Identitet. Univers. Intention.</h2>
-    <p>
-      Quizzen undersøger fire lag: det individuelle, det identitetsbaserede,
-      det universelle og det intentionelle. Ikke for at reducere mennesket til data,
-      men for at vise hvor hurtigt data forsøger at reducere mennesket.
-    </p>
-    <p>
-      Resultatet er ikke en diagnose. Det er et spejl.
-    </p>
-  </section>
-
-  <footer class="site-footer"><p><a href="../index.html">Tilbage til forsiden</a></p></footer>
+  <script src="../quiz.js"></script>
 </body>
 </html>
