@@ -328,6 +328,56 @@ h1 {
   color: var(--text);
 }
 
+
+/* SITE NAV */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.96), rgba(10,10,10,0.82));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-nav-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover { color: var(--accent); }
+
+.nav-brand {
+  color: var(--text) !important;
+}
+
+.inline-home-link {
+  display: inline-block;
+  margin-top: 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.inline-home-link:hover { color: var(--text); }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -342,6 +392,13 @@ h1 {
 </style>
 </head>
 <body>
+<nav class="site-nav" aria-label="Primær navigation">
+  <div class="site-nav-inner">
+    <a class="nav-brand" href="../index.html">Objektiv Kritique</a>
+    <a href="../index.html">← Forside</a>
+  </div>
+</nav>
+
 <div class="container" id="app"></div>
 
 <script>
@@ -528,6 +585,7 @@ function renderIntro() {
         Ingen cookies. Ingen tracking. Ingen profiler.<br>
         Vi ved ikke hvem du er. Det er meningen.
       </div>
+      <a class="inline-home-link" href="../index.html">← Tilbage til forsiden</a>
       <button class="start-btn" onclick="startQuiz()">Begynd</button>
     </div>
   `;
@@ -701,6 +759,7 @@ function renderResult() {
       </div>
 
       <button class="restart-btn" onclick="renderIntro()">Tag quizzen igen</button>
+      <a class="inline-home-link" href="../index.html">← Tilbage til forsiden</a>
     </div>
   `;
 

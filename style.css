@@ -88,9 +88,13 @@ a { color: inherit; }
 .hero { padding: 24px 0 80px; }
 
 .hero-logo {
-  width: min(360px, 78vw);
+  width: min(260px, 62vw);
   display: block;
-  margin: 0 0 48px;
+  margin: 0 auto 22px;
+}
+
+.hero .eyebrow {
+  text-align: center;
 }
 
 h1 {
