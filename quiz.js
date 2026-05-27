@@ -1,431 +1,713 @@
-const quizContainer = document.getElementById("quiz-container");
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HVEM ER DU? — Objektiv Kritique</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --border: #222;
+  --text: #e8e4df;
+  --text-dim: #8a857e;
+  --accent: #d4a574;
+  --accent-dim: #a67c52;
+  --danger: #c45c5c;
+  --signatur: #d4a574;
+  --arv: #7a9e7e;
+  --krop: #8b7ec4;
+  --intention: #c4a87e;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* INTRO SCREEN */
+.intro-screen { animation: fadeIn 0.6s ease; }
+
+.logo-mark {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 48px;
+}
+
+h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(32px, 8vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+
+.intro-subtitle {
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+  font-style: italic;
+}
+
+.intro-body p {
+  margin-bottom: 20px;
+  color: var(--text);
+  font-weight: 300;
+}
+
+.intro-body strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.privacy-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  border-left: 2px solid var(--border);
+  padding-left: 16px;
+  margin: 40px 0;
+  line-height: 1.8;
+}
+
+.start-btn {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 40px;
+}
+
+.start-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* QUESTION SCREEN */
+.question-screen { animation: fadeIn 0.4s ease; }
+
+.progress-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.section-intro {
+  border-left: 3px solid var(--accent);
+  padding: 24px;
+  margin-bottom: 40px;
+  background: var(--surface);
+}
+
+.section-intro h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.section-intro p {
+  font-weight: 300;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.section-intro p:last-child { margin-bottom: 0; }
+
+.question-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.question-text {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+
+.answers { display: flex; flex-direction: column; gap: 12px; }
+
+.answer-btn {
+  display: block;
+  width: 100%;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 17px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+
+.answer-btn:hover {
+  border-color: var(--accent);
+  background: #1a1714;
+  padding-left: 28px;
+}
+
+/* RESULT SCREEN */
+.result-screen { animation: fadeIn 0.6s ease; }
+
+.result-header {
+  margin-bottom: 48px;
+}
+
+.result-header h1 {
+  font-size: clamp(28px, 6vw, 40px);
+  margin-bottom: 16px;
+}
+
+.result-intro {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.module {
+  border-left: 3px solid var(--border);
+  padding: 24px;
+  margin-bottom: 32px;
+  background: var(--surface);
+}
+
+.module[data-type="SIGNATUR"] { border-color: var(--signatur); }
+.module[data-type="ARV"] { border-color: var(--arv); }
+.module[data-type="KROP"] { border-color: var(--krop); }
+.module[data-type="INTENTION"] { border-color: var(--intention); }
+
+.module-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.module[data-type="SIGNATUR"] .module-label { color: var(--signatur); }
+.module[data-type="ARV"] .module-label { color: var(--arv); }
+.module[data-type="KROP"] .module-label { color: var(--krop); }
+.module[data-type="INTENTION"] .module-label { color: var(--intention); }
+
+.module h3 {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.module p {
+  font-weight: 300;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.module p:last-child { margin-bottom: 0; }
+
+.archetype-note {
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.result-coda {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.result-coda h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.result-coda p {
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.data-reveal {
+  background: var(--surface);
+  border: 1px solid var(--danger);
+  padding: 24px;
+  margin: 40px 0;
+}
+
+.data-reveal h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--danger);
+  margin-bottom: 12px;
+}
+
+.data-reveal p {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.restart-btn {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 48px;
+}
+
+.restart-btn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 24px 16px 60px; }
+  body { font-size: 17px; }
+  .question-text { font-size: 21px; }
+  .answer-btn { padding: 16px; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+const app = document.getElementById("app");
 
 const sections = [
   {
-    title: "DET INDIVIDUELLE",
-    intro: "Dette lag handler om behov, grænser, komfort og energi. Hvordan føles det at være dig, når ingen forventer noget bestemt?"
+    title: "DIT INDIVIDUELLE LAG",
+    paragraphs: [
+      "Mads Ananda Lodahl beskriver det individuelle lag som alt det der gør dig unik. Dit forhold til dine forældre, din yndlingsfilm, din psykologiske opsætning, dine vaner, dit yndlingstøj. Alt det der adskiller dig fra alle andre.",
+      "Men det individuelle lag handler også om bevidsthed. Jo bedre du kender dine behov, dine grænser og dine ønsker, jo nemmere kan du vælge hvordan du møder verden. Ikke bare hvad du siger, men hvad du bærer, hvordan du bevæger dig, hvad du signalerer.",
+      "Påklædning begynder her: i det du vælger, når ingen forventer noget bestemt."
+    ]
   },
   {
-    title: "DET IDENTITETSBASEREDE",
-    intro: "Dette lag handler om grupper, kultur, religion, seksualitet, familie og sociale signaler. Fællesskaber kan give tryghed. De kan også skabe kontrol."
+    title: "DIT IDENTITETSBASEREDE LAG",
+    paragraphs: [
+      "Det identitetsbaserede lag indeholder de dele af dig, du ikke selv har valgt. Etnicitet, køn, seksualitet, klasse, religion, familie. De markører der gør at du automatisk deler erfaringer med nogle mennesker og ikke med andre.",
+      "En mand med mellemøstlige rødder opdagede som teenager at langt hår, barberet skæg og røde sko ændrede alt. Ikke fordi han elskede rødt, men fordi udtrykket afvæbnede fordommene hurtigere end noget argument. Hans tøj blev et skjold, et værktøj, en oversættelse.",
+      "De fleste kender fornemmelsen af at justere sit udtryk for at kontrollere andres reaktion. Spørgsmålet er om justeringen er et frit valg eller en overlevelsesmekanisme du aldrig har fået lov at revurdere."
+    ]
   },
   {
-    title: "DET UNIVERSELLE",
-    intro: "Dette lag handler om frygt, nærhed, sårbarhed og mening. De fleste mennesker ønsker frihed, kærlighed og tryghed. Vi skjuler det bare forskelligt."
+    title: "DIT UNIVERSELLE LAG",
+    paragraphs: [
+      "Det universelle lag er det vi alle deler. Vi vil gerne respekteres. Vi vil gerne forstås. Vi foretrækker at være raske, mætte og varme. Vi er bange for at blive udstødt.",
+      "Når nogen kun ser ét af dine lag, føles det som en krænkelse. Det ER en krænkelse. At blive reduceret til din etnicitet, din seksualitet eller din klasse fjerner alt det individuelle der gør dig til dig. Men at insistere på at 'vi er alle ens' fjerner de reelle forskelle i livsvilkår.",
+      "Frygten for udstødelse er universel. Og det er præcis den frygt der gør os villige til at bære uniformer vi ikke selv har valgt."
+    ]
   },
   {
-    title: "INTENTION / FREMTID",
-    intro: "Dette lag handler om retning. Ikke kun hvem du er, men hvem du forsøger at blive."
+    title: "DIN INTENTION",
+    paragraphs: [
+      "Dette lag handler ikke om hvem du er. Det handler om hvem du forsøger at blive. Hvilken retning du bevæger dig i, og hvad du er villig til at ændre for at komme derhen.",
+      "Udklædning er når ét lag dominerer. Når algoritmen vælger for dig. Når du performer for andres forventninger. Når du sletter alt unikt for at passe ind. Påklædning er når alle lag er i balance, og du hviler i det du bærer.",
+      "Spørgsmålet er ikke om du klæder dig rigtigt. Spørgsmålet er om du klæder dig bevidst."
+    ]
   }
 ];
 
 const questions = [
   {
     section: 0,
-    question: "Hvornår føler du dig mindst observeret?",
+    text: "Du skal til en fest, hvor du ikke kender nogen. Hvad tænker du over, når du vælger tøj?",
     answers: [
-      { text: "Når jeg er alene", scores: { KROP: 2 } },
-      { text: "Når jeg er blandt nære relationer", scores: { SIGNATUR: 2 } },
-      { text: "Når jeg er anonym blandt fremmede", scores: { INTENTION: 2 } },
-      { text: "Næsten aldrig", scores: { ARV: 2, KROP: 1 } }
+      { text: "Hvad der føles behageligt på kroppen", scores: { KROP: 2 } },
+      { text: "Hvad der signalerer at jeg er interessant", scores: { SIGNATUR: 2 } },
+      { text: "Hvad der gør at jeg ikke skiller mig for meget ud", scores: { ARV: 2 } },
+      { text: "Hvad der matcher den person jeg gerne vil være", scores: { INTENTION: 2 } }
     ]
   },
   {
     section: 0,
-    question: "Hvilket miljø føles mest naturligt for dig?",
+    text: "Har du nogensinde ændret hvor meget hud du viser for at kontrollere andres reaktioner?",
     answers: [
-      { text: "Stilhed", scores: { KROP: 2 } },
-      { text: "Bevægelse", scores: { INTENTION: 2 } },
-      { text: "Struktur", scores: { ARV: 2 } },
-      { text: "Kaos", scores: { SIGNATUR: 2 } }
+      { text: "Ja, ofte. Det er en bevidst strategi.", scores: { ARV: 2, KROP: 1 } },
+      { text: "Nogle gange, uden helt at tænke over det", scores: { ARV: 1, KROP: 1 } },
+      { text: "Sjældent. Jeg viser det jeg har lyst til", scores: { SIGNATUR: 2 } },
+      { text: "Ja, men jeg er begyndt at gøre det modsatte med vilje", scores: { INTENTION: 2, SIGNATUR: 1 } }
     ]
   },
   {
     section: 0,
-    question: "Hvor ofte ændrer du dit udseende afhængigt af hvem du skal møde?",
+    text: "Hvor på spektret mellem maskulint og feminint ligger dit udtryk lige nu?",
     answers: [
-      { text: "Næsten altid", scores: { ARV: 2, KROP: 1 } },
-      { text: "Af og til", scores: { SIGNATUR: 1, ARV: 1 } },
-      { text: "Sjældent", scores: { SIGNATUR: 2 } },
-      { text: "Jeg tænker ikke over det", scores: { KROP: 1, ARV: 1 } }
-    ]
-  },
-  {
-    section: 0,
-    question: "Hvad føles mest ubehageligt?",
-    answers: [
-      { text: "At skille sig ud", scores: { ARV: 2 } },
-      { text: "At ligne alle andre", scores: { SIGNATUR: 2 } },
-      { text: "At blive misforstået", scores: { KROP: 2 } },
-      { text: "At blive aflæst korrekt", scores: { KROP: 2, INTENTION: 1 } }
+      { text: "Overvejende maskulint", scores: { ARV: 1 } },
+      { text: "Overvejende feminint", scores: { ARV: 1 } },
+      { text: "Et sted i midten, det skifter", scores: { SIGNATUR: 2 } },
+      { text: "Jeg bruger bevidst elementer fra begge sider", scores: { SIGNATUR: 2, INTENTION: 1 } }
     ]
   },
 
   {
     section: 1,
-    question: "Har kultur, religion eller familie påvirket hvordan du må udtrykke dig?",
+    text: "Har kultur, religion eller familie påvirket hvad du må have på?",
     answers: [
-      { text: "Meget", scores: { ARV: 3 } },
-      { text: "Noget", scores: { ARV: 2, KROP: 1 } },
-      { text: "Lidt", scores: { SIGNATUR: 2 } },
-      { text: "Slet ikke", scores: { INTENTION: 2, SIGNATUR: 1 } }
+      { text: "Ja, meget. Der er tydelige regler.", scores: { ARV: 3 } },
+      { text: "Noget. Det er mere usynlige forventninger end regler.", scores: { ARV: 2, KROP: 1 } },
+      { text: "Lidt. Jeg mærker det mest som en fornemmelse.", scores: { SIGNATUR: 1, ARV: 1 } },
+      { text: "Nej. Jeg vælger frit.", scores: { SIGNATUR: 2, INTENTION: 1 } }
     ]
   },
   {
     section: 1,
-    question: "Har du nogensinde skjult sider af dig selv for at passe ind?",
+    text: "Har du nogensinde ændret dit udseende for at undgå at blive forvekslet med en stereotype?",
     answers: [
-      { text: "Ofte", scores: { ARV: 2, KROP: 2 } },
-      { text: "Nogle gange", scores: { ARV: 1, KROP: 1 } },
-      { text: "Sjældent", scores: { SIGNATUR: 2 } },
-      { text: "Aldrig", scores: { SIGNATUR: 2, INTENTION: 1 } }
+      { text: "Ja. Det er noget jeg tænker over konstant.", scores: { ARV: 3, KROP: 1 } },
+      { text: "Nogle gange. Det afhænger af situationen.", scores: { ARV: 2 } },
+      { text: "Sjældent. Jeg ligner hvem jeg ligner.", scores: { SIGNATUR: 2 } },
+      { text: "Ja, men nu gør jeg det bevidst den anden vej", scores: { INTENTION: 2, SIGNATUR: 1 } }
     ]
   },
   {
     section: 1,
-    question: "Hvor ofte føler du, at du spiller en rolle foran andre mennesker?",
+    text: "Hvor frit føler du at du kan udtrykke hvem du er tiltrukket af, hvad du tror på, eller hvad du tvivler på?",
     answers: [
-      { text: "Hele tiden", scores: { ARV: 2, KROP: 2 } },
-      { text: "Ofte", scores: { ARV: 2 } },
-      { text: "Nogle gange", scores: { SIGNATUR: 1, ARV: 1 } },
-      { text: "Næsten aldrig", scores: { SIGNATUR: 2 } }
-    ]
-  },
-  {
-    section: 1,
-    question: "Hvor frit føler du, at du kan udtrykke kærlighed, seksualitet, tro eller tvivl?",
-    answers: [
-      { text: "Helt frit", scores: { SIGNATUR: 2, INTENTION: 2 } },
-      { text: "Delvist frit", scores: { SIGNATUR: 1, KROP: 1 } },
-      { text: "Begrænset", scores: { ARV: 2, KROP: 1 } },
-      { text: "Ikke frit", scores: { ARV: 3, KROP: 2 } }
+      { text: "Helt frit. Jeg skjuler ingenting.", scores: { SIGNATUR: 2, INTENTION: 1 } },
+      { text: "Delvist. Nogle ting holder jeg for mig selv.", scores: { SIGNATUR: 1, KROP: 1 } },
+      { text: "Begrænset. Mit miljø ville reagere.", scores: { ARV: 2, KROP: 1 } },
+      { text: "Slet ikke frit. Der er konsekvenser.", scores: { ARV: 3, KROP: 2 } }
     ]
   },
 
   {
     section: 2,
-    question: "Hvad frygter du mest?",
+    text: "Hvad frygter du mest?",
     answers: [
       { text: "At være alene", scores: { KROP: 2 } },
-      { text: "At blive afvist", scores: { ARV: 1, KROP: 2 } },
-      { text: "At miste kontrol", scores: { ARV: 2 } },
-      { text: "At leve uautentisk", scores: { INTENTION: 2, SIGNATUR: 1 } }
+      { text: "At blive gennemskuet", scores: { ARV: 2, KROP: 1 } },
+      { text: "At leve et liv der ikke er mit eget", scores: { INTENTION: 2, SIGNATUR: 1 } },
+      { text: "At miste de mennesker der accepterer mig", scores: { KROP: 2, ARV: 1 } }
     ]
   },
   {
     section: 2,
-    question: "Hvornår føler du mest ro?",
+    text: "Føler du at andre ser den rigtige version af dig?",
+    answers: [
+      { text: "Ja. De fleste ser mig ret tydeligt.", scores: { SIGNATUR: 2 } },
+      { text: "Delvist. De ser en redigeret version.", scores: { SIGNATUR: 1, KROP: 1 } },
+      { text: "Sjældent. Jeg viser mest det der er sikkert.", scores: { KROP: 2, ARV: 1 } },
+      { text: "Nej. Jeg ved ikke engang selv hvem den rigtige version er.", scores: { KROP: 3 } }
+    ]
+  },
+  {
+    section: 2,
+    text: "Hvornår hviler du mest i dig selv?",
     answers: [
       { text: "Når ingen forventer noget af mig", scores: { KROP: 2 } },
-      { text: "Når jeg bliver set tydeligt", scores: { SIGNATUR: 2 } },
-      { text: "Når jeg bidrager til noget større", scores: { ARV: 2 } },
-      { text: "Når jeg kan forsvinde lidt", scores: { KROP: 2, ARV: 1 } }
-    ]
-  },
-  {
-    section: 2,
-    question: "Hvad ville være sværest at miste?",
-    answers: [
-      { text: "Relationer", scores: { KROP: 2 } },
-      { text: "Identitet", scores: { SIGNATUR: 2 } },
-      { text: "Frihed", scores: { INTENTION: 2 } },
-      { text: "Retning", scores: { ARV: 1, INTENTION: 1 } }
-    ]
-  },
-  {
-    section: 2,
-    question: "Føler du, at andre ser den rigtige version af dig?",
-    answers: [
-      { text: "Ja", scores: { SIGNATUR: 2 } },
-      { text: "Delvist", scores: { SIGNATUR: 1, KROP: 1 } },
-      { text: "Sjældent", scores: { KROP: 2, ARV: 1 } },
-      { text: "Nej", scores: { KROP: 3 } }
+      { text: "Når jeg er med mennesker der virkelig kender mig", scores: { SIGNATUR: 2 } },
+      { text: "Når jeg bidrager til noget jeg tror på", scores: { ARV: 2 } },
+      { text: "Når jeg bevæger mig mod noget nyt", scores: { INTENTION: 2 } }
     ]
   },
 
   {
     section: 3,
-    question: "Hvad forsøger du mest at bevæge dig væk fra?",
+    text: "Hvad forsøger du mest at bevæge dig væk fra?",
     answers: [
-      { text: "Skam", scores: { INTENTION: 2, KROP: 1 } },
+      { text: "Skam over hvem jeg er", scores: { INTENTION: 2, KROP: 1 } },
+      { text: "Andres forventninger til hvem jeg burde være", scores: { INTENTION: 2, ARV: 1 } },
       { text: "Ensomhed", scores: { KROP: 2 } },
-      { text: "Forventninger", scores: { INTENTION: 2, ARV: 1 } },
-      { text: "Meningsløshed", scores: { INTENTION: 2 } }
+      { text: "Følelsen af at mit liv er på repeat", scores: { INTENTION: 2 } }
     ]
   },
   {
     section: 3,
-    question: "Hvad ønsker du mest at blive?",
+    text: "Hvis ingen observerede dig i et helt år, hvad ville ændre sig mest?",
     answers: [
-      { text: "Fri", scores: { INTENTION: 3 } },
-      { text: "Elsket", scores: { KROP: 2 } },
-      { text: "Hel", scores: { SIGNATUR: 1, KROP: 1 } },
-      { text: "Uafhængig", scores: { SIGNATUR: 2, INTENTION: 1 } }
-    ]
-  },
-  {
-    section: 3,
-    question: "Hvilket ord føles mest som en længsel?",
-    answers: [
-      { text: "Ro", scores: { KROP: 2 } },
-      { text: "Intensitet", scores: { INTENTION: 2 } },
-      { text: "Tilhørsforhold", scores: { ARV: 2 } },
-      { text: "Klarhed", scores: { SIGNATUR: 2 } }
-    ]
-  },
-  {
-    section: 3,
-    question: "Hvis ingen observerede dig i et år, hvad ville sandsynligvis ændre sig mest?",
-    answers: [
-      { text: "Mit udseende", scores: { SIGNATUR: 2 } },
+      { text: "Mit udseende", scores: { SIGNATUR: 2, INTENTION: 1 } },
       { text: "Mine relationer", scores: { KROP: 2 } },
-      { text: "Mine mål", scores: { INTENTION: 2 } },
-      { text: "Mit sprog eller kropssprog", scores: { ARV: 1, SIGNATUR: 1 } }
+      { text: "Min livsstil", scores: { INTENTION: 2 } },
+      { text: "Mit sprog og min måde at være på", scores: { ARV: 2 } }
+    ]
+  },
+  {
+    section: 3,
+    text: "Hvad vil du gerne have at folk tænker, når de ser dig for første gang?",
+    answers: [
+      { text: "At jeg ser interessant ud og har en historie", scores: { SIGNATUR: 2 } },
+      { text: "At jeg er varm og tilgængelig", scores: { KROP: 2 } },
+      { text: "At jeg er ligeglad med hvad de tænker", scores: { INTENTION: 2 } },
+      { text: "At jeg har styr på mit liv", scores: { ARV: 1, SIGNATUR: 1 } }
     ]
   }
 ];
 
-let currentQuestion = 0;
+const scores = { SIGNATUR: 0, ARV: 0, KROP: 0, INTENTION: 0 };
+let current = 0;
 
-const scores = {
-  SIGNATUR: 0,
-  ARV: 0,
-  KROP: 0,
-  INTENTION: 0
-};
+function renderIntro() {
+  app.innerHTML = `
+    <div class="intro-screen">
+      <div class="logo-mark">Objektiv Kritique</div>
+      <h1>HVEM ER DU?</h1>
+      <p class="intro-subtitle">Giv os dine svar. Vi giver dig et spejl.</p>
+      <div class="intro-body">
+        <p>De fleste mennesker klæder sig hver dag uden at tænke over hvorfor. Farven på din trøje, længden på dit skæg, mængden af hud du viser. Det føles som frie valg. Nogle gange er det frie valg. Nogle gange er det overlevelse forklædt som stil.</p>
+        <p>Denne quiz bygger på <strong>Mads Ananda Lodahls trelagsmodel</strong>: idéen om at ethvert menneske består af tre lag. Et individuelt lag (det der gør dig unik), et identitetsbaseret lag (de markører du ikke selv har valgt) og et universelt lag (det vi alle deler). Når nogen kun ser ét af dine lag, føles det som en krænkelse. Fordi det er det.</p>
+        <p>Vi har tilføjet et fjerde lag: <strong>intention</strong>. Ikke bare hvem du er, men hvem du forsøger at blive. Og hvordan dit udtryk enten hjælper eller forhindrer den rejse.</p>
+        <p>Der er 12 spørgsmål. Ingen er nemme. Alle handler om dig.</p>
+      </div>
+      <div class="privacy-note">
+        Dine svar forlader aldrig din browser.<br>
+        Ingen cookies. Ingen tracking. Ingen profiler.<br>
+        Vi ved ikke hvem du er. Det er meningen.
+      </div>
+      <button class="start-btn" onclick="startQuiz()">Begynd</button>
+    </div>
+  `;
+}
 
-function addScores(scoreObject) {
-  Object.keys(scoreObject).forEach(key => {
-    scores[key] += scoreObject[key];
-  });
+function startQuiz() {
+  current = 0;
+  scores.SIGNATUR = 0; scores.ARV = 0; scores.KROP = 0; scores.INTENTION = 0;
+  renderQuestion();
 }
 
 function renderQuestion() {
-  const q = questions[currentQuestion];
-  const showSectionIntro =
-    currentQuestion === 0 ||
-    questions[currentQuestion - 1].section !== q.section;
+  const q = questions[current];
+  const showIntro = current === 0 || questions[current - 1].section !== q.section;
+  const s = sections[q.section];
+  const progress = ((current) / questions.length) * 100;
 
-  quizContainer.innerHTML = `
-    ${showSectionIntro ? `
-      <div class="quiz-layer-intro">
-        <p class="section-label">${sections[q.section].title}</p>
-        <p>${sections[q.section].intro}</p>
+  app.innerHTML = `
+    <div class="question-screen">
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+      ${showIntro ? `
+        <div class="section-intro">
+          <h2>${s.title}</h2>
+          ${s.paragraphs.map(p => `<p>${p}</p>`).join("")}
+        </div>
+      ` : ""}
+      <div class="question-number">SPØRGSMÅL ${current + 1} AF ${questions.length}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="answers">
+        ${q.answers.map((a, i) => `
+          <button class="answer-btn" data-index="${i}">${a.text}</button>
+        `).join("")}
       </div>
-    ` : ""}
-
-    <p class="section-label">${currentQuestion + 1} / ${questions.length}</p>
-    <h2>${q.question}</h2>
-
-    <div class="answers">
-      ${q.answers.map(answer => `
-        <button class="button answer-btn">${answer.text}</button>
-      `).join("")}
     </div>
   `;
 
-  document.querySelectorAll(".answer-btn").forEach((button, index) => {
-    button.addEventListener("click", () => {
-      addScores(q.answers[index].scores);
-      currentQuestion++;
-
-      if (currentQuestion < questions.length) {
-        renderQuestion();
-      } else {
-        renderResult();
-      }
+  document.querySelectorAll(".answer-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.dataset.index);
+      const s = q.answers[idx].scores;
+      Object.keys(s).forEach(k => scores[k] += s[k]);
+      current++;
+      if (current < questions.length) renderQuestion();
+      else renderResult();
     });
   });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function level(score) {
+function lvl(score) {
   if (score >= 8) return "høj";
   if (score >= 5) return "middel";
   return "lav";
 }
 
-function moduleText(type, score) {
-  const l = level(score);
-
-  const texts = {
+function getModule(type, score) {
+  const l = lvl(score);
+  const data = {
     SIGNATUR: {
       høj: {
-        title: "SIGNATUR — STÆRK",
-        body: "Du virker bevidst om hvordan du fremstår. Dine valg virker mindre tilfældige end mange andres. Det kan give frihed. Det kan også blive en rolle, hvis du hele tiden skal være tydelig."
+        title: "Din signatur er tydelig",
+        body: "Dine valg virker bevidste. Du ved hvad du signalerer, og du gør det med vilje. Det giver dig frihed, fordi du ikke venter på andres godkendelse. Men vær opmærksom: en tydelig signatur kan også blive en ny uniform, hvis du begynder at performe din egen unikhed i stedet for at leve den.",
+        archetype: "Katja kender det her. Hun ved præcis hvad Von Dutch-toppen, belly chain og platformskoene signalerer. Hun ejer det. Spørgsmålet er om det stadig er et valg, eller om det er blevet en rolle."
       },
       middel: {
-        title: "SIGNATUR — FLYDENDE",
-        body: "Du skifter udtryk efter situationen. Det er ikke nødvendigvis falskt. Det kan være social intelligens. Men det kan også blive uklart, hvad du selv ville vælge uden publikum."
+        title: "Din signatur er flydende",
+        body: "Du tilpasser dit udtryk til situationen. Det er ikke nødvendigvis falskhed. Det kan være social intelligens. Men det kan også betyde at du ikke helt ved hvad du selv ville vælge, hvis der ikke var nogen at vælge for.",
+        archetype: "Hverken Abdul eller Katja. Du står midt imellem. Det kan være det mest ærlige sted at stå, men det kan også være det mest forvirrende."
       },
       lav: {
-        title: "SIGNATUR — SKJULT",
-        body: "Din egen retning står ikke tydeligst i svarene. Du holder måske dele af dig selv tilbage. Ikke fordi de er forkerte, men fordi de ikke altid føles sikre at vise."
+        title: "Din signatur er skjult",
+        body: "Dine egne præferencer træder ikke tydeligst frem i svarene. Det kan betyde at du holder dele af dig selv tilbage. Ikke fordi de er forkerte, men fordi det aldrig har følt sig sikkert at vise dem. Overvej hvad du ville bære, hvis absolutte ingen havde en mening om det.",
+        archetype: "Abdul bærer Adidas, guldkæde og Nike Air Max. Ikke fordi han valgte det, men fordi uniformen blev valgt for ham af et fællesskab han aldrig har udfordret. Genkender du det?"
       }
     },
-
     ARV: {
       høj: {
-        title: "ARV — DOMINERENDE",
-        body: "Dine fællesskaber, din kultur eller sociale normer påvirker dig relativt stærkt. Det betyder ikke, at dine valg ikke er autentiske. Men nogle af dem kan være blevet så normale, at de føles naturlige."
+        title: "Fællesskabets stemme er høj",
+        body: "Kultur, religion, familie eller sociale normer påvirker dine valg mere end du måske tror. Det er ikke nødvendigvis negativt. Fællesskaber giver tryghed, tilhørsforhold og identitet. Men når fællesskabets forventninger bliver stærkere end din egen stemme, ophører påklædning og udklædningen begynder.",
+        archetype: "Abdul lever her. Hans tracksuit er et medlemskab. Hans guldkæde er en ed. Hans hele udtryk siger 'jeg tilhører noget'. Prisen er at han aldrig finder ud af hvem han er uden for uniformen."
       },
       middel: {
-        title: "ARV — FORHANDLET",
-        body: "Du står mellem det du kommer fra, og det du selv vil. Du afviser ikke nødvendigvis dine fællesskaber. Men du tager dem heller ikke bare for givet."
+        title: "Du forhandler med din arv",
+        body: "Du står mellem det du kommer fra og det du selv vil. Du afviser ikke dine fællesskaber, men du tager dem heller ikke for givet. Den forhandling er sund, men den er også udmattende. Du oversætter konstant mellem hvem du er derhjemme og hvem du er udenfor.",
+        archetype: "Forestil dig Abdul den dag han for første gang overvejer at droppe guldkæden. Ikke fordi han skammer sig over den, men fordi han gerne vil vide hvem han er uden den."
       },
       lav: {
-        title: "ARV — AFSTAND",
-        body: "Du virker mindre styret af fællesskabets forventninger. Det kan give frihed. Det kan også koste tilhørsforhold, hvis dit miljø forventer loyalitet frem for tvivl."
+        title: "Du holder afstand til arven",
+        body: "Du virker mindre styret af fællesskabets forventninger. Det kan give enorm frihed. Det kan også koste tilhørsforhold, hvis dit miljø forventer loyalitet før tvivl. Frihed og ensomhed bor tæt på hinanden.",
+        archetype: "Katja lever her. Hun refererer ikke til nogen gruppe, nogen tradition, nogen forventning. Hendes udtryk er hendes eget. Men selv Katja performer en rolle: den frie pige. Hvornår er frihed et valg, og hvornår er det en flugt?"
       }
     },
-
     KROP: {
       høj: {
-        title: "KROP — BESKYTTENDE",
-        body: "Du tænker meget over hvordan andre ser dig. Der er sandsynligvis sider af dig selv, som du holder tilbage for at undgå kritik, skam eller konflikter. Det kan beskytte dig. Det kan også gøre det svært at føle sig fri."
+        title: "Du beskytter dig selv",
+        body: "Der er sandsynligvis sider af dig du holder tilbage for at undgå konflikt, skam eller afvisning. Dit tøj er måske mere rustning end udtryk. Det beskytter dig, men det gør det også sværere at blive set som den du faktisk er. Overvej hvad det ville koste at vise lidt mere.",
+        archetype: "Abdul skjuler alt bag tracksuitens armering. Gipsarmene er den ultimative metafor: en krop der bogstaveligt ikke kan røre ved verden eller lade sig røre. Hvad beskytter du dig imod?"
       },
       middel: {
-        title: "KROP — OPMÆRKSOM",
-        body: "Du mærker både dine behov og omgivelsernes krav. Du kan tilpasse dig, men du mister ikke nødvendigvis dig selv. Spørgsmålet er, hvor ofte du vælger tryghed før ærlighed."
+        title: "Du mærker begge sider",
+        body: "Du kan tilpasse dig uden at miste dig selv helt. Men du kender fornemmelsen af at vælge tryghed over ærlighed. Spørgsmålet er hvor ofte du gør det, og om det stadig er et aktivt valg eller en autopilot.",
+        archetype: "De fleste mennesker lever her. Hverken helt frie eller helt fanget. Det er det mest almindelige sted at være, og det mest vanskelige at beskrive ærligt."
       },
       lav: {
-        title: "KROP — FRAKOBLET",
-        body: "Dine svar peger mindre på kroppen og mere på idéer, roller eller retning. Det kan gøre dig handlekraftig. Men man kan også blive så god til at fungere, at man ikke mærker hvad man faktisk føler."
+        title: "Du lever i hovedet",
+        body: "Dine svar peger mere på idéer, retning og roller end på kroppen og dens behov. Det kan gøre dig handlekraftig og fokuseret. Men man kan også blive så god til at fungere at man glemmer at mærke hvad man faktisk føler. Hvornår sidst du stoppede op og lyttede indad?",
+        archetype: "Hverken Abdul eller Katja. De er begge intenst fysiske i deres udtryk. Du er måske den der ser dem danse og tænker mere end du danser."
       }
     },
-
     INTENTION: {
       høj: {
-        title: "INTENTION — I BEVÆGELSE",
-        body: "Du virker mindre interesseret i at passe ind end tidligere. Frihed virker vigtigt for dig. Du er måske mere optaget af hvem du er ved at blive, end hvem du har været."
+        title: "Du er i bevægelse",
+        body: "Du er mindre optaget af hvem du har været end hvem du er ved at blive. Frihed virker vigtigere for dig end tilhørsforhold. Det er modigt, men det kan også betyde at du flygter fra noget du endnu ikke har konfronteret. Ikke al bevægelse er fremskridt. Nogle gange er det den stilstand du har brug for.",
+        archetype: "Katja den dag hun besluttede sig for at eje sit udtryk i stedet for at undskylde for det. Eller Abdul den dag han vælger at tage tracksuitten af. Begge er intentioner. Kun den ene er hans egen."
       },
       middel: {
-        title: "INTENTION — SØGENDE",
-        body: "Du leder efter retning, men uden at have lukket svaret. Det kan være forvirrende. Det kan også være ærligt. Ikke alle mennesker skal ligne en færdig identitet."
+        title: "Du søger",
+        body: "Du leder efter retning uden at have lukket svaret. Det kan føles forvirrende, men det kan også være det mest ærlige sted at stå. Ikke alle mennesker skal ligne en færdig identitet. Nogle gange er selve søgningen udtrykket.",
+        archetype: "Forestil dig en garderobe der skifter hver uge. Ikke fordi du er usikker, men fordi du prøver ting af. Det er modigt. Det er også udmattende. Hvornår ved du at du har fundet det?"
       },
       lav: {
-        title: "INTENTION — FASTHOLDT",
-        body: "Fremtiden fylder ikke stærkest i dine svar. Du kan være optaget af stabilitet, tryghed eller det kendte. Det kan være ro. Det kan også være en pænere måde at sige stilstand på."
+        title: "Du er forankret",
+        body: "Fremtiden fylder ikke stærkest i dine svar. Du er måske optaget af stabilitet, tryghed eller det kendte. Det kan være ro. Det kan også være en komfortzone der langsomt er blevet et fængsel. Spørg dig selv: er jeg tilfreds, eller er jeg bare vant til det?",
+        archetype: "Abdul har boet i sin uniform i 20 år. Den føles som hjem. Men et hjem man aldrig forlader bliver et bur. Hvornår sidst du prøvede noget du aldrig har prøvet?"
       }
     }
   };
-
-  return texts[type][l];
+  return data[type][l];
 }
 
 function renderResult() {
+  const dominant = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+
   const modules = ["SIGNATUR", "ARV", "KROP", "INTENTION"].map(type => {
-    const text = moduleText(type, scores[type]);
+    const m = getModule(type, scores[type]);
     return `
-      <div class="project-card">
-        <span class="card-number">${type}</span>
-        <h3>${text.title}</h3>
-        <p>${text.body}</p>
+      <div class="module" data-type="${type}">
+        <div class="module-label">${type}</div>
+        <h3>${m.title}</h3>
+        <p>${m.body}</p>
+        <div class="archetype-note">${m.archetype}</div>
       </div>
     `;
   }).join("");
 
-  quizContainer.innerHTML = `
-    <p class="section-label">DIN PERSONLIGE GARDEROBE</p>
-    <h2>Et kort over dine spændinger</h2>
+  app.innerHTML = `
+    <div class="result-screen">
+      <div class="result-header">
+        <div class="logo-mark">Objektiv Kritique</div>
+        <h1>Dit spejl</h1>
+        <p class="result-intro">
+          Dette er ikke en diagnose. Det er ikke en sandhed. Det er et kort over de spændinger dine svar peger på. Virkeligheden er mere rodet end fire kategorier. Men mønstrene kan fortælle dig noget du allerede vidste, men ikke havde sprog for.
+        </p>
+      </div>
 
-    <p>
-      Dette er ikke en diagnose. Det er heller ikke en sandhed.
-      Det er et spejl over de kræfter, dine svar peger på.
-    </p>
-
-    <div class="project-grid">
       ${modules}
+
+      <div class="result-coda">
+        <h3>Påklædning vs. udklædning</h3>
+        <p>Påklædning er tøj du hviler i. Tøj der afspejler dine behov, din historie, din retning. Det kan skifte fra dag til dag, fra situation til situation. Det afgørende er ikke hvad du har på, men om du VED hvorfor du har det på.</p>
+        <p>Udklædning er tøj der ikke er dit. Tøj du bærer fordi nogen forventer det, fordi en algoritme anbefalede det, fordi dit fællesskab kræver det, eller fordi du aldrig har stoppet op og spurgt om det overhovedet er dig.</p>
+        <p>Forskellen er ikke synlig. Den er intern. Og den forsvinder langsomt jo mere du lader andre vælge for dig.</p>
+      </div>
+
+      <div class="data-reveal">
+        <h3>En sidste ting</h3>
+        <p>Du har lige svaret ærligt på 12 spørgsmål om frygt, identitet, krop og fremtid. Til en anonym hjemmeside du aldrig har besøgt før.</p>
+        <p>Vi gemmer ingenting. Vi har ingen database. Vi ved ikke hvem du er.</p>
+        <p>Men tænk over det: hvornår var det sidst du svarede så ærligt et sted der IKKE lovede at slette dine svar?</p>
+      </div>
+
+      <button class="restart-btn" onclick="renderIntro()">Tag quizzen igen</button>
     </div>
-
-    <h3>Hvordan det kan komme til udtryk</h3>
-
-    <p>
-      I et toxic community kan fællesskab blive vigtigere end frihed.
-      Man lærer hvad man må sige, hvad man skal skjule, og hvilke spørgsmål der skaber problemer.
-      Det kan ske i religiøse miljøer, politiske grupper, familier, maskuline hierarkier eller online fællesskaber.
-    </p>
-
-    <p>
-      I et sexnegativt samfund bliver lyst ofte blandet sammen med skam.
-      Jalousi kan blive behandlet som kærlighed.
-      Kontrol kan blive forklaret som omsorg.
-      Tavshed kan blive forvekslet med moral.
-    </p>
-
-    <p>
-      Det modsatte er ikke kaos.
-      Det modsatte er ærlighed, samtykke, frihed og ansvar.
-      Frie relationer kræver ikke færre grænser.
-      De kræver tydeligere grænser.
-    </p>
-
-    <h3>Hvad kan man gøre?</h3>
-
-    <p>
-      Læg mærke til hvor du tier stille.
-      Læg mærke til hvem du prøver at berolige.
-      Læg mærke til hvornår du kalder noget kærlighed, selvom det mest ligner kontrol.
-    </p>
-
-    <p>
-      Spørg dig selv:
-      Er dette mit valg?
-      Er det mit miljøs valg?
-      Eller er det bare blevet så normalt, at jeg ikke længere kan kende forskel?
-    </p>
-
-    <h3>Videre læsning</h3>
-
-    <p>
-      Jessica Fern skriver om polyamori, åbne relationer og hvordan tryg tilknytning kan se ud uden klassisk monogami.
-    </p>
-
-    <p>
-      Esther Perel skriver om begær, parforhold og hvorfor tryghed og frihed ofte trækker i hver sin retning.
-    </p>
-
-    <p>
-      Louise Perry kritiserer den seksuelle revolution og argumenterer for, at frihed også kan skabe nye former for pres og udnyttelse.
-    </p>
-
-    <p>
-      Michel Foucault skriver om magt, normer og hvordan samfund former mennesker uden altid at bruge direkte tvang.
-    </p>
-
-    <p>
-      Erving Goffman skriver om hverdagslivets roller og hvordan mennesker performer sig selv foran andre.
-    </p>
-
-    <p>
-      Ayo Hansen skriver om social kontrol, tavshed og frihed i miljøer hvor fællesskabets normer kan blive stærkere end individets stemme.
-    </p>
-
-    <h3>Modsigelser</h3>
-
-    <p>
-      Der vil altid være modsigelser.
-      Stærke normer kan skabe tryghed, fællesskab og retning.
-      De kan også skabe frygt, tavshed og social kontrol.
-    </p>
-
-    <p>
-      Monogami kan være et frit valg.
-      Det kan også være en social kontrakt, man aldrig har fået lov til at forhandle.
-    </p>
-
-    <p>
-      Religion kan give mening, trøst og fællesskab.
-      Den kan også begrænse tvivl, seksualitet og individuel frihed.
-    </p>
-
-    <p>
-      Objektiv Kritique giver ikke facit.
-      Vi viser spændingerne.
-      Resten må du selv leve med.
-    </p>
-
-    <button class="button" onclick="location.reload()">Tag quizzen igen</button>
   `;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-renderQuestion();
+renderIntro();
+</script>
+</body>
+</html>
