@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katjas kulturspalte — Bande Bladet</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#050505;
+--text:#e8e1d6;
+--muted:#9b9184;
+--line:#3a3327;
+--gold:#d8a84f;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Georgia,"Times New Roman",serif;
+line-height:1.55;
+}
+
+.page{
+max-width:980px;
+margin:auto;
+padding:24px 18px 70px;
+}
+
+.back{
+display:inline-block;
+margin-bottom:26px;
+color:var(--muted);
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+text-decoration:none;
+font-size:12px;
+}
+
+.back:hover{
+color:var(--gold);
+}
+
+.kicker{
+font-family:"Courier New",monospace;
+color:var(--gold);
+text-transform:uppercase;
+letter-spacing:.16em;
+font-size:13px;
+margin-bottom:18px;
+}
+
+h1{
+font-size:clamp(40px,7vw,82px);
+line-height:.95;
+font-weight:400;
+letter-spacing:.01em;
+max-width:920px;
+text-transform:uppercase;
+}
+
+.subtitle{
+margin-top:18px;
+font-size:clamp(20px,3vw,30px);
+line-height:1.2;
+color:#d5cec2;
+max-width:760px;
+}
+
+.meta{
+margin-top:24px;
+padding-top:18px;
+border-top:1px solid var(--line);
+font-family:"Courier New",monospace;
+color:var(--muted);
+text-transform:uppercase;
+letter-spacing:.12em;
+font-size:12px;
+}
+
+.hero{
+margin-top:34px;
+border:1px solid var(--line);
+overflow:hidden;
+}
+
+.hero img{
+width:100%;
+display:block;
+}
+
+.article{
+margin-top:46px;
+display:grid;
+grid-template-columns:180px 1fr;
+gap:34px;
+}
+
+.section-title{
+font-family:"Courier New",monospace;
+color:var(--gold);
+text-transform:uppercase;
+letter-spacing:.14em;
+font-size:14px;
+line-height:1.4;
+padding-top:7px;
+}
+
+.copy{
+font-size:21px;
+color:#e5ded2;
+}
+
+.copy p{
+margin-bottom:22px;
+}
+
+.quote{
+font-size:25px;
+line-height:1.35;
+color:#f0e7d8;
+border-left:2px solid var(--gold);
+padding-left:18px;
+margin:30px 0;
+}
+
+.inline-image{
+margin:34px 0;
+border:1px solid var(--line);
+overflow:hidden;
+}
+
+.inline-image img{
+width:100%;
+display:block;
+}
+
+.newsletter{
+margin-top:70px;
+border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);
+padding:42px 0;
+text-align:center;
+}
+
+.newsletter h2{
+font-size:42px;
+font-weight:400;
+margin-bottom:14px;
+text-transform:uppercase;
+}
+
+.newsletter p{
+max-width:540px;
+margin:0 auto 30px;
+font-size:20px;
+color:#d5cec2;
+line-height:1.5;
+}
+
+.newsletter-form{
+display:flex;
+gap:12px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.newsletter-form input{
+background:#0b0b0b;
+border:1px solid var(--line);
+padding:16px 18px;
+width:320px;
+color:var(--text);
+font-size:16px;
+font-family:"Courier New",monospace;
+}
+
+.newsletter-form button{
+border:1px solid var(--gold);
+background:#0b0b0b;
+color:var(--text);
+padding:16px 24px;
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+cursor:pointer;
+}
+
+.newsletter-form button:hover{
+background:var(--gold);
+color:#050505;
+}
+
+.newsletter-success{
+display:none;
+margin-top:22px;
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+font-size:12px;
+color:var(--gold);
+}
+
+.footer-note{
+margin-top:50px;
+border-top:1px solid var(--line);
+padding-top:18px;
+font-family:"Courier New",monospace;
+font-size:12px;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--muted);
+}
+
+.bottom-button-wrap{
+margin-top:34px;
+padding-top:28px;
+border-top:1px solid var(--line);
+text-align:center;
+}
+
+.bottom-button{
+display:inline-block;
+border:1px solid var(--gold);
+padding:14px 24px;
+color:var(--text);
+text-decoration:none;
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+font-size:12px;
+background:#0b0b0b;
+}
+
+.bottom-button:hover{
+background:var(--gold);
+color:#050505;
+}
+
+@media(max-width:760px){
+
+.article{
+grid-template-columns:1fr;
+gap:12px;
+}
+
+.copy{
+font-size:19px;
+}
+
+.section-title{
+padding-top:0;
+}
+
+.newsletter h2{
+font-size:30px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<a class="back" href="../projects/bande-bladet.html">← Tilbage til Bande Bladet</a>
+
+<div class="kicker">06 Katjas kulturspalte</div>
+
+<h1>Et orgie kan sagtens være samtykkebaseret</h1>
+
+<div class="subtitle">
+Katja har fundet et helt nyt marked. Og det er mere lovligt, end du tror.
+</div>
+
+<div class="meta">
+Bande Bladet · Samtykke · Intimitet · Moderne maskulinitet
+</div>
+
+<div class="hero">
+<img src="../assets/bande-bladet/06akatjasamtykke.png" alt="">
+</div>
+
+<section class="article">
+<div class="section-title">Problemet</div>
+
+<div class="copy">
+
+<p>Lad os starte med virkeligheden.</p>
+
+<p>I den kriminelle underverden flyder der kontanter. En del af dem flyder i retning af sexarbejdere, der inviteres til fester, afterparties og private arrangementer. Det er ikke nyt.</p>
+
+<p>Det nye er, at oplevelsen sjældent er god for nogen.</p>
+
+<p>Sexarbejderne føler sig utrygge. Mændene opfører sig som mænd, der aldrig har fået at vide, at en anden persons krop ikke er en buffet. Og stemningen er omtrent lige så intim som en tankstation kl. 3 om natten.</p>
+
+<p>Katja så et hul i markedet.</p>
+
+</div>
+</section>
+
+<section class="article">
+<div class="section-title">Katjas model</div>
+
+<div class="copy">
+
+<p>Katja er ikke sexarbejder. Katja er facilitator.</p>
+
+<p>Hendes badge siger "ORGIE INSTRUKTØR", og det er lige præcis det, hun er.</p>
+
+<p>Hun skaber rammerne. Hun sætter reglerne. Og hun sørger for, at alle i rummet ved, hvad de har sagt ja til, før noget som helst sker.</p>
+
+<div class="inline-image">
+<img src="../assets/bande-bladet/16consent.png" alt="">
+</div>
+
+<p>Hendes tilgang er enkel:</p>
+
+<p>Gæstelisten er kurateret. Katja inviterer kun mænd, hun stoler på. Mænd der besidder en lille mængde emotionel intelligens. Mænd der kan håndtere et "nej" uden at få det til at handle om dem selv.</p>
+
+<p>Bonus, hvis de er Halal Boys: typen der sagtens kan poppe en pagne uden at drikke den. En person der kan være i et intenst miljø uden at miste hovedet.</p>
+
+<p>Samtykke-workshop først.</p>
+
+<p>Før nogen tager tøj af, sidder alle i en cirkel.</p>
+
+<p>Katja gennemgår de grundlæggende regler: Samtykke skal være frivilligt. Det skal være entusiastisk. Det skal være løbende. Og det skal være respektfuldt.</p>
+
+<div class="inline-image">
+<img src="../assets/bande-bladet/17connection.png" alt="">
+</div>
+
+<p>Lyskryds-systemet.</p>
+
+<p>Grøn betyder ja.</p>
+
+<p>Gul betyder vent og re-connect.</p>
+
+<p>Rød betyder STOP.</p>
+
+<p>Ingen diskussion. Ingen forhandling.</p>
+
+<p>Rød er rød. Altid.</p>
+
+<p>Play Fighting.</p>
+
+<p>Før den seksuelle energi fylder rummet, faciliterer Katja en legende workshop, hvor deltagerne mærker hinanden fysisk, men ikke seksuelt.</p>
+
+<p>Kontakt og nærvær. Grænser og respekt. Forbindelse.</p>
+
+<div class="inline-image">
+<img src="../assets/bande-bladet/18playfight.png" alt="">
+</div>
+
+</div>
+</section>
+
+<section class="article">
+<div class="section-title">Full Circle</div>
+
+<div class="copy">
+
+<p>Det smarte ved modellen er, at den virker for alle parter.</p>
+
+<p>Sexarbejderne føler sig tryggere. Og tryggere sexarbejdere tillader sig selv at være i nydelse.</p>
+
+<p>Mændene lærer noget, de aldrig har lært: at tale om behov, mærke grænser, og at et "nej" ikke er en afvisning af dem som person.</p>
+
+<p>Og den viden bliver i kroppen.</p>
+
+<p>Katja kalder det personlig udvikling forklædt som en festlig aften.</p>
+
+<p>Bande Bladet kalder det cirkulær økonomi.</p>
+
+</div>
+</section>
+
+<section class="article">
+<div class="section-title">Den juridiske virkelighed</div>
+
+<div class="copy">
+
+<p>Her bliver det vigtigt at være præcis.</p>
+
+<p>I Danmark blev det i 1999 lovligt at sælge seksuelle ydelser.</p>
+
+<p>Sexarbejde er altså legalt som selvstændig virksomhed.</p>
+
+<p>Men samtidig gør rufferiparagraffen (straffelovens § 233) det ulovligt at tjene penge på andres sexarbejde.</p>
+
+<p>Det gælder blandt andet, hvis man driver bordel, organiserer prostitution eller faciliterer det økonomisk.</p>
+
+<p>For sexarbejdere må gerne arbejde.</p>
+
+<p>De må bare helst gøre det alene.</p>
+
+</div>
+</section>
+
+<section class="article">
+<div class="section-title">Ærligt, hvad sker der?</div>
+
+<div class="copy">
+
+<div class="quote">
+“Det er lidt som at gøre det lovligt at flyve i fly, men gøre det ulovligt at flyve fra en lufthavn.”
+</div>
+
+<p>Hun beskriver ikke sine arrangementer som sexarbejde.</p>
+
+<p>Hun beskriver dem som social infrastruktur.</p>
+
+<div class="quote">
+“Det jeg sælger, er ikke sex.”
+</div>
+
+<div class="quote">
+“Det er bedre stemning.”
+</div>
+
+<p>Og mærkeligt nok virker det.</p>
+
+</div>
+</section>
+
+<section class="article">
+<div class="section-title">Katja skriver på en bog</div>
+
+<div class="copy">
+
+<p>Hun er i øjeblikket ved at skrive bogen:</p>
+
+<div class="quote">
+“Kollektiv Intimitet — Lær at navigere et flirtende og seksuelt rum på en sund og tryg måde”
+</div>
+
+</section>
+
+<section class="newsletter">
+
+<h2>Katjas nyhedsbrev</h2>
+
+<p>
+Vær den første til at få en mail, når bogen skal udgives.
+</p>
+
+<iframe 
+name="hidden-katja-frame" 
+style="display:none;">
+</iframe>
+
+<form 
+class="newsletter-form"
+action="https://docs.google.com/forms/d/e/1FAIpQLSe9Hi0HmjF5hnyRd88sVJUZt_6i8nkQdCHSBs2T7XzQatiOcQ/formResponse"
+method="POST"
+target="hidden-katja-frame"
+onsubmit="showKatjaSuccess()"
+>
+
+<input 
+type="email" 
+name="entry.2018086886" 
+placeholder="din@email.dk" 
+required
+>
+
+<button type="submit">
+Tilmeld
+</button>
+
+</form>
+
+<div 
+class="newsletter-success" 
+id="katja-success"
+>
+Du er tilmeldt. Katja vender tilbage, når stemningen kræver det.
+</div>
+
+</section>
+
+<div class="footer-note">
+BANDE BLADET er satire. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
+</div>
+
+<div class="bottom-button-wrap">
+<a class="bottom-button" href="../projects/bande-bladet.html">
+← Tilbage til Bande Bladet
+</a>
+</div>
+
+</div>
+
+<script>
+
+function showKatjaSuccess(){
+
+setTimeout(function(){
+
+document.getElementById("katja-success").style.display = "block";
+
+}, 500);
+
+}
+
+</script>
+
+</body>
+</html>
