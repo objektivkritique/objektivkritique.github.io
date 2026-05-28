@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJEKT 03 — Bande Bladet</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--bg:#050505;
+--text:#e8e1d6;
+--muted:#9b9184;
+--line:#3a3327;
+--gold:#d8a84f;
+--gold-soft:#f0d083;
+--red:#d74735;
+--card:#0b0b0b
+}
+
+html{
+scroll-behavior:smooth
+}
+
+body{
+background:
+radial-gradient(circle at 18% 0%,rgba(216,168,79,.12),transparent 34rem),
+linear-gradient(180deg,#070707 0%,#030303 100%);
+color:var(--text);
+font-family:Georgia,"Times New Roman",serif;
+line-height:1.45;
+overflow-x:hidden
+}
+
+@media(pointer:fine){
+body,
+a,
+button{
+cursor:none
+}
+
+.cursor-dot{
+position:fixed;
+top:0;
+left:0;
+width:12px;
+height:12px;
+border:1px solid var(--gold-soft);
+border-radius:999px;
+pointer-events:none;
+z-index:9999;
+transform:translate(-50%,-50%);
+mix-blend-mode:difference;
+transition:width .16s ease,height .16s ease,background .16s ease,border-color .16s ease
+}
+
+body.link-hover .cursor-dot{
+width:44px;
+height:44px;
+background:rgba(216,168,79,.12);
+border-color:var(--gold)
+}
+}
+
+a{
+color:inherit;
+text-decoration:none
+}
+
+.page{
+max-width:1280px;
+margin:auto;
+padding:24px 18px 60px
+}
+
+.back{
+display:inline-block;
+margin-bottom:18px;
+color:var(--muted);
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+text-decoration:none;
+font-size:12px
+}
+
+.top{
+display:grid;
+grid-template-columns:170px 1fr 140px;
+gap:22px;
+align-items:center;
+border-bottom:1px solid var(--line);
+padding-bottom:20px
+}
+
+.logo img{
+width:155px;
+display:block
+}
+
+h1{
+font-size:clamp(52px,9vw,118px);
+white-space:nowrap;
+text-align:center;
+line-height:.85;
+text-transform:uppercase;
+letter-spacing:.04em
+}
+
+.subtitle{
+text-align:center;
+color:var(--muted);
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.22em;
+font-size:13px;
+margin-top:14px
+}
+
+.issue{
+font-family:"Courier New",monospace;
+color:var(--muted);
+text-transform:uppercase;
+letter-spacing:.16em;
+font-size:13px;
+line-height:1.9
+}
+
+.issue span{
+display:block;
+width:52px;
+height:2px;
+background:var(--gold);
+margin-top:12px
+}
+
+.nav{
+display:flex;
+gap:32px;
+overflow-x:auto;
+border-bottom:1px solid var(--line);
+padding:15px 0 12px;
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.13em;
+font-size:13px
+}
+
+.nav a{
+color:var(--muted);
+white-space:nowrap
+}
+
+.nav a:first-child{
+color:var(--gold);
+border-bottom:2px solid var(--gold);
+padding-bottom:6px
+}
+
+.layout{
+display:grid;
+grid-template-columns:1fr 320px;
+gap:16px;
+margin-top:16px
+}
+
+.main{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+border-left:1px solid var(--line);
+border-top:1px solid var(--line)
+}
+
+.card{
+display:block;
+border-right:1px solid var(--line);
+border-bottom:1px solid var(--line);
+background:var(--card);
+min-height:270px;
+overflow:hidden;
+transition:transform .22s ease,border-color .22s ease,background .22s ease
+}
+
+a.card:hover,
+a.card:focus-visible{
+transform:translateY(-5px);
+border-color:var(--gold);
+background:#11100d;
+outline:none
+}
+
+.text{
+padding:24px
+}
+
+.label{
+font-family:"Courier New",monospace;
+color:var(--gold);
+text-transform:uppercase;
+letter-spacing:.16em;
+font-size:13px;
+margin-bottom:14px
+}
+
+.card h2{
+font-size:clamp(38px,5vw,68px);
+line-height:1.02;
+font-weight:400;
+margin-bottom:20px
+}
+
+.card h3{
+font-size:31px;
+line-height:1.08;
+font-weight:400;
+margin-bottom:14px
+}
+
+.card p{
+color:#d5cec2;
+font-size:17px
+}
+
+.arrow{
+color:var(--gold);
+font-size:.85em
+}
+
+.teaser{
+display:flex;
+flex-direction:column
+}
+
+.teaser .text{
+min-height:315px
+}
+
+.teaser h3{
+min-height:104px
+}
+
+.hero{
+grid-column:span 3;
+display:grid;
+grid-template-columns:.95fr 1.35fr;
+min-height:430px;
+position:relative;
+isolation:isolate;
+background:#0b0b0b
+}
+
+.hero::after{
+content:"";
+position:absolute;
+top:0;
+bottom:0;
+left:31%;
+width:26%;
+pointer-events:none;
+z-index:2;
+background:linear-gradient(90deg,rgba(11,11,11,.98) 0%,rgba(11,11,11,.86) 28%,rgba(11,11,11,.38) 68%,rgba(11,11,11,0) 100%)
+}
+
+.hero .text{
+position:relative;
+z-index:3;
+background:#0b0b0b
+}
+
+.hero .text::after{
+content:"";
+position:absolute;
+top:0;
+bottom:0;
+right:-150px;
+width:150px;
+pointer-events:none;
+background:linear-gradient(90deg,rgba(11,11,11,1) 0%,rgba(11,11,11,.70) 38%,rgba(11,11,11,0) 100%)
+}
+
+.hero img{
+position:relative;
+z-index:1;
+width:100%;
+height:auto;
+min-height:430px;
+object-fit:contain;
+object-position:center center;
+display:block;
+background:#0b0b0b
+}
+
+.image{
+height:180px;
+margin-top:auto;
+background:#111
+}
+
+.image img{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover
+}
+
+.breaking{
+grid-column:span 3;
+display:grid;
+grid-template-columns:220px 1fr;
+min-height:160px
+}
+
+.breaking img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.breaking .label{
+color:var(--red)
+}
+
+.product-list{
+display:grid;
+gap:14px;
+margin-top:18px
+}
+
+.product{
+display:grid;
+grid-template-columns:96px minmax(0,1fr);
+gap:14px;
+border-top:1px solid var(--line);
+padding-top:14px;
+min-width:0;
+align-items:center
+}
+
+.product img{
+width:96px;
+height:82px;
+object-fit:cover;
+border:1px solid var(--line);
+background:#181818;
+box-shadow:0 0 0 1px rgba(216,168,79,.10)
+}
+
+.product strong{
+display:block;
+font-size:17px;
+line-height:1.08;
+overflow-wrap:anywhere
+}
+
+.product span{
+display:block;
+color:var(--muted);
+font-size:15px;
+line-height:1.22;
+overflow-wrap:anywhere
+}
+
+.sidebar{
+display:grid;
+gap:16px;
+align-content:start
+}
+
+.box{
+border:1px solid var(--line);
+background:#101010;
+padding:22px
+}
+
+.box h3{
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.14em;
+font-size:22px;
+margin-bottom:18px
+}
+
+.sign{
+border-top:1px solid var(--line);
+padding:18px 0
+}
+
+.sign:first-of-type{
+border-top:0
+}
+
+.sign-title{
+font-family:"Courier New",monospace;
+color:var(--gold);
+text-transform:uppercase;
+letter-spacing:.13em;
+font-size:14px;
+margin-bottom:8px
+}
+
+.ad{
+position:relative;
+min-height:560px;
+padding:0;
+overflow:hidden
+}
+
+.ad img{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block
+}
+
+.ad-text{
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+text-align:center;
+padding:24px;
+background:linear-gradient(to bottom,rgba(0,0,0,.55),transparent 40%,rgba(0,0,0,.8))
+}
+
+.ad h2{
+font-size:42px;
+font-weight:400;
+text-transform:uppercase;
+margin-top:36px
+}
+
+.ad p{
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.14em
+}
+
+.shop{
+border:1px solid var(--gold);
+padding:14px 28px;
+color:var(--text);
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.12em;
+display:inline-block
+}
+
+.short-news li{
+list-style:none;
+border-top:1px solid var(--line);
+padding:12px 0;
+color:#d5cec2;
+font-size:15px
+}
+
+.disclaimer{
+margin-top:18px;
+border:1px solid var(--line);
+padding:24px;
+color:#d5cec2
+}
+
+.disclaimer strong{
+color:var(--gold);
+font-family:"Courier New",monospace;
+text-transform:uppercase;
+letter-spacing:.14em;
+margin-right:18px
+}
+
+@media(max-width:1000px){
+.layout{
+grid-template-columns:1fr
+}
+
+.top{
+grid-template-columns:1fr;
+text-align:center
+}
+
+.logo img{
+margin:auto
+}
+
+.issue span{
+margin:12px auto 0
+}
+
+h1{
+white-space:normal
+}
+
+.main{
+grid-template-columns:1fr
+}
+
+.hero,
+.breaking{
+grid-column:span 1;
+grid-template-columns:1fr
+}
+
+.hero{
+min-height:0
+}
+
+.hero::after,
+.hero .text::after{
+display:none
+}
+
+.hero img{
+width:100%;
+height:auto;
+min-height:0;
+object-fit:contain;
+object-position:center center
+}
+
+.teaser .text,
+.teaser h3{
+min-height:0
+}
+}
+
+@media(max-width:640px){
+.page{
+padding:18px 12px 44px
+}
+
+.nav{
+gap:22px;
+font-size:12px
+}
+
+.text{
+padding:20px
+}
+
+.card h2{
+font-size:38px
+}
+
+.card h3{
+font-size:28px
+}
+
+.image{
+height:auto
+}
+
+.image img{
+height:auto;
+object-fit:contain
+}
+
+.breaking img{
+height:auto;
+object-fit:contain
+}
+
+.ad{
+min-height:480px
+}
+}
+</style>
+</head>
+
+<body>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<div class="page">
+
+<a class="back" href="../index.html">← Tilbage til forsiden</a>
+
+<header class="top">
+<div class="logo">
+<img src="../assets/logo/logo-cropped.png" alt="Objektiv Kritique">
+</div>
+
+<div>
+<h1>Bande Bladet</h1>
+<div class="subtitle">Satire. Observation. Sandhed.</div>
+</div>
+
+<div class="issue">
+Projekt 03<br>
+Maj 2025<br>
+Nr. 01
+<span></span>
+</div>
+</header>
+
+<nav class="nav">
+<a href="#">Forside</a>
+<a href="../bande-bladet/work-life-balance.html">Nyheder</a>
+<a href="../bande-bladet/halal-boy-summer.html">Livsstil</a>
+<a href="#crime-wear">Mode</a>
+<a href="../bande-bladet/katjas-samtykke.html">Katjas kulturspalte</a>
+<a href="#horoskop">Horoskop</a>
+<a href="#crime-wear">Annoncer</a>
+</nav>
+
+<main class="layout">
+
+<section class="main">
+
+<a class="card hero" href="../bande-bladet/grindr-laek.html">
+<div class="text">
+<div class="label">Eksklusivt</div>
+<h2>Kendt bandeprofil ekskluderet efter Grindr-læk <span class="arrow">→</span></h2>
+<p>Er homoseksualitet nøglen til fred?</p>
+</div>
+<img src="../assets/bande-bladet/01grindr.png" alt="">
+</a>
+
+<a class="card teaser" href="../bande-bladet/work-life-balance.html">
+<div class="text">
+<div class="label">02 Nyhed</div>
+<h3>Yngre medlemmer ønsker bedre work-life balance <span class="arrow">→</span></h3>
+<p>Forstå, hvorfor A-indkomsten er blevet populær som side hustle</p>
+</div>
+<div class="image"><img src="../assets/bande-bladet/02worklife.png" alt=""></div>
+</a>
+
+<a class="card teaser" href="../bande-bladet/toksisk-maskulinitet.html">
+<div class="text">
+<div class="label">03 Analyse</div>
+<h3>Fungerer maskulinitet egentlig bedst i sin mest toksiske form? <span class="arrow">→</span></h3>
+<p>Vold er stadig branchens foretrukne kommunikationsstrategi.</p>
+</div>
+<div class="image"><img src="../assets/bande-bladet/03toksisk.png" alt=""></div>
+</a>
+
+<a class="card teaser" href="../bande-bladet/halal-boy-summer.html">
+<div class="text">
+<div class="label">04 Livsstil</div>
+<h3>Halal Boy Summer: Du kan sagtens poppe en pagne uden at drikke den selv.<span class="arrow">→</span></h3>
+</div>
+<div class="image"><img src="../assets/bande-bladet/04halalboy.png" alt=""></div>
+</a>
+
+<a class="card breaking" href="../bande-bladet/frivillig-forening.html">
+<img src="../assets/bande-bladet/05frivilligforening.png" alt="">
+<div class="text">
+<div class="label">Breaking</div>
+<h3>Vi skal respekteres som en organisation: Hvorfor sælge hash, når man kan sælge værdier?<span class="arrow">→</span></h3>
+</div>
+</a>
+
+<article class="card" id="crime-wear">
+<div class="text">
+<div class="label">05 Mode</div>
+<h3>Crime Wear har lanceret ny kollektion <span class="arrow">→</span></h3>
+
+<div class="product-list">
+
+<div class="product">
+<img src="../assets/bande-bladet/08forvanskningshandsker.png" alt="">
+<div>
+<strong>Fingeraftryksforvanskningshandsker</strong>
+<span>Usynlige spor. Altid.</span>
+</div>
+</div>
+
+<div class="product">
+<img src="../assets/bande-bladet/09kasket.png" alt="">
+<div>
+<strong>Anti-vindstøds-cap</strong>
+<span>Bliver siddende. Punktum.</span>
+</div>
+</div>
+
+<div class="product">
+<img src="../assets/bande-bladet/10acidresponseshoe.png" alt="">
+<div>
+<strong>Acid Response™ Sole System</strong>
+<span>Når du tramper.</span>
+</div>
+</div>
+
+<div class="product">
+<img src="../assets/bande-bladet/12totebag.png" alt="">
+<div>
+<strong>Tactical Tote Bag</strong>
+<span>Plads til alt. Ingen spørgsmål.</span>
+</div>
+</div>
+
+</div>
+</div>
+</article>
+
+<a class="card" href="../bande-bladet/katjas-samtykke.html">
+<div class="text">
+<div class="label">06 Katjas kulturspalte</div>
+<h3>Et orgie kan sagtens være samtykkebaseret, men det kræver en del <span class="arrow">→</span></h3>
+</div>
+
+<div class="image">
+<img src="../assets/bande-bladet/06katjasamtykke.png" alt="">
+</div>
+
+<div class="text">
+<p>Katja har fundet et helt nyt marked. Og det er mere lovligt, end du tror..</p>
+</div>
+</a>
+
+<article class="card">
+<div class="text">
+<div class="label">Korte nyheder</div>
+
+<ul class="short-news">
+<li>Nye retningslinjer for intern snitch-håndtering <span class="arrow">→</span></li>
+<li>Flere bander dropper alkohol — tallene stiger ikke <span class="arrow">→</span></li>
+<li>TikTok-rekruttering: Hvornår er det grooming? <span class="arrow">→</span></li>
+<li>Bandeleder i terapi: “Jeg ville bare forstå mig selv” <span class="arrow">→</span></li>
+</ul>
+
+</div>
+</article>
+
+</section>
+
+<aside class="sidebar">
+
+<section class="box" id="horoskop">
+<h3>Horoskop</h3>
+
+<div class="sign">
+<div class="sign-title">Vædder</div>
+<p>Undgå intern magtkamp i denne uge. Ikke alle konflikter er gode for dig. Men andre bander har stadig ingen eksistensberettigelse.</p>
+</div>
+
+<div class="sign">
+<div class="sign-title">Tvilling</div>
+<p>Hvis du føler dig overvældet og distræt kan det skyldes de mange forskellige Signal-konti. Slet dem, du ikke har brug for lige nu.</p>
+</div>
+
+<div class="sign">
+<div class="sign-title">Skorpion</div>
+<p>Din loyalitet bliver testet hver dag i denne uge. Kig dig selv i spejlet, tag dybe indåndinger, og spørg dig selv, om dine værdier stadig holder.</p>
+</div>
+
+</section>
+
+<section class="box ad">
+<img src="../assets/bande-bladet/07crimewear.png" alt="">
+
+<div class="ad-text">
+
+<div>
+<div class="label">Annonce</div>
+<h2>Crime Wear™</h2>
+<p>Ny kollektion</p>
+</div>
+
+<div>
+<p>Loyalty is a lifestyle.</p>
+<br>
+<a class="shop" href="#crime-wear">Shop nu →</a>
+</div>
+
+</div>
+</section>
+
+</aside>
+
+</main>
+
+<section class="disclaimer">
+<strong>Disclaimer</strong>
+BANDE BLADET er satire. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
+</section>
+
+</div>
+
+<script>
+const cursor = document.querySelector('.cursor-dot');
+
+if (window.matchMedia('(pointer: fine)').matches && cursor) {
+  window.addEventListener('mousemove', function(event) {
+    cursor.style.left = event.clientX + 'px';
+    cursor.style.top = event.clientY + 'px';
+  });
+
+  document.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('mouseenter', function() {
+      document.body.classList.add('link-hover');
+    });
+
+    link.addEventListener('mouseleave', function() {
+      document.body.classList.remove('link-hover');
+    });
+  });
+}
+</script>
+
+</body>
+</html>
