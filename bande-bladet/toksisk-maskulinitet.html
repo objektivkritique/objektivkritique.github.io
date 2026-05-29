@@ -1,336 +1,369 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fungerer maskulinitet egentlig bedst i sin mest toksiske form? — Bande Bladet</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fungerer maskulinitet egentlig bedst i sin mest toksiske form? | Bande Bladet</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+  <style>
+    :root {
+      --bg: #080706;
+      --bg-soft: #11100e;
+      --card: #151310;
+      --gold: #c7a35a;
+      --gold-soft: #e0c783;
+      --text: #f2eee6;
+      --muted: #aaa194;
+      --line: rgba(199, 163, 90, 0.35);
+      --white-line: rgba(255, 255, 255, 0.11);
+    }
 
-:root{
---bg:#050505;
---text:#e8e1d6;
---muted:#9b9184;
---line:#3a3327;
---gold:#d8a84f;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-background:var(--bg);
-color:var(--text);
-font-family:Georgia,"Times New Roman",serif;
-line-height:1.55;
-}
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(199, 163, 90, 0.09), transparent 32rem),
+        linear-gradient(180deg, #0b0a08 0%, #050504 100%);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
 
-.page{
-max-width:980px;
-margin:auto;
-padding:24px 18px 70px;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.back{
-display:inline-block;
-margin-bottom:26px;
-color:var(--muted);
-font-family:"Courier New",monospace;
-text-transform:uppercase;
-letter-spacing:.12em;
-text-decoration:none;
-font-size:12px;
-}
+    .page {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
 
-.back:hover{
-color:var(--gold);
-}
+    .back-link {
+      display: inline-block;
+      margin-bottom: 34px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      color: var(--gold-soft);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+    }
 
-.kicker{
-font-family:"Courier New",monospace;
-color:var(--gold);
-text-transform:uppercase;
-letter-spacing:.16em;
-font-size:13px;
-margin-bottom:18px;
-}
+    .back-link:hover {
+      background: rgba(199, 163, 90, 0.12);
+    }
 
-h1{
-font-size:clamp(40px,7vw,82px);
-line-height:.95;
-font-weight:400;
-letter-spacing:.01em;
-max-width:920px;
-}
+    header {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 34px 0 30px;
+      margin-bottom: 28px;
+    }
 
-.subtitle{
-margin-top:18px;
-font-size:clamp(20px,3vw,30px);
-line-height:1.2;
-color:#d5cec2;
-max-width:760px;
-}
+    .kicker {
+      color: var(--gold);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 18px;
+    }
 
-.meta{
-margin-top:24px;
-padding-top:18px;
-border-top:1px solid var(--line);
-font-family:"Courier New",monospace;
-color:var(--muted);
-text-transform:uppercase;
-letter-spacing:.12em;
-font-size:12px;
-}
+    h1 {
+      margin: 0;
+      max-width: 920px;
+      font-size: clamp(2.35rem, 6.4vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
 
-.hero{
-margin-top:34px;
-border:1px solid var(--line);
-overflow:hidden;
-background:#111;
-}
+    .subtitle {
+      max-width: 760px;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.45;
+    }
 
-.hero img{
-width:100%;
-display:block;
-}
+    .meta {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--white-line);
+      color: var(--gold-soft);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
 
-.article{
-margin-top:46px;
-display:grid;
-grid-template-columns:180px 1fr;
-gap:34px;
-}
+    .hero {
+      margin: 0 0 48px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      padding: 10px;
+    }
 
-.section-title{
-font-family:"Courier New",monospace;
-color:var(--gold);
-text-transform:uppercase;
-letter-spacing:.14em;
-font-size:14px;
-line-height:1.4;
-padding-top:7px;
-}
+    .hero img,
+    .inline-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
-.copy{
-font-size:21px;
-color:#e5ded2;
-}
+    .article {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 42px;
+      padding: 42px 0;
+      border-top: 1px solid var(--white-line);
+    }
 
-.copy p{
-margin-bottom:22px;
-}
+    .section-title {
+      color: var(--gold);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      line-height: 1.4;
+      padding-top: 8px;
+    }
 
-.quote{
-font-size:25px;
-line-height:1.35;
-color:#f0e7d8;
-border-left:2px solid var(--gold);
-padding-left:18px;
-margin:30px 0;
-}
+    .copy {
+      font-size: clamp(1.05rem, 1.8vw, 1.24rem);
+    }
 
-.inline-image{
-margin:34px 0;
-border:1px solid var(--line);
-overflow:hidden;
-background:#111;
-}
+    .copy p {
+      margin: 0 0 1.05em;
+    }
 
-.inline-image img{
-width:100%;
-display:block;
-}
+    .quote {
+      margin: 32px 0;
+      padding: 20px 24px;
+      border-left: 4px solid var(--gold);
+      background: rgba(199, 163, 90, 0.075);
+      color: var(--gold-soft);
+      font-size: clamp(1.18rem, 2.2vw, 1.58rem);
+      line-height: 1.35;
+    }
 
-.footer-note{
-margin-top:50px;
-border-top:1px solid var(--line);
-padding-top:18px;
-font-family:"Courier New",monospace;
-font-size:12px;
-letter-spacing:.12em;
-text-transform:uppercase;
-color:var(--muted);
-}
+    .inline-image {
+      margin: 34px 0;
+      border: 1px solid var(--line);
+      padding: 8px;
+      background: var(--card);
+    }
 
-.bottom-button-wrap{
-margin-top:34px;
-padding-top:28px;
-border-top:1px solid var(--line);
-text-align:center;
-}
+    .bottom-nav {
+      margin-top: 42px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
 
-.bottom-button{
-display:inline-block;
-border:1px solid var(--gold);
-padding:14px 24px;
-color:var(--text);
-text-decoration:none;
-font-family:"Courier New",monospace;
-text-transform:uppercase;
-letter-spacing:.12em;
-font-size:12px;
-background:#0b0b0b;
-}
+    footer {
+      margin-top: 46px;
+      padding-top: 26px;
+      border-top: 1px solid var(--white-line);
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
 
-.bottom-button:hover{
-background:var(--gold);
-color:#050505;
-}
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 24px, 980px);
+        padding-top: 20px;
+      }
 
-@media(max-width:760px){
+      header {
+        padding: 28px 0 24px;
+      }
 
-.article{
-grid-template-columns:1fr;
-gap:12px;
-}
+      .article {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 34px 0;
+      }
 
-.copy{
-font-size:19px;
-}
+      .section-title {
+        border-left: 3px solid var(--gold);
+        padding-left: 12px;
+      }
 
-.section-title{
-padding-top:0;
-}
-
-}
-</style>
+      .quote {
+        padding: 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="page">
+    <a class="back-link" href="../bande-bladet.html">← Tilbage til Bande Bladet</a>
 
-<div class="page">
+    <header>
+      <div class="kicker">Bande Bladet</div>
+      <h1>Fungerer maskulinitet egentlig bedst i sin mest toksiske form?</h1>
+      <div class="subtitle">Vold er stadig branchens foretrukne kommunikationsstrategi.</div>
+      <div class="meta">Objektiv Kritique · Danmarks Kunstneriske Vagthund</div>
+    </header>
 
-<a class="back" href="../projects/bande-bladet.html">← Tilbage til Bande Bladet</a>
+    <figure class="hero">
+      <img src="../assets/bande-bladet/19amobning.png" alt="">
+    </figure>
 
-<div class="kicker">03 Analyse</div>
+    <section class="article">
+      <div class="section-title">Skolegården</div>
+      <div class="copy">
+        <p>Skolegården, kl. 10:15, 1997</p>
 
-<h1>Fungerer maskulinitet egentlig bedst i sin mest toksiske form?</h1>
+        <p>Du er ni år. En dreng i klassen har taget dit penalhus for tredje gang denne uge. Du går til læreren. Læreren siger "vi taler om det i klassen." Læreren samler klassen. Læreren siger "vi skal være gode ved hinanden." Drengen nikker. Læreren er tilfreds.</p>
 
-<div class="subtitle">
-Vold er stadig branchens foretrukne kommunikationsstrategi
-</div>
+        <p>I frikvarteret tager han dit penalhus igen.</p>
 
-<div class="meta">
-Bande Bladet · Maskulinitet · Vold · Tilknytning
-</div>
+        <p>Du går til læreren igen. Læreren er lidt irriteret nu. "Jeg har jo talt med ham." Du går til dine forældre. Dine forældre ringer til skolen. Skolen indkalder til møde. Der bliver talt. Der bliver nikket. Alle er enige om at det er uacceptabelt.</p>
 
-<div class="hero">
-<img src="../assets/bande-bladet/03toksisk.png" alt="">
-</div>
+        <p>Næste morgen tager han dit penalhus.</p>
 
-<section class="article">
-<div class="section-title">Indledning</div>
+        <p>Så en dag slår du ham. Ikke hårdt. Ikke elegant. Bare en flad hånd der rammer hans kind, fordi noget i dig er holdt op med at tro på at voksnes ord ændrer noget.</p>
 
-<div class="copy">
+        <p>Han tager aldrig dit penalhus igen.</p>
 
-<div class="quote">
-“Prøv at troppe op og sig, at du føler dig overset. Så får du en stol i fjæset.”
-</div>
+        <p>Og nu har du et problem. For du har lige lært noget, som hele det pædagogiske system bruger årtier på at sige ikke er sandt: At vold virker.</p>
 
-<p>Der findes efterhånden et helt nyt sprog for mænd.</p>
+        <p>Ikke at det er godt. Ikke at det er rigtigt. Men at det virker. Hurtigt, effektivt og uden opfølgningsmøde med en kontaktlærer der lugter af filterkaffe og opgivelse.</p>
+      </div>
+    </section>
 
-<p>Man skal kunne tale om sine følelser. Regulere sit nervesystem. Tage ansvar for sine mønstre. Gerne over en cortado til 58 kroner i Kødbyen, mens man ligner en mand, der stadig kan skifte et bildæk uden at ringe til sin mor.</p>
+    <section class="article">
+      <div class="section-title">Tilknytning</div>
+      <div class="copy">
+        <p>Det du lærte var ikke vold. Det var tilknytningsmønstret bag den.</p>
 
-<p>Problemet er bare, at mange miljøer stadig fungerer som en mellemting mellem en ulveflok og en søndagstur i IKEA.</p>
+        <p>Her skal vi nørde lidt. Hold ud. Det er det værd.</p>
 
-<p>Folk reagerer stadig på frygt. Ikke altid fordi de vil. Men fordi det virker.</p>
+        <p>Psykologien opererer med fire overordnede tilknytningsmønstre. Du fik dit i de første leveår, og du bærer det med dig resten af livet. Det påvirker hvordan du håndterer konflikter, intimitet, frygt og ja: vold.</p>
 
-</div>
-</section>
+        <figure class="inline-image">
+          <img src="../assets/bande-bladet/19tilknytning.png" alt="">
+        </figure>
 
-<section class="article">
-<div class="section-title">Barndommens gade</div>
+        <p>Tryg tilknytning. Du voksede op med voksne, der var nogenlunde forudsigelige. Når du var ked af det, blev du trøstet. Når du var vred, blev du mødt. Du lærte at konflikter kan løses gennem samtale, fordi samtale faktisk virkede i din verden. Du slår sjældent, fordi du sjældent har oplevet at det var nødvendigt.</p>
 
-<div class="copy">
+        <p>Utryg-undvigende tilknytning. Du voksede op med voksne, der ikke rigtigt var til rådighed følelsesmæssigt. Du lærte at klare dig selv. Du viser sjældent sårbarhed, fordi sårbarhed aldrig blev mødt med omsorg. I konflikter trækker du dig. Ikke fordi du er kylling, men fordi du tidligt lærte at andre mennesker ikke er til at stole på, når det gælder. Du slår ikke. Men du forsvinder. Og det kan gøre lige så ondt.</p>
 
-<p>Mange mænd lærer det tidligt.</p>
+        <p>Utryg-ambivalent tilknytning. Du voksede op med voksne, der var uforudsigelige. Nogle gange kærlige, nogle gange fraværende, nogle gange vrede, og du kunne aldrig regne ud hvornår. Du lærte at være på vagt hele tiden. At læse stemninger. At fylde rummet med din energi, bare for at sikre dig at du blev set. I konflikter eskalerer du, fordi det uudholdelige for dig ikke er smerten, men USIKKERHEDEN. Du vil hellere have det afklaret, også selvom afklaringen er en knytnæve.</p>
 
-<p>Alle har prøvet at sidde i et klasseværelse, hvor læreren langsomt mister kontrollen, mens hele lokalet først bliver stille, når den største dreng rejser sig op og siger “hallo, hold din fucking kæft”.</p>
+        <p>Desorganiseret tilknytning. Du voksede op med voksne, der var både din kilde til tryghed OG din kilde til frygt. Den person der skulle beskytte dig, var den samme person der truede dig. Du lærte at verden er et paradoks. Du kan ikke flygte, for det farlige er det samme som det trygge. I konflikter fryser du, eller du eksploderer uforudsigeligt. Ikke fordi du er ude af kontrol, men fordi din krop aldrig lærte at kontrol er muligt.</p>
 
-<p>Det er ikke pædagogisk smukt, men alle forstår det instinktivt.</p>
+        <div class="quote">Læs dem igen. Langsomt. Og vær ærlig: Hvilket mønster genkender du?</div>
 
-<p>Nogle mennesker reagerer ikke på ord eller skældud. De reagerer på trusler om vold. Det gælder børn. Det gælder voksne. Det gælder også nationer med atomvåben og presseafdelinger.</p>
+        <p>Pointen er ikke at undskylde vold. Pointen er at forstå den. For de fleste mænd, der udøver vold, handler det ikke om lysten til at skade. Det handler om angsten for at blive ydmyget, forladt eller overset. Det handler om en krop der lærte, da den var fire år gammel, at verden er farlig, og at den eneste måde at overleve på er at være farligere.</p>
 
-<p>Vold er ikke godt, lærer vi, men frygt er stadig ualmindeligt effektivt som middel til at kontrollere og styre.</p>
+        <p>Ingen har nogensinde fået bank og tænkt: "Det her bliver fantastisk for mit indre barn."</p>
+      </div>
+    </section>
 
-</div>
-</section>
+    <section class="article">
+      <div class="section-title">Den bløde mand</div>
+      <div class="copy">
+        <p>Den bløde mand og hans problem</p>
 
-<section class="article">
-<div class="section-title">Mænd skal være bløde. Men helst på en hård måde</div>
+        <p>Der er opstået en ny type mand de seneste ti år. Han kan tale om sine følelser. Han regulerer sit nervesystem. Han tager ansvar for sine mønstre. Gerne over en cortado til 58 kroner i Kødbyen, mens han ligner en mand der stadig kan skifte et bildæk uden at ringe til sin mor.</p>
 
-<div class="copy">
+        <p>Alt det er godt. Oprigtigt godt.</p>
 
-<div class="quote">
-“Folk respekterer dig, hvis du ligner én, der kan smadre et bord med panden. Efter jeg har truet folk på en standard tirsdag, daffer jeg direkte til yoga. Det er vel en slags balance.”
-</div>
+        <p>Men den helt ufarlige mand har stadig svært ved at få respekt. Han bliver ofte behandlet lidt som feminister. Folk anerkender konceptet, men ingen er oprigtigt bange for dem.</p>
 
-<p>Sådan griner et medlem.</p>
+        <p>Og det er et problem, der sjældent bliver adresseret i podcasts om sårbarhed og mandlig healing. For der er situationer, hvor blødheden simpelthen ikke virker. Hvor ordene løber ud i sandet. Hvor den eneste valuta, der accepteres, er den fysiske.</p>
 
-<p>Ingen siger det højt, men den helt ufarlige mand har stadig svært ved at få respekt.</p>
+        <div class="quote">"Efter jeg har truet folk på en standard tirsdag, daffer jeg direkte til yoga. Det' sgu da balance," griner et anonymt medlem.</div>
 
-<p>Han bliver ofte behandlet lidt som old school feminister. Folk anerkender konceptet, men ingen er oprigtigt bange for dem.</p>
+        <p>Han mener det som en joke. Men der er en sandhed i det, som de fleste akademikere ville have svært ved at imødegå.</p>
+      </div>
+    </section>
 
-</div>
-</section>
+    <section class="article">
+      <div class="section-title">Trusler</div>
+      <div class="copy">
+        <p>Hele verden kører stadig på trusler</p>
 
-<section class="article">
-<div class="section-title">Tilknytningsmønstre og sammenbidte kæber</div>
+        <p>Og her er det, der virkelig bør give stof til eftertanke. Ikke bare for mænd i tracksuits. Men for alle der sidder i et pænt kontor og fordømmer vold, mens de nyder frugterne af et system der er bygget på præcis den kapacitet til vold, de fordømmer.</p>
 
-<div class="copy">
+        <div class="quote">"Det er jo spændende, at vores straffelov kriminaliserer vold og trusler, samtidig med at vores forsvarsministerium peger stolt på kampfly med missiler monteret under vingerne i deres PowerPoint-præsentationer", siger en anonym embedsmand.</div>
 
-<div class="inline-image">
-<img src="../assets/bande-bladet/19tilknytning.png" alt="">
-</div>
+        <figure class="inline-image">
+          <img src="../assets/bande-bladet/20weapon.png" alt="">
+        </figure>
 
-<p>Psykologer taler meget om tilknytningsmønstre. Nogle børn lærer, at konflikter kan løses roligt. Andre lærer, at verden er et sted, hvor man enten kontrollerer stemningen i rummet eller bliver spist af den.</p>
+        <p>Ingen stormagt har nogensinde sagt: "Vi håber, I respekterer vores følelsesmæssige grænser."</p>
 
-<p>Hvis man vokser op omkring ustabilitet, vrede eller uforudsigelige voksne, bliver aggression hurtigt mindre et spørgsmål om temperament og mere et spørgsmål om sikkerhed.</p>
+        <p>De sender fregatter og mænd i camouflage, der kan lande i en skov kl. fire om morgenen og aflyse dit demokrati.</p>
 
-<p>Man lærer at være på forkant. At fylde lidt mere. At kigge lidt hårdere. At blive farlig før man selv bliver bange.</p>
+        <p>Politiet er vold organiseret af staten og legitimeret af loven. Fængslet er frihedsberøvelse med budget og personalepolitik. Grænsekontrol er territorial dominans med uniformer og høflige skilte.</p>
 
-<p>For mange mænd handler aggression ikke om lysten til vold. Det handler om angsten for ydmygelse. Ingen har nogensinde fået bank og tænkt: “Det her bliver fantastisk for mit indre barn.”</p>
+        <p>Når staten udøver vold, kalder vi det "magtanvendelse." Når en mand fra Tingbjerg gør det, kalder vi det "kriminalitet." Forskellen er ikke vold eller ej. Forskellen er hvem der har papirerne i orden.</p>
+      </div>
+    </section>
 
-</div>
-</section>
+    <section class="article">
+      <div class="section-title">Spørgsmålet</div>
+      <div class="copy">
+        <p>Det ubehagelige spørgsmål</p>
 
-<section class="article">
-<div class="section-title">Hele verden kører stadig på trusler</div>
+        <p>Så lad os stille det spørgsmål, som ingen stiller i paneldebatten.</p>
 
-<div class="copy">
+        <p>Er vold entydigt dårligt?</p>
 
-<div class="inline-image">
-<img src="../assets/bande-bladet/20weapon.png" alt="">
-</div>
+        <p>Hvis du er akademiker, er svaret selvfølgeligt ja. Vold er primitivt, ukonstruktivt og et tegn på manglende emotionel kapacitet.</p>
 
-<div class="quote">
-“Det er jo spændende, at vores straffelov kriminaliserer vold og trusler, samtidig med at vores forsvarsministerium peger stolt på kampfly med missiler monteret under vingerne i deres PowerPoint-præsentationer.”
-</div>
+        <p>Men spørg den niårige dreng, hvis penalhus blev taget hver dag, indtil han slog fra sig. Spørg kvinden der sparkede sin overfaldsmand i skridtet og løb. Spørg det land, der forsvarede sig mod en invasion, fordi diplomati ikke virkede.</p>
 
-<p>Sådan siger en anonym kropsterapeut om de to modsætninger.</p>
+        <p>Vold er ikke god. Men forestillingen om en verden helt uden den er en luksus, der kun eksisterer i rum, hvor nogen ANDRE allerede har sørget for sikkerheden med præcis den vold, du fordømmer.</p>
 
-<p>Ingen stormagt siger: “Vi håber, I respekterer vores følelsesmæssige grænser.”</p>
+        <p>Den trygge tilknytning, der gør at du kan sidde i din lejlighed på Frederiksberg og mene at dialog altid er svaret, er bygget oven på generationer af mennesker der slog fra sig, så du kunne slippe for det.</p>
 
-<p>De sender fregatter.</p>
+        <p>Det er værd at tænke over, næste gang du dømmer en mand for at bruge det eneste sprog, hans krop har lært.</p>
+      </div>
+    </section>
 
-<p>Selv de mest civiliserede lande har stadig mænd i camouflage, der kan lande i en skov klokken fire om morgenen og aflyse dit demokrati.</p>
+    <section class="article">
+      <div class="section-title">Observationen</div>
+      <div class="copy">
+        <p>Hvad gør man så?</p>
 
-<p>Så unge mænd vokser op i et samfund, der offentligt fordømmer aggression, mens al reel magt stadig lugter lidt af ammunition og mænd med korte frisurer.</p>
+        <p>Bande Bladet har ikke en løsning. Vi har en observation.</p>
 
-<p>Det er svært ikke at blive forvirret.</p>
+        <p>De fleste voldelige mænd er ikke voldelige, fordi de er onde. De er voldelige, fordi de er skadede. Og de er skadede, fordi nogen skadede dem, da de var for små til at forstå hvad der skete.</p>
 
-</div>
-</section>
+        <p>At fordømme vold uden at forstå dens rødder er som at skælde ud på en hund der bider, uden at spørge hvem der slog den først.</p>
 
-<div class="footer-note">
-BANDE BLADET er satire. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
-</div>
+        <p>Og at forstå vold er ikke det samme som at acceptere den. Det er bare det første skridt mod at skabe mænd, der har ANDRE redskaber.</p>
 
-<div class="bottom-button-wrap">
-<a class="bottom-button" href="../projects/bande-bladet.html">
-← Tilbage til Bande Bladet
-</a>
-</div>
+        <p>Men de redskaber skal komme et sted fra. Og lige nu vokser der drenge op i skolegårde over hele Danmark, der lærer præcis det samme som du lærte kl. 10:15 i 1997: At ordene ikke virker. At de voksne ikke kan beskytte dem. Og at den eneste der stoppede det, var dem selv.</p>
 
-</div>
+        <p>Hvad fortæller vi dem?</p>
 
+        <div class="quote">Bande Bladets anbefaling: Kend dit tilknytningsmønster. Det forklarer mere om din adfærd end dit stjernetegn, din Myers-Briggs og din terapeuts dyreste gæt tilsammen. Og næste gang nogen siger "vold er aldrig svaret," så spørg dem venligt, om de nogensinde har fået taget deres penalhus.</div>
+      </div>
+    </section>
+
+    <div class="bottom-nav">
+      <a class="back-link" href="../bande-bladet.html">← Tilbage til Bande Bladet</a>
+    </div>
+
+    <footer>
+      BANDE BLADET er oplysning fra en satirisk og alternativ vinkel. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
+    </footer>
+  </main>
 </body>
 </html>
