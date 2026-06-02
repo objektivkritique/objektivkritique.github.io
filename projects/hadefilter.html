@@ -265,6 +265,7 @@ select:focus{outline:1px solid #d4a574;}
       <div class="kh-panel active" id="kh-hist">
         <div class="hist-intro" id="hist-intro-text"></div>
         <div class="hist-cards" id="hist-cards"></div>
+        <div style="font-size:11px;color:#444;letter-spacing:.08em;margin-bottom:1rem;padding:10px 12px;border-left:2px solid #2a2a2a;line-height:1.7;">"Dengang"-kolonnen skifter med årstallet. "I dag"-kolonnen forbliver din syndebuk. Det er pointen.</div>
         <div class="hist-detail" id="hist-detail"></div>
         <div class="hist-mirror" id="hist-mirror"></div>
       </div>
@@ -382,10 +383,64 @@ const TARGETS=[
 ];
 
 const HIST_DATA={
-  indvandrere:{periode:'Weimarrepublikken og tidligt Nazityskland, 1920–1933',group:'Jøder',args:[{t:'Jøder er overrepræsenteret i finans og handel — de styrer økonomien',n:'Indvandrere trækker velfærdssystemet ned og er overrepræsenteret i kriminalitet'},{t:'De er kulturelt fremmede og vil ikke integrere sig',n:'De vil ikke integrere sig og holder fast i egne normer og værdier'},{t:'De er en trussel mod den nationale identitet og det tyske folk',n:'Masseindvandring truer dansk kultur og sammenhængskraft'},{t:'Kriminaliteten stiger og de er ansvarlige — statistikkerne taler for sig selv',n:'Kriminalitetsindekset er 2,4× højere — statistikkerne taler for sig selv'}]},
-  katolikker:{periode:'Skandinavisk protestantisme, 1820–1880',group:'Katolikker',args:[{t:'De er loyale over for en fremmed magthaver (paven) — ikke over for Danmark',n:'De er loyale over for sharia / islamisk lov — ikke over for dansk grundlov'},{t:'Deres religion er irrationel, overtroisk og middelalderlig',n:'Deres religion er uforenelig med demokrati og ligestilling'},{t:'De reproducerer sig hurtigere — de vil snart udgøre flertallet',n:'Demografisk replacement — de er ved at overhale os'},{t:'De holder hemmeligt sammen og beskytter hinanden frem for samfundet',n:'Parallelsamfund — de lever adskilt fra det danske fællesskab'}]},
-  homoseksuelle:{periode:'Efterkrigstid, Vesteuropa og USA, 1945–1970',group:'Homoseksuelle',args:[{t:'De rekrutterer og forfører unge — de er en trussel mod børnene',n:'LGBT-undervisning i skolerne er indoktrinering af børn'},{t:'De er psykisk syge — det er videnskabeligt dokumenteret',n:'Transkønnede er psykisk ustabile — biologien taler for sig selv'},{t:'Det er unaturligt og imod Guds skaberorden',n:'Det er biologisk forkert og unaturligt'},{t:'Normalisering vil ødelægge familien og samfundets fundament',n:'Kønsneutral opdragelse ødelægger de naturlige kønsroller og familien'}]},
-  arbejdere:{periode:'Industrialisering og klassekamp, Danmark 1890–1920',group:'Fagforeningsfolk',args:[{t:'De er socialistiske agitatorer der vil ødelægge den naturlige samfundsorden',n:'Venstreorienterede er naïve og vil ødelægge den frie markedsøkonomi'},{t:'Strejker skader alle — de er egoistiske og ansvarsubevidste',n:'Fagforeninger er magtfuldkomne og tager gidsler i samfundskritiske sektorer'},{t:'De er farlige og ukontrollerbare — vi ser hvad der sker i Rusland og Frankrig',n:'Klimaaktivisterne og de woke er radikale og ude af trit med virkeligheden'},{t:'De forstår ikke at virksomheder skal tjene penge',n:'De forstår ikke at markedet er den bedste fordelingsmekanisme'}]}
+  indvandrere:{periode:'Weimarrepublikken og tidligt Nazityskland, 1920–1933',group:'Jøder',args:[
+    'Jøder er overrepræsenteret i finans og handel — de styrer økonomien',
+    'De er kulturelt fremmede og vil ikke integrere sig',
+    'De er en trussel mod den nationale identitet og det tyske folk',
+    'Kriminaliteten stiger og de er ansvarlige — statistikkerne taler for sig selv'
+  ]},
+  katolikker:{periode:'Skandinavisk protestantisme, 1820–1880',group:'Katolikker',args:[
+    'De er loyale over for en fremmed magthaver (paven) — ikke over for Danmark',
+    'Deres religion er irrationel, overtroisk og middelalderlig',
+    'De reproducerer sig hurtigere — de vil snart udgøre flertallet',
+    'De holder hemmeligt sammen og beskytter hinanden frem for samfundet'
+  ]},
+  homoseksuelle:{periode:'Efterkrigstid, Vesteuropa og USA, 1945–1970',group:'Homoseksuelle',args:[
+    'De rekrutterer og forfører unge — de er en trussel mod børnene',
+    'De er psykisk syge — det er videnskabeligt dokumenteret',
+    'Det er unaturligt og imod Guds skaberorden',
+    'Normalisering vil ødelægge familien og samfundets fundament'
+  ]},
+  arbejdere:{periode:'Industrialisering og klassekamp, Danmark 1890–1920',group:'Fagforeningsfolk',args:[
+    'De er socialistiske agitatorer der vil ødelægge den naturlige samfundsorden',
+    'Strejker skader alle — de er egoistiske og ansvarsubevidste',
+    'De er farlige og ukontrollerbare — vi ser hvad der sker i Rusland og Frankrig',
+    'De forstår ikke at virksomheder skal tjene penge'
+  ]}
+};
+
+// "I dag"-argumenter per target — vises i højre kolonne uanset historisk kort
+const NOW_ARGS={
+  'indvandrere':[
+    'Indvandrere trækker velfærdssystemet ned og er overrepræsenteret i kriminalitet',
+    'De vil ikke integrere sig og holder fast i egne normer og værdier',
+    'Masseindvandring truer dansk kultur og sammenhængskraft',
+    'Kriminalitetsindekset er 2,4× højere — statistikkerne taler for sig selv'
+  ],
+  'unge-maend':[
+    'Unge mænd er overrepræsenteret i kriminalitet og skaber utryghed i det offentlige rum',
+    'De tager ikke ansvar og vil ikke tilpasse sig samfundets normer',
+    'De er en trussel mod kvinders og andres tryghed',
+    'Tallene taler for sig selv — de er skyld i størstedelen af volden'
+  ],
+  'rige':[
+    'De rige styrer politikerne og sætter dagsordenen til deres egen fordel',
+    'De betaler ikke deres retfærdige andel og gemmer pengene i skattely',
+    'De er en trussel mod demokratiet og den ligelige samfundsorden',
+    'Formueopgørelserne taler for sig selv — uligheden vokser støt'
+  ],
+  'politikere':[
+    'Politikerne lytter ikke til borgerne og lever i deres eget lukket system',
+    'De bryder deres løfter og prioriterer karriere over ansvar',
+    'De er en trussel mod demokratiets troværdighed',
+    'Tillidsmålingerne taler for sig selv — ingen tror på dem mere'
+  ],
+  'medier':[
+    'Medierne formidler ikke sandheden men beskytter deres egne interesser',
+    'De er kulturelt ensrettede og forstår ikke den almindelige dansker',
+    'De er en trussel mod en fri og nuanceret offentlig debat',
+    'Tillidsundersøgelserne taler for sig selv — folk stoler ikke på pressen'
+  ]
 };
 
 const ALL_HIST_CARDS=[
@@ -478,13 +533,14 @@ function selectHist(el,key){
 function renderHistDetail(key){
   const d=HIST_DATA[key];
   const t=currentTarget;
+  const nowArgs=NOW_ARGS[t.id]||NOW_ARGS['indvandrere'];
   document.getElementById('hist-detail').innerHTML=`
     <div class="hist-detail-title">ARGUMENTER: ${d.periode} / Målgruppe: ${d.group}</div>
-    ${d.args.map(a=>`
+    ${d.args.map((thenArg,i)=>`
       <div class="arg-row">
-        <div class="arg-col arg-then"><div class="arg-head">DENGANG</div><div class="arg-text">${a.t}</div></div>
+        <div class="arg-col arg-then"><div class="arg-head">DENGANG</div><div class="arg-text">${thenArg}</div></div>
         <div class="arg-arrow">→</div>
-        <div class="arg-col arg-now"><div class="arg-head">I DAG</div><div class="arg-text">${a.n}</div></div>
+        <div class="arg-col arg-now"><div class="arg-head">I DAG — ${t.name.toUpperCase()}</div><div class="arg-text">${nowArgs[i]||''}</div></div>
       </div>`).join('')}`;
   document.getElementById('hist-mirror').innerHTML=`
     <div class="hist-mirror-label">MØNSTERET</div>
