@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hadefilter™ — Objektiv Kritique</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#0a0a0a;color:#e8e4df;font-family:'Space Mono',monospace;min-height:100vh;}
+.hf{max-width:760px;margin:0 auto;padding:3rem 1.5rem;}
+.hf-header{text-align:center;margin-bottom:2.5rem;border-bottom:1px solid #1e1e1e;padding-bottom:2rem;}
+.hf-logo{font-size:11px;letter-spacing:.3em;color:#555;text-transform:uppercase;margin-bottom:.5rem;}
+.hf-title{font-size:2.8rem;font-weight:700;color:#d4a574;letter-spacing:-.02em;margin-bottom:.5rem;}
+.hf-sub{font-size:12px;color:#555;letter-spacing:.15em;}
+.hf-tagline{font-size:14px;color:#888;margin-top:1rem;font-style:italic;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto;}
+
+.hf-filters{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem 2.5rem;margin-bottom:1.5rem;}
+@media(max-width:560px){.hf-filters{grid-template-columns:1fr;}}
+.hf-filter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;}
+.hf-filter-name{font-size:11px;letter-spacing:.15em;color:#aaa;text-transform:uppercase;}
+.hf-filter-val{font-size:14px;font-weight:700;color:#d4a574;}
+.hf-filter-desc{font-size:10px;color:#444;line-height:1.5;margin-bottom:8px;}
+input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:#222;outline:none;border-radius:1px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#d4a574;cursor:pointer;}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#d4a574;cursor:pointer;border:none;}
+
+.hf-selects{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:560px){.hf-selects{grid-template-columns:1fr 1fr;}}
+.hf-sel-name{font-size:10px;letter-spacing:.15em;color:#555;text-transform:uppercase;margin-bottom:4px;}
+.hf-sel-desc{font-size:10px;color:#333;margin-top:3px;line-height:1.4;}
+select{background:#111;border:1px solid #222;color:#e8e4df;padding:6px 10px;font-family:'Space Mono',monospace;font-size:12px;width:100%;border-radius:2px;cursor:pointer;}
+select:focus{outline:1px solid #d4a574;}
+
+.hf-btn{display:block;width:100%;padding:16px;background:#d4a574;color:#0a0a0a;border:none;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:2px;transition:background .15s;text-transform:uppercase;margin-bottom:2rem;}
+.hf-btn:hover{background:#c49060;}
+
+.section{display:none;}
+.section.visible{display:block;}
+
+.result-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;}
+.badge{background:#c45c5c;color:#fff;font-size:9px;letter-spacing:.2em;padding:4px 10px;border-radius:2px;text-transform:uppercase;}
+.result-title{font-size:18px;color:#c45c5c;font-weight:700;}
+.target-name{font-size:2.2rem;color:#e8e4df;font-weight:700;margin-bottom:1.5rem;line-height:1.2;}
+
+.meters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+@media(max-width:560px){.meters{grid-template-columns:1fr;}}
+.meter{background:#111;border:1px solid #1e1e1e;padding:1rem;border-radius:2px;}
+.meter-label{font-size:9px;letter-spacing:.2em;color:#555;text-transform:uppercase;margin-bottom:6px;}
+.meter-val{font-size:22px;font-weight:700;}
+.meter-bar{height:2px;background:#222;margin-top:8px;border-radius:1px;overflow:hidden;}
+.meter-fill{height:100%;transition:width .7s ease;}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
+@media(max-width:400px){.stat-grid{grid-template-columns:1fr;}}
+.stat{background:#0f0f0f;border:1px solid #1e1e1e;padding:10px 12px;border-radius:2px;}
+.stat-label{font-size:10px;color:#555;margin-bottom:4px;}
+.stat-val{font-size:13px;color:#d4a574;}
+.stat-src{font-size:9px;color:#2e2e2e;margin-top:3px;}
+
+.twist{border:1px solid #d4a574;padding:1.25rem;border-radius:2px;margin-bottom:1.5rem;background:#0d0b08;}
+.twist-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:8px;}
+.twist-text{font-size:13px;color:#aaa;line-height:1.7;}
+.twist-text strong{color:#e8e4df;}
+.alt{font-size:12px;color:#555;margin-top:10px;}
+.alt span{color:#777;}
+
+.mirror{background:#0d0b08;border:1px solid #d4a574;padding:1.5rem;border-radius:2px;text-align:center;margin-bottom:2rem;}
+.mirror-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:1rem;}
+.mirror-text{font-size:15px;color:#e8e4df;line-height:1.7;}
+.mirror-sub{font-size:12px;color:#555;margin-top:.75rem;line-height:1.6;}
+
+.kaninhul{border-top:1px solid #1e1e1e;padding-top:2rem;margin-top:1rem;}
+.kaninhul-intro{font-size:11px;color:#333;letter-spacing:.2em;text-transform:uppercase;text-align:center;margin-bottom:1.5rem;}
+
+.kh-tabs{display:flex;gap:8px;margin-bottom:2rem;}
+.kh-tab{flex:1;background:#111;border:1px solid #222;color:#555;padding:14px 8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:all .2s;text-align:center;line-height:1.5;}
+.kh-tab:hover{border-color:#444;color:#aaa;}
+.kh-tab.active{border-color:#d4a574;color:#d4a574;background:#0d0b08;}
+.kh-tab .tab-num{display:block;font-size:20px;font-weight:700;margin-bottom:4px;}
+.kh-tab .tab-label{display:block;font-size:10px;}
+
+.kh-panel{display:none;}
+.kh-panel.active{display:block;}
+
+.hist-intro{font-size:12px;color:#555;margin-bottom:1.25rem;line-height:1.6;}
+.hist-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:1.5rem;}
+.hist-card{background:#111;border:1px solid #1e1e1e;padding:1rem;border-radius:2px;cursor:pointer;transition:border-color .15s;}
+.hist-card:hover{border-color:#c45c5c;}
+.hist-card.active{border-color:#c45c5c;background:#150e0e;}
+.hist-year{font-size:20px;color:#c45c5c;font-weight:700;margin-bottom:4px;}
+.hist-group{font-size:12px;color:#888;margin-bottom:4px;}
+.hist-place{font-size:10px;color:#444;}
+
+.hist-detail{background:#0f0f0f;border:1px solid #1e1e1e;padding:1.25rem;border-radius:2px;margin-bottom:1.5rem;}
+.hist-detail-title{font-size:11px;letter-spacing:.2em;color:#555;text-transform:uppercase;margin-bottom:1rem;}
+.arg-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #1a1a1a;}
+.arg-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.arg-col{flex:1;}
+.arg-head{font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
+.arg-then .arg-head{color:#c45c5c;}
+.arg-now .arg-head{color:#d4a574;}
+.arg-text{font-size:12px;color:#888;line-height:1.5;}
+.arg-arrow{color:#2a2a2a;margin-top:16px;flex-shrink:0;font-size:14px;}
+
+.hist-mirror{background:#0d0b08;border:1px solid #c45c5c;padding:1.25rem;border-radius:2px;margin-bottom:1rem;text-align:center;}
+.hist-mirror-label{font-size:9px;letter-spacing:.25em;color:#c45c5c;text-transform:uppercase;margin-bottom:.75rem;}
+.hist-mirror-text{font-size:14px;color:#e8e4df;line-height:1.7;}
+.hist-mirror-sub{font-size:11px;color:#555;margin-top:.5rem;line-height:1.6;}
+
+.bias-intro{font-size:12px;color:#555;margin-bottom:1rem;line-height:1.6;}
+.bias-topic{font-size:11px;color:#333;margin-bottom:1rem;text-align:center;letter-spacing:.08em;text-transform:uppercase;}
+.bias-toggle{display:flex;gap:8px;margin-bottom:1.5rem;}
+.bias-btn{flex:1;padding:12px 8px;border:1px solid #222;background:#111;color:#555;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;text-align:center;line-height:1.6;}
+.bias-btn:hover{border-color:#444;color:#aaa;}
+.bias-btn.active-c{border-color:#c45c5c;color:#c45c5c;background:#150e0e;}
+.bias-btn.active-n{border-color:#d4a574;color:#d4a574;background:#0d0b08;}
+.bias-stats{display:grid;gap:8px;margin-bottom:1rem;}
+.bias-stat{display:flex;align-items:center;gap:12px;background:#111;border:1px solid #1e1e1e;padding:10px 12px;border-radius:2px;}
+.bias-stat-text{flex:1;font-size:12px;color:#888;line-height:1.4;}
+.bias-stat-src{font-size:10px;color:#333;margin-top:2px;}
+.bias-stat-pct{font-size:16px;font-weight:700;min-width:50px;text-align:right;}
+.bias-exp{padding:1rem;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:2px;font-size:12px;color:#555;line-height:1.7;margin-bottom:1.5rem;}
+.bias-exp strong{color:#888;}
+
+.bias-mirror{background:#0d0b08;border:1px solid #d4a574;padding:1.25rem;border-radius:2px;text-align:center;}
+.bias-mirror-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:.75rem;}
+.bias-mirror-text{font-size:14px;color:#e8e4df;line-height:1.7;}
+.bias-mirror-sub{font-size:11px;color:#555;margin-top:.5rem;line-height:1.6;}
+
+.reset-bar{text-align:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #1e1e1e;}
+.reset-btn{background:transparent;border:1px solid #2a2a2a;color:#444;padding:10px 24px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:.1em;}
+.reset-btn:hover{border-color:#d4a574;color:#d4a574;}
+
+.hf-footer{margin-top:4rem;border-top:1px solid #1e1e1e;padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:2rem;}
+.hf-footer-l{font-size:10px;color:#2a2a2a;letter-spacing:.1em;line-height:1.9;}
+.hf-footer-r{font-size:10px;color:#2a2a2a;text-align:right;line-height:1.9;}
+.tag{display:inline-block;background:#111;border:1px solid #1e1e1e;color:#444;font-size:9px;padding:2px 8px;border-radius:2px;letter-spacing:.1em;margin-right:4px;}
+
+.pulse{animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+</style>
+</head>
+<body>
+<div class="hf">
+
+  <div style="margin-bottom:2rem;">
+    <a href="/index.html" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.2em;color:#555;text-decoration:none;text-transform:uppercase;">← Tilbage til forsiden</a>
+  </div>
+
+  <div class="hf-header">
+    <div class="hf-logo">Objektiv Kritique™ — Danmarks Kunstneriske Vagthund</div>
+    <div class="hf-title">HADEFILTER™</div>
+    <div class="hf-sub">v3.0.0 — PATENTERET SYNDEBUK-ALGORITME</div>
+    <div class="hf-tagline">Det kan være svært at vide, hvem man skal hade. Hadefilter™ hjælper dig med at finde den rigtige befolkningsgruppe at bebrejde for dine problemer.</div>
+  </div>
+
+  <div class="hf-filters">
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Kriminalitetsfrygt</span><span class="hf-filter-val" id="v-krim">7</span></div>
+      <div class="hf-filter-desc">Hvor utryg føler du dig i hverdagen? Bekymrer du dig om indbrud, vold, gadekriminalitet — eller føler du dig generelt sikker?</div>
+      <input id="sl-krim" type="range" min="1" max="10" value="7" step="1" oninput="document.getElementById('v-krim').textContent=this.value">
+    </div>
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Økonomisk utilfredshed</span><span class="hf-filter-val" id="v-oek">5</span></div>
+      <div class="hf-filter-desc">Oplever du, at andre grupper uretmæssigt trækker på fællesskabets ressourcer, mens du selv kæmper?</div>
+      <input id="sl-oek" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-oek').textContent=this.value">
+    </div>
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Kulturel tryghed</span><span class="hf-filter-val" id="v-kult">6</span></div>
+      <div class="hf-filter-desc">Føler du, at det Danmark du voksede op i er ved at forsvinde? At normer og skikke er under pres fra udefrakommende forandringer?</div>
+      <input id="sl-kult" type="range" min="1" max="10" value="6" step="1" oninput="document.getElementById('v-kult').textContent=this.value">
+    </div>
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Vrede på systemet</span><span class="hf-filter-val" id="v-sys">4</span></div>
+      <div class="hf-filter-desc">Stoler du på politikere, medier og institutioner — eller er magten korrupt og ude af trit med virkeligheden?</div>
+      <input id="sl-sys" type="range" min="1" max="10" value="4" step="1" oninput="document.getElementById('v-sys').textContent=this.value">
+    </div>
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Nostalgi-indeks</span><span class="hf-filter-val" id="v-nos">5</span></div>
+      <div class="hf-filter-desc">Var tingene bedre før? Vurderer du nutiden negativt sammenlignet med en fortid, der føltes mere overskuelig og ærlig?</div>
+      <input id="sl-nos" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-nos').textContent=this.value">
+    </div>
+    <div>
+      <div class="hf-filter-top"><span class="hf-filter-name">Nulsumstænkning</span><span class="hf-filter-val" id="v-nul">5</span></div>
+      <div class="hf-filter-desc">Tror du, at andres fremgang sker på din bekostning — at det i bund og grund handler om at beskytte sit eget?</div>
+      <input id="sl-nul" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-nul').textContent=this.value">
+    </div>
+  </div>
+
+  <div class="hf-selects">
+    <div>
+      <div class="hf-sel-name">Din alder</div>
+      <select id="sel-alder">
+        <option value="ung">18–29 år</option>
+        <option value="mid" selected>30–49 år</option>
+        <option value="ael">50+ år</option>
+      </select>
+      <div class="hf-sel-desc">Påvirker hvilke grupper du statistisk er mest eksponeret for</div>
+    </div>
+    <div>
+      <div class="hf-sel-name">Dit køn</div>
+      <select id="sel-koen">
+        <option value="m" selected>Mand</option>
+        <option value="k">Kvinde</option>
+        <option value="a">Andet</option>
+      </select>
+      <div class="hf-sel-desc">Mænd og kvinder har statistisk forskellig frygtprofil</div>
+    </div>
+    <div>
+      <div class="hf-sel-name">Din region</div>
+      <select id="sel-region">
+        <option value="kbh">København</option>
+        <option value="prov" selected>Provins</option>
+        <option value="land">Yderområde</option>
+      </select>
+      <div class="hf-sel-desc">Geografi former hvem man møder — og hvem man frygter</div>
+    </div>
+  </div>
+
+  <button class="hf-btn" onclick="compute()">⬛ BEREGN OPTIMAL FJENDE</button>
+
+  <div class="section" id="sec-result">
+
+    <div class="result-header">
+      <div class="badge pulse">MATCH FUNDET</div>
+      <div class="result-title">DIN OPTIMALE SYNDEBUK</div>
+    </div>
+    <div class="target-name" id="res-name">—</div>
+
+    <div class="meters">
+      <div class="meter"><div class="meter-label">Risikoscore</div><div class="meter-val" id="m-risiko" style="color:#c45c5c">—</div><div class="meter-bar"><div class="meter-fill" id="f-risiko" style="background:#c45c5c;width:0%"></div></div></div>
+      <div class="meter"><div class="meter-label">Følelsesmæssig gevinst</div><div class="meter-val" id="m-foel" style="color:#d4a574">—</div><div class="meter-bar"><div class="meter-fill" id="f-foel" style="background:#d4a574;width:0%"></div></div></div>
+      <div class="meter"><div class="meter-label">Statistisk sikkerhed</div><div class="meter-val" id="m-stat" style="color:#6a9f6a">—</div><div class="meter-bar"><div class="meter-fill" id="f-stat" style="background:#6a9f6a;width:0%"></div></div></div>
+    </div>
+
+    <div class="stat-grid" id="res-stats"></div>
+
+    <div class="twist">
+      <div class="twist-label">⚠ ALGORITMISK AFSLØRING</div>
+      <div class="twist-text" id="res-twist"></div>
+      <div class="alt" id="res-alt"></div>
+    </div>
+
+    <div class="mirror">
+      <div class="mirror-label">SPEJLET</div>
+      <div class="mirror-text" id="res-mirror"></div>
+      <div class="mirror-sub" id="res-mirrorsub"></div>
+    </div>
+
+    <div class="kaninhul">
+      <div class="kaninhul-intro">↓ Gå dybere</div>
+      <div class="kh-tabs">
+        <div class="kh-tab active" onclick="khTab('hist',this)">
+          <span class="tab-num">02</span>
+          <span class="tab-label">HISTORISK TILSTAND</span>
+        </div>
+        <div class="kh-tab" onclick="khTab('bias',this)">
+          <span class="tab-num">03</span>
+          <span class="tab-label">BEKRÆFTELSESBIAS™</span>
+        </div>
+      </div>
+
+      <div class="kh-panel active" id="kh-hist">
+        <div class="hist-intro" id="hist-intro-text"></div>
+        <div class="hist-cards" id="hist-cards"></div>
+        <div class="hist-detail" id="hist-detail"></div>
+        <div class="hist-mirror" id="hist-mirror"></div>
+      </div>
+
+      <div class="kh-panel" id="kh-bias">
+        <div class="bias-intro" id="bias-intro-text"></div>
+        <div class="bias-topic" id="bias-topic"></div>
+        <div class="bias-toggle">
+          <button class="bias-btn active-c" id="btn-c" onclick="setBias('confirm')">BEKRÆFT FORDOMME<br><span style="font-size:10px;opacity:.7">Vis data der bekræfter</span></button>
+          <button class="bias-btn" id="btn-n" onclick="setBias('nuance')">NUANCER BILLEDET<br><span style="font-size:10px;opacity:.7">Vis samme data i kontekst</span></button>
+        </div>
+        <div class="bias-stats" id="bias-stats"></div>
+        <div class="bias-exp" id="bias-exp"></div>
+        <div class="bias-mirror">
+          <div class="bias-mirror-label">MEKANISMEN</div>
+          <div class="bias-mirror-text">Det er de samme tal. Det er den samme virkelighed.</div>
+          <div class="bias-mirror-sub">Sociale medier vælger automatisk hvilke statistikker du ser, baseret på hvad du allerede tror. Bekræftelsesbias™ er ikke en fejl i algoritmen. Det er en feature. Du betaler med din opmærksomhed. Du betaler med din vrede.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reset-bar">
+      <button class="reset-btn" onclick="reset()">↺ PRØV ANDRE PARAMETRE</button>
+    </div>
+
+  </div><!-- /sec-result -->
+
+  <div class="hf-footer">
+    <div class="hf-footer-l">OBJEKTIV KRITIQUE™<br>Danmarks Kunstneriske Vagthund<br>objektivkritique.com</div>
+    <div class="hf-footer-r">
+      <span class="tag">SATIRE</span><span class="tag">NON-PROFIT</span><br>
+      <span style="font-size:9px;display:block;margin-top:6px;line-height:1.7;">Målet er ikke at bygge verdens mest effektive hadeværktøj.<br>Målet er at bygge verdens mest ærlige spejl.</span>
+    </div>
+  </div>
+
+</div><!-- /hf -->
+
+<script>
+const TARGETS=[
+  {id:'indvandrere',name:'Ikke-vestlige indvandrere',
+   krim:8,oek:6,kult:8,sys:3,nos:7,nul:7,
+   alder:['mid','ael'],koen:['m'],region:['prov','land'],
+   stats:[{l:'Kriminalitetsindeks',v:'2,4×',s:'DST / Rigspolitiet 2023'},{l:'Overførselsindkomst-andel',v:'38%',s:'DREAM-gruppen 2022'},{l:'Andel af befolkningen',v:'5,8%',s:'Danmarks Statistik 2024'},{l:'Beskæftigelsesgrad (2. gen.)',v:'71%',s:'DST 2023'}],
+   twist:'Du valgte høj kriminalitetsfrygt og kulturel utryghed. Algoritmen matcher <strong>ikke-vestlige indvandrere</strong> — fordi dit filtermønster svarer til den mest udbredte profil i dansk populistisk debat. Nostalgi og nulsumstænkning forstærkede matchet.',
+   alt:'Ændr "alder" til 18–29 år → ny vinder: Unge mænd generelt, uanset baggrund.',
+   mirror:'Indvandrere er overrepræsenteret i kriminalitetsstatistikker. Det er korrekt. De er også overrepræsenteret i fattigdoms- og diskriminationsstatistikker. Algoritmen valgte at vise dig den ene tredjedel.',
+   mirrorsub:'Det er ikke statistikkernes skyld. Det er spørgsmålets skyld.',
+   hist:{intro:'Argumenterne du lige har set om ikke-vestlige indvandrere er ikke nye. Skift gruppe, skift årstal — mekanismen er identisk.',active:'indvandrere',mirror:'Samme logik. Samme struktur. Samme følelse af trussel. Forskellig målgruppe.',mirrorsub:'I 1933 var det rationelt at frygte jøder. Det stod i statistikkerne. Det var videnskabeligt dokumenteret. Det var fornuftigt at bekymre sig. Det ved vi nu noget om.'},
+   bias:{intro:'Du matchede på ikke-vestlige indvandrere. Her er den samme virkelighed — fortalt to vidt forskellige måder. Det er ikke fake news. Det er selektion.',topic:'TEMA: Ikke-vestlige indvandrere og kriminalitet i Danmark',
+     confirm:[{t:'Ikke-vestlige indvandrere er overrepræsenteret i kriminalstatistikken med faktor 2,4',s:'Rigspolitiet / DST 2023',v:'2,4×',c:'#c45c5c'},{t:'Andelen på overførselsindkomst er markant højere end for etniske danskere',s:'DREAM-gruppen 2022',v:'38%',c:'#c45c5c'},{t:'29 boligområder klassificeres som parallelsamfund med lav integration',s:'Udlændinge- og Integrationsmin. 2023',v:'29',c:'#c45c5c'}],
+     nuance:[{t:'Kriminalitetsoverrepræsentationen forsvinder næsten, når man kontrollerer for socioøkonomi, alder og bopæl',s:'SFI / Rockwool Fonden 2022',v:'≈ 0×',c:'#6a9f6a'},{t:'2. generationsindvandrere har en beskæftigelsesgrad på 71% — tæt på gennemsnittet',s:'Danmarks Statistik 2023',v:'71%',c:'#6a9f6a'},{t:'Gruppen udgør 5,8% af befolkningen og betaler 4,1% af al indkomstskat',s:'Skatteministeriet 2023',v:'4,1%',c:'#d4a574'}],
+     expConfirm:'<strong>Algoritmen viser dig:</strong> Tal der bekræfter en enkel fortælling. Alle tre er korrekte. Ingen er forkerte. Men tilsammen vækker de én følelse: <strong>bekræftelse.</strong>',
+     expNuance:'<strong>Algoritmen viser dig nu:</strong> De samme data — med kontekst. Overrepræsentationen i kriminalitet er reel, men forsvinder statistisk, når man sammenligner fattige med fattige, unge med unge. <strong>Det ændrer ikke tallene. Det ændrer spørgsmålet.</strong>'}
+  },
+  {id:'unge-maend',name:'Unge mænd (18–29)',
+   krim:9,oek:3,kult:3,sys:6,nos:2,nul:4,
+   alder:['ael','mid'],koen:['k'],region:['kbh'],
+   stats:[{l:'Andel af kriminalitetssager',v:'43%',s:'Rigspolitiet 2023'},{l:'Andel af befolkningen',v:'8,1%',s:'Danmarks Statistik 2024'},{l:'Risikofaktorer (misbrug m.fl.)',v:'3,1×',s:'SFI 2022'},{l:'Uddannelsesfrafald',v:'28%',s:'Uddannelses- og Forskningsmin.'}],
+   twist:'Høj kriminalitetsfrygt, lav kulturel utryghed, kvinde i København. Algoritmen matcher <strong>unge mænd</strong> — den demografisk set mest kriminelt aktive gruppe i alle vestlige lande, uanset etnicitet, kultur eller religion.',
+   alt:'Ændr "kriminalitetsfrygt" til 3 → ny vinder: Den rigeste procent.',
+   mirror:'Den gruppe der begår mest kriminalitet i Danmark er unge mænd — dansk, udenlandsk, det er samme mønster i alle lande. Det handler om alder, køn og social kontekst. Ikke om kultur.',
+   mirrorsub:'Spørgsmålet "hvem skal vi hade" er det forkerte spørgsmål. Det rigtige er: hvilke strukturer skaber det?',
+   hist:{intro:'Unge mænd som samfundstrussel er ikke et nyt fænomen. Angsten for den rodløse unge mand har altid skullet have et ansigt.',active:'arbejdere',mirror:'Arbejderklassens unge mænd i 1910 var farlige, ukontrollerbare, socialistiske agitatorer. I dag er det en anden gruppe unge mænd. Truslen er den samme. Ansigtet skifter.',mirrorsub:'Spørgsmålet er aldrig kun hvem vi frygter. Det er hvem vi tillader os at frygte.'},
+   bias:{intro:'Du matchede på unge mænd. Her er hvad der sker, når de samme tal fortælles i to forskellige narrativer.',topic:'TEMA: Unge mænd og kriminalitet',
+     confirm:[{t:'Unge mænd udgør 8% af befolkningen men er involveret i 43% af alle kriminalitetssager',s:'Rigspolitiet 2023',v:'43%',c:'#c45c5c'},{t:'Andelen med risikoadfærd (misbrug, kriminalitet, frafald) er 3,1 gange højere end gennemsnittet',s:'SFI 2022',v:'3,1×',c:'#c45c5c'},{t:'28% af unge mænd fuldfører ikke en ungdomsuddannelse inden for normeret tid',s:'Uddannelses- og Forskningsmin.',v:'28%',c:'#c45c5c'}],
+     nuance:[{t:'97% af unge mænd begår ingen kriminalitet i løbet af et givent år',s:'Rigspolitiet 2023',v:'97%',c:'#6a9f6a'},{t:'Kriminalitetsraten for unge mænd er halveret siden 1990 — trods befolkningstilvækst',s:'DST / Rigspolitiet 2023',v:'−50%',c:'#6a9f6a'},{t:'Socioøkonomisk baggrund forklarer 80% af variationen i kriminalitetsrisiko på tværs af grupper',s:'Rockwool Fonden 2021',v:'80%',c:'#d4a574'}],
+     expConfirm:'<strong>Algoritmen viser dig:</strong> En gruppe der er statistisk farlig. Tallene er korrekte. Men de beskriver en minoritet inden for gruppen som om det er gruppen.',
+     expNuance:'<strong>Algoritmen viser dig nu:</strong> Den samme gruppe — med det udeladt. 97% begår ingen kriminalitet. Raten falder. Baggrunden forklarer det meste. <strong>Statistik er ikke portræt. Det er sandsynlighed.</strong>'}
+  },
+  {id:'rige',name:'Den rigeste procent',
+   krim:2,oek:10,kult:4,sys:9,nos:3,nul:9,
+   alder:['ung'],koen:['a','k'],region:['kbh'],
+   stats:[{l:'Andel af formue (top 1%)',v:'26%',s:'DST Formuestatistik 2023'},{l:'Effektiv skatteprocent (top 1%)',v:'28%',s:'Rockwool Fonden 2022'},{l:'Kapitalindkomst (ubeskattet)',v:'62 mia.',s:'Skatteministeriet 2023'},{l:'Lobbykontakter til Folketing',v:'4,7×',s:'Transparency Intl.'}],
+   twist:'Høj økonomisk utilfredshed og nulsumstænkning + høj systemvrede. Algoritmen matcher <strong>den rigeste procent</strong> — der ejer 26% af al formue og betaler lavere effektiv skatteprocent end en folkeskolelærer.',
+   alt:'Ændr "systemvrede" til 2 → ny vinder: Politikere.',
+   mirror:'Den gruppe med størst dokumenteret indflydelse på politiske beslutninger er ikke indvandrere. Det er dem med penge og adgang. Men de er sjældent svaret, når nogen spørger hvem der har skylden.',
+   mirrorsub:'Algoritmen er ikke partisk. Den følger dine filtre. Det interessante er hvilke filtre du valgte.',
+   hist:{intro:'Vrede på de rige er heller ikke ny. Det interessante er hvornår den vrede kanaliseres mod de rige — og hvornår den kanaliseres mod andre.',active:'arbejdere',mirror:'I 1910 kæmpede arbejderne mod dem der ejede produktionsmidlerne. Den kamp er ikke forsvundet. Den er bare skiftet adresse.',mirrorsub:'Når vrede på ulighed kanaliseres mod indvandrere i stedet for mod kapital, er der nogen der vinder. Det er ikke dig.'},
+   bias:{intro:'Du matchede på den rigeste procent. Her er to fortællinger om ulighed og omfordeling — med de samme tal.',topic:'TEMA: Formue, skat og omfordeling i Danmark',
+     confirm:[{t:'Top 1% ejer 26% af al privat formue i Danmark',s:'DST Formuestatistik 2023',v:'26%',c:'#c45c5c'},{t:'Den effektive skatteprocent for top 1% er 28% — lavere end mange lønmodtagere',s:'Rockwool Fonden 2022',v:'28%',c:'#c45c5c'},{t:'Kapitalindkomst på 62 mia. kr. beskattes lempeligere end lønindkomst',s:'Skatteministeriet 2023',v:'62 mia.',c:'#c45c5c'}],
+     nuance:[{t:'Danmark har den laveste Gini-koefficient i EU — dvs. den mest ligelige indkomstfordeling',s:'Eurostat 2023',v:'Top 3',c:'#6a9f6a'},{t:'Top 10% betaler 57% af al indkomstskat i Danmark',s:'Skatteministeriet 2023',v:'57%',c:'#d4a574'},{t:'Social mobilitet i Danmark er blandt de højeste i verden',s:'Chetty et al. / OECD 2022',v:'#1 EU',c:'#6a9f6a'}],
+     expConfirm:'<strong>Algoritmen viser dig:</strong> En koncentration af formue der er reel og dokumenteret. Tallene er korrekte og relevante.',
+     expNuance:'<strong>Algoritmen viser dig nu:</strong> Samme økonomi — men med den omfordeling der faktisk sker. Begge fortællinger er sande. Hvilken man fortæller afhænger af hvad man vil have folk til at føle. <strong>Det er ikke information. Det er retorik.</strong>'}
+  },
+  {id:'politikere',name:'Politikere (Folketing)',
+   krim:3,oek:5,kult:4,sys:10,nos:8,nul:5,
+   alder:['ung','mid'],koen:['m','k'],region:['land'],
+   stats:[{l:'Tillidsindeks (befolkning)',v:'31%',s:'Eurobarometer 2024'},{l:'Løn ift. medianindkomst',v:'2,8×',s:'Finansministeriet 2024'},{l:'Løfter indfriet (valgperiode)',v:'52%',s:'Mandag Morgen 2023'},{l:'Karriere til lobbyisme',v:'38%',s:'Transparency Intl. DK'}],
+   twist:'Maksimal systemvrede og høj nostalgi. Du husker et Danmark hvor politikere var ansvarlige. Algoritmen matcher <strong>politikere</strong> — den gruppe der konsekvent scorer lavest i tillid på tværs af alle parametre.',
+   alt:'Ændr "nostalgi" til 2 → ny vinder: Medier og journalister.',
+   mirror:'Vrede på politikere er legitim og veldokumenteret. Problemet er at den er diffus — den rammer alle partier lige og ændrer ingenting.',
+   mirrorsub:'Had er billigt. Præcision er dyrt.',
+   hist:{intro:'Mistillid til den politiske klasse er ikke ny. Men hvad der er interessant er hvad mistilliden bruges til — og hvem der vinder på den.',active:'arbejdere',mirror:'I 1910 var det politikernes skyld. I 1933 var det jødernes. I dag er det begge — med indvandrere som alternativt svar. Systemkritik er legitim. Spørgsmålet er altid: hvem bruger din vrede?',mirrorsub:'Diffus vrede er nem at styre. Præcis vrede er farlig for dem der sidder på magten.'},
+   bias:{intro:'Du matchede på politikere. Her er to fortællinger om dansk demokrati og politisk tillid.',topic:'TEMA: Politisk tillid og demokrati i Danmark',
+     confirm:[{t:'Kun 31% af danskere mener EU-institutioner afspejler deres interesser',s:'Eurobarometer 2024',v:'31%',c:'#c45c5c'},{t:'38% af tidligere folketingsmedlemmer ender i lobbyisme eller karrierer tæt på tidligere ansvarsområde',s:'Transparency Intl. DK',v:'38%',c:'#c45c5c'},{t:'Kun 52% af valgløfter fra seneste valgperiode vurderes indfriet',s:'Mandag Morgen 2023',v:'52%',c:'#c45c5c'}],
+     nuance:[{t:'Danmark scorer konsekvent som et af verdens mindst korrupte lande',s:'Transparency Intl. CPI 2023',v:'Top 2',c:'#6a9f6a'},{t:'68% af danskere har grundlæggende tillid til demokratiet som system — EU-rekord',s:'Eurobarometer 2024',v:'68%',c:'#6a9f6a'},{t:'Valgdeltagelsen ved Folketingsvalget 2022 var 84,2% — blandt Europas højeste',s:'Danmarks Statistik 2022',v:'84,2%',c:'#d4a574'}],
+     expConfirm:'<strong>Algoritmen viser dig:</strong> Et system der svigter. Tallene er reelle — lobbyisme, brudte løfter, afstand til borgerne.',
+     expNuance:'<strong>Algoritmen viser dig nu:</strong> Samme system — men med det der virker. Begge er sande. Hvilken fortælling man vælger afhænger af om man vil mobilisere vrede eller engagement. <strong>Begge kan misbruges.</strong>'}
+  },
+  {id:'medier',name:'Medier og journalister',
+   krim:2,oek:3,kult:6,sys:8,nos:9,nul:3,
+   alder:['ael'],koen:['m'],region:['land','prov'],
+   stats:[{l:'Villighed til at betale for nyheder',v:'41%',s:'Reuters Inst. Digital Report 2024'},{l:'Oplevelse af bias i medier',v:'58%',s:'Gallup / DR 2023'},{l:'Tillid til public service',v:'54%',s:'Kantar Gallup 2024'},{l:'Journalister med akademisk baggrund',v:'78%',s:'Journalisten 2022'}],
+   twist:'Høj nostalgi og systemvrede, lav kriminalitetsfrygt. Du savner en tid hvor medierne fortalte sandheden. Algoritmen matcher <strong>medier og journalister</strong> — en gruppe der opleves som del af det etablissement de burde kontrollere.',
+   alt:'Ændr "nostalgi" til 3 → ny vinder: Politikere.',
+   mirror:'Mistillid til medier er delvist berettiget. Homogen baggrund, klik-baserede forretningsmodeller og historisk nærhed til magten er dokumenteret.',
+   mirrorsub:'Et demokrati uden troværdige medier er et demokrati uden spejl. Det ved de, der vil have os til at hade dem.',
+   hist:{intro:'Medierne som fjende er ikke en ny tanke. Pressen har altid været hadet af dem den kontrollerede — og elsket af dem den bekræftede.',active:'arbejdere',mirror:'I 1910 var aviserne borgerskabets redskab. I dag er de "venstredrejet" og elitistiske. Mediets rolle som fjende skifter side, men ikke funktion.',mirrorsub:'Den der kontrollerer fortællingen vinder. Det ved alle — også dem der kalder medierne løgnere.'},
+   bias:{intro:'Du matchede på medier og journalister. Her er to fortællinger om dansk journalistik og mediernes rolle.',topic:'TEMA: Mediernes troværdighed og uafhængighed i Danmark',
+     confirm:[{t:'58% af danskere oplever bias i mediernes dækning af politiske emner',s:'Gallup / DR 2023',v:'58%',c:'#c45c5c'},{t:'78% af journalister har akademisk baggrund — langt over befolkningsgennemsnittet',s:'Journalisten 2022',v:'78%',c:'#c45c5c'},{t:'Kun 41% er villige til at betale for nyheder — laveste niveau i 10 år',s:'Reuters Inst. Digital Report 2024',v:'41%',c:'#c45c5c'}],
+     nuance:[{t:'Danmark rangerer som nr. 1 i verden for pressefrihed for andet år i træk',s:'Reporters Without Borders 2024',v:'#1',c:'#6a9f6a'},{t:'54% af danskere har tillid til public service-medier — markant over EU-gennemsnit',s:'Kantar Gallup 2024',v:'54%',c:'#6a9f6a'},{t:'Undersøgende journalistik har afsløret mere politisk og erhvervsmæssig korruption end nogensinde',s:'Pressenævnet / IFJ 2023',v:'Rekord',c:'#d4a574'}],
+     expConfirm:'<strong>Algoritmen viser dig:</strong> Et medielandskab præget af elitisme og faldende tillid. Tallene er reelle.',
+     expNuance:'<strong>Algoritmen viser dig nu:</strong> Samme medielandskab — men med den pressefrihed og journalistik der faktisk virker. <strong>Had til medier er det nemmeste had at sælge. Og det gavner altid dem der vil undgå kontrol.</strong>'}
+  }
+];
+
+const HIST_DATA={
+  indvandrere:{periode:'Weimarrepublikken og tidligt Nazityskland, 1920–1933',group:'Jøder',args:[{t:'Jøder er overrepræsenteret i finans og handel — de styrer økonomien',n:'Indvandrere trækker velfærdssystemet ned og er overrepræsenteret i kriminalitet'},{t:'De er kulturelt fremmede og vil ikke integrere sig',n:'De vil ikke integrere sig og holder fast i egne normer og værdier'},{t:'De er en trussel mod den nationale identitet og det tyske folk',n:'Masseindvandring truer dansk kultur og sammenhængskraft'},{t:'Kriminaliteten stiger og de er ansvarlige — statistikkerne taler for sig selv',n:'Kriminalitetsindekset er 2,4× højere — statistikkerne taler for sig selv'}]},
+  katolikker:{periode:'Skandinavisk protestantisme, 1820–1880',group:'Katolikker',args:[{t:'De er loyale over for en fremmed magthaver (paven) — ikke over for Danmark',n:'De er loyale over for sharia / islamisk lov — ikke over for dansk grundlov'},{t:'Deres religion er irrationel, overtroisk og middelalderlig',n:'Deres religion er uforenelig med demokrati og ligestilling'},{t:'De reproducerer sig hurtigere — de vil snart udgøre flertallet',n:'Demografisk replacement — de er ved at overhale os'},{t:'De holder hemmeligt sammen og beskytter hinanden frem for samfundet',n:'Parallelsamfund — de lever adskilt fra det danske fællesskab'}]},
+  homoseksuelle:{periode:'Efterkrigstid, Vesteuropa og USA, 1945–1970',group:'Homoseksuelle',args:[{t:'De rekrutterer og forfører unge — de er en trussel mod børnene',n:'LGBT-undervisning i skolerne er indoktrinering af børn'},{t:'De er psykisk syge — det er videnskabeligt dokumenteret',n:'Transkønnede er psykisk ustabile — biologien taler for sig selv'},{t:'Det er unaturligt og imod Guds skaberorden',n:'Det er biologisk forkert og unaturligt'},{t:'Normalisering vil ødelægge familien og samfundets fundament',n:'Kønsneutral opdragelse ødelægger de naturlige kønsroller og familien'}]},
+  arbejdere:{periode:'Industrialisering og klassekamp, Danmark 1890–1920',group:'Fagforeningsfolk',args:[{t:'De er socialistiske agitatorer der vil ødelægge den naturlige samfundsorden',n:'Venstreorienterede er naïve og vil ødelægge den frie markedsøkonomi'},{t:'Strejker skader alle — de er egoistiske og ansvarsubevidste',n:'Fagforeninger er magtfuldkomne og tager gidsler i samfundskritiske sektorer'},{t:'De er farlige og ukontrollerbare — vi ser hvad der sker i Rusland og Frankrig',n:'Klimaaktivisterne og de woke er radikale og ude af trit med virkeligheden'},{t:'De forstår ikke at virksomheder skal tjene penge',n:'De forstår ikke at markedet er den bedste fordelingsmekanisme'}]}
+};
+
+const ALL_HIST_CARDS=[
+  {key:'indvandrere',year:'1933',group:'Jøder',place:'Tyskland / Østeuropa'},
+  {key:'katolikker',year:'1850',group:'Katolikker',place:'Skandinavien'},
+  {key:'homoseksuelle',year:'1955',group:'Homoseksuelle',place:'Vesteuropa / USA'},
+  {key:'arbejdere',year:'1910',group:'Fagforeningsfolk',place:'Danmark'}
+];
+
+let currentTarget=null;
+
+function getVal(id){
+  const el=document.getElementById(id);
+  return el?parseInt(el.value):5;
+}
+
+function compute(){
+  const vals={
+    krim:getVal('sl-krim'),oek:getVal('sl-oek'),kult:getVal('sl-kult'),
+    sys:getVal('sl-sys'),nos:getVal('sl-nos'),nul:getVal('sl-nul')
+  };
+  const alder=document.getElementById('sel-alder').value;
+  const koen=document.getElementById('sel-koen').value;
+
+  let best=null,bestScore=-1;
+  TARGETS.forEach(t=>{
+    let s=0;
+    s+=(10-Math.abs(vals.krim-t.krim))*2;
+    s+=(10-Math.abs(vals.oek-t.oek))*1.5;
+    s+=(10-Math.abs(vals.kult-t.kult));
+    s+=(10-Math.abs(vals.sys-t.sys));
+    s+=(10-Math.abs(vals.nos-t.nos))*1.2;
+    s+=(10-Math.abs(vals.nul-t.nul))*1.2;
+    if(t.alder.includes(alder)) s+=8;
+    if(t.koen.includes(koen)) s+=8;
+    if(s>bestScore){bestScore=s;best=t;}
+  });
+  if(!best)return;
+  currentTarget=best;
+
+  document.getElementById('res-name').textContent=best.name.toUpperCase();
+  const risiko=Math.min(95,Math.round(best.krim*9+Math.random()*5));
+  const foel=Math.min(95,Math.round(60+(vals.krim+vals.kult)*2+Math.random()*5));
+  const stat=Math.min(95,Math.round(55+Math.random()*25));
+  document.getElementById('m-risiko').textContent=risiko+'%';
+  document.getElementById('m-foel').textContent=foel+'%';
+  document.getElementById('m-stat').textContent=stat+'%';
+  document.getElementById('f-risiko').style.width=risiko+'%';
+  document.getElementById('f-foel').style.width=foel+'%';
+  document.getElementById('f-stat').style.width=stat+'%';
+
+  document.getElementById('res-stats').innerHTML=best.stats.map(s=>`
+    <div class="stat">
+      <div class="stat-label">${s.l}</div>
+      <div class="stat-val">${s.v}</div>
+      <div class="stat-src">${s.s}</div>
+    </div>`).join('');
+
+  document.getElementById('res-twist').innerHTML=best.twist;
+  document.getElementById('res-alt').innerHTML='<span>↳ '+best.alt+'</span>';
+  document.getElementById('res-mirror').textContent=best.mirror;
+  document.getElementById('res-mirrorsub').textContent=best.mirrorsub;
+
+  buildHist(best);
+  buildBias(best);
+
+  const sec=document.getElementById('sec-result');
+  sec.classList.add('visible');
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+function buildHist(target){
+  document.getElementById('hist-intro-text').textContent=target.hist.intro;
+  const activeKey=target.hist.active;
+  document.getElementById('hist-cards').innerHTML=ALL_HIST_CARDS.map(c=>`
+    <div class="hist-card${c.key===activeKey?' active':''}" onclick="selectHist(this,'${c.key}')">
+      <div class="hist-year">${c.year}</div>
+      <div class="hist-group">${c.group}</div>
+      <div class="hist-place">${c.place}</div>
+    </div>`).join('');
+  renderHistDetail(activeKey);
+}
+
+function selectHist(el,key){
+  document.querySelectorAll('.hist-card').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderHistDetail(key);
+}
+
+function renderHistDetail(key){
+  const d=HIST_DATA[key];
+  const t=currentTarget;
+  document.getElementById('hist-detail').innerHTML=`
+    <div class="hist-detail-title">ARGUMENTER: ${d.periode} / Målgruppe: ${d.group}</div>
+    ${d.args.map(a=>`
+      <div class="arg-row">
+        <div class="arg-col arg-then"><div class="arg-head">DENGANG</div><div class="arg-text">${a.t}</div></div>
+        <div class="arg-arrow">→</div>
+        <div class="arg-col arg-now"><div class="arg-head">I DAG</div><div class="arg-text">${a.n}</div></div>
+      </div>`).join('')}`;
+  document.getElementById('hist-mirror').innerHTML=`
+    <div class="hist-mirror-label">MØNSTERET</div>
+    <div class="hist-mirror-text">${t.hist.mirror}</div>
+    <div class="hist-mirror-sub">${t.hist.mirrorsub}</div>`;
+}
+
+function buildBias(target){
+  document.getElementById('bias-intro-text').textContent=target.bias.intro;
+  document.getElementById('bias-topic').textContent=target.bias.topic;
+  document.getElementById('btn-c').classList.add('active-c');
+  document.getElementById('btn-n').classList.remove('active-n');
+  renderBias('confirm');
+}
+
+function setBias(mode){
+  document.getElementById('btn-c').classList.toggle('active-c',mode==='confirm');
+  document.getElementById('btn-n').classList.toggle('active-n',mode==='nuance');
+  renderBias(mode);
+}
+
+function renderBias(mode){
+  if(!currentTarget)return;
+  const b=currentTarget.bias;
+  const stats=mode==='confirm'?b.confirm:b.nuance;
+  const exp=mode==='confirm'?b.expConfirm:b.expNuance;
+  document.getElementById('bias-stats').innerHTML=stats.map(s=>`
+    <div class="bias-stat">
+      <div style="flex:1"><div class="bias-stat-text">${s.t}</div><div class="bias-stat-src">${s.s}</div></div>
+      <div class="bias-stat-pct" style="color:${s.c}">${s.v}</div>
+    </div>`).join('');
+  document.getElementById('bias-exp').innerHTML=exp;
+}
+
+function khTab(tab,el){
+  document.querySelectorAll('.kh-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.kh-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('kh-'+tab).classList.add('active');
+}
+
+function reset(){
+  document.getElementById('sec-result').classList.remove('visible');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+
+</script>
+</body>
+</html>
