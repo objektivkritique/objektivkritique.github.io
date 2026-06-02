@@ -24,43 +24,11 @@ scroll-behavior:smooth
 }
 
 body{
-background:
-radial-gradient(circle at 18% 0%,rgba(216,168,79,.12),transparent 34rem),
-linear-gradient(180deg,#070707 0%,#030303 100%);
+background:#070707;
 color:var(--text);
 font-family:Georgia,"Times New Roman",serif;
 line-height:1.45;
 overflow-x:hidden
-}
-
-@media(pointer:fine){
-body,
-a,
-button{
-cursor:none
-}
-
-.cursor-dot{
-position:fixed;
-top:0;
-left:0;
-width:12px;
-height:12px;
-border:1px solid var(--gold-soft);
-border-radius:999px;
-pointer-events:none;
-z-index:9999;
-transform:translate(-50%,-50%);
-mix-blend-mode:difference;
-transition:width .16s ease,height .16s ease,background .16s ease,border-color .16s ease
-}
-
-body.link-hover .cursor-dot{
-width:44px;
-height:44px;
-background:rgba(216,168,79,.12);
-border-color:var(--gold)
-}
 }
 
 a{
@@ -179,12 +147,14 @@ border-bottom:1px solid var(--line);
 background:var(--card);
 min-height:270px;
 overflow:hidden;
-transition:transform .22s ease,border-color .22s ease,background .22s ease
+transition:transform .22s ease,border-color .22s ease,background .22s ease;
+will-change:transform;
+transform:translateZ(0)
 }
 
 a.card:hover,
 a.card:focus-visible{
-transform:translateY(-5px);
+transform:translateY(-5px) translateZ(0);
 border-color:var(--gold);
 background:#11100d;
 outline:none
@@ -570,8 +540,6 @@ min-height:480px
 </head>
 
 <body>
-<div class="cursor-dot" aria-hidden="true"></div>
-
 <div class="page">
 
 <a class="back" href="../index.html">← Tilbage til forsiden</a>
@@ -773,31 +741,12 @@ Nr. 01
 
 <section class="disclaimer">
 <strong>Disclaimer</strong>
-BANDE BLADET er satire. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
+BANDE BLADET er oplysning fra en satirisk og alternativ vinkel. Hvis du føler dig ramt, observeret eller genkendt, er det sandsynligvis ikke tilfældigt.
 </section>
 
 </div>
 
-<script>
-const cursor = document.querySelector('.cursor-dot');
 
-if (window.matchMedia('(pointer: fine)').matches && cursor) {
-  window.addEventListener('mousemove', function(event) {
-    cursor.style.left = event.clientX + 'px';
-    cursor.style.top = event.clientY + 'px';
-  });
-
-  document.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('mouseenter', function() {
-      document.body.classList.add('link-hover');
-    });
-
-    link.addEventListener('mouseleave', function() {
-      document.body.classList.remove('link-hover');
-    });
-  });
-}
-</script>
 
 </body>
 </html>
