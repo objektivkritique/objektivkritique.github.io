@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Er du et godt menneske? — Objektiv Kritique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #e8e4df;
+      --gold: #d4a574;
+      --red: #c45c5c;
+      --muted: #6b6560;
+      --border: #1e1e1e;
+      --card: #111111;
+      --card-hover: #161616;
+      --green: #5c8c6a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    .nav {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-back {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+    .nav-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .projekt-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      font-style: italic;
+    }
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    /* FILOSOFI-SEKTION */
+    .philosophy-intro {
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .philosophy-intro strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .philosophers {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .philosopher-card {
+      background: var(--card);
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+    }
+    .philosopher-card:hover { background: var(--card-hover); }
+    .philosopher-card.selected {
+      background: var(--card-hover);
+      border-left: 2px solid var(--gold);
+    }
+    .philosopher-card.selected .philosopher-name { color: var(--gold); }
+    .philosopher-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+    .philosopher-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+    .philosopher-ism {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .philosopher-quote {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .philosopher-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .select-hint {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* BEREGNER */
+    .calculator-intro {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .input-group {
+      margin-bottom: 2rem;
+    }
+    .input-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 0.8rem 1rem;
+      transition: border-color 0.2s;
+    }
+    .input-row:focus-within { border-color: var(--gold); }
+    .input-currency {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .input-row input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .input-row input::placeholder { color: var(--muted); }
+
+    .input-hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.4rem;
+    }
+
+    /* TRIVSEL */
+    .slider-group {
+      margin-bottom: 2rem;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.8rem;
+    }
+    .slider-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--gold);
+    }
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 1px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.4rem;
+    }
+    .slider-labels span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* SAMMENLIGNING FLASH */
+    .comparison-flash {
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.4s, transform 0.4s;
+      min-height: 60px;
+    }
+    .comparison-flash.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .comparison-flash-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .comparison-flash-text {
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .comparison-flash-text strong {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    /* BEREGN KNAP */
+    .calc-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .calc-btn:hover { background: var(--gold); }
+    .calc-btn:disabled { background: var(--border); color: var(--muted); cursor: default; }
+
+    /* RESULTAT */
+    #result-section {
+      display: none;
+    }
+    .result-block {
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      background: var(--card);
+    }
+    .result-verdict {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 300;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .result-verdict em { color: var(--gold); font-style: italic; }
+    .result-score-row {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .result-score-item { flex: 1; min-width: 120px; }
+    .result-score-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .result-score-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--gold);
+    }
+    .result-philosopher-comment {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      margin-top: 1.5rem;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .result-philosopher-comment strong {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-style: normal;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .others-said {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .others-said-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .others-said-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .others-said-item span:first-child {
+      font-family: 'Space Mono', monospace;
+      font-style: normal;
+      font-size: 0.6rem;
+      color: var(--muted);
+      min-width: 80px;
+      padding-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* DONATIONER */
+    .donation-intro {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .donation-group-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .donation-list {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .donation-card {
+      background: var(--card);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.2s;
+    }
+    .donation-card:hover { background: var(--card-hover); }
+    .donation-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .donation-card-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .donation-card-stat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .donation-card-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .donation-card-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+    }
+    .donation-card-link:hover { color: var(--gold); }
+
+    .disclaimer {
+      border: 1px solid var(--border);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .disclaimer p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .disclaimer p + p { margin-top: 0.5rem; }
+
+    .admin-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* KANINHUL KNAP */
+    .rabbit-hole {
+      text-align: center;
+      padding: 3rem 0;
+    }
+    .rabbit-hole-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .rabbit-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.9rem 1.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .rabbit-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .footer-tags {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .footer-tags span { margin: 0 0.5rem; }
+
+    /* TRANSITIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* PROGRESS */
+    .step-indicator {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 3rem;
+    }
+    .step-dot {
+      height: 1px;
+      flex: 1;
+      background: var(--border);
+      transition: background 0.4s;
+    }
+    .step-dot.active { background: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .container { padding: 0 1.5rem; }
+      .result-block { padding: 1.5rem; }
+      .result-score-row { gap: 1rem; }
+      .nav { padding: 1.2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="https://objektivkritique.com/index.html" class="nav-back">← Forsiden</a>
+    <span class="nav-brand">Objektiv Kritique™</span>
+  </nav>
+
+  <div class="hero">
+    <p class="projekt-tag">Projekt 05 — Effektiv Altruisme</p>
+    <h1>Er du et <em>godt</em> menneske?</h1>
+    <p class="hero-sub">En algoritmisk undersøgelse af din moralske kapacitet, rådighedsevne og altruistiske potentiale.</p>
+    <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.07em;margin-top:1.2rem;line-height:1.8;">
+      Vi tracker dig ikke og indsamler ingen personoplysninger.<br>
+      Alt kører lokalt i din browser. Vi ved ingenting om dig.
+    </p>
+    <div class="hero-divider" style="margin-top:2rem;"></div>
+  </div>
+
+  <main class="container">
+
+    <!-- STEP INDICATOR -->
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+      <div class="step-dot" id="dot-3"></div>
+    </div>
+
+    <!-- SEKTION 1: FILOSOFI -->
+    <section class="section fade-in visible" id="section-philosophy">
+      <p class="section-label">01 — Etisk udgangspunkt</p>
+
+      <p class="philosophy-intro">
+        Filosoffer har i årtusinder forsøgt at besvare ét spørgsmål: <strong>hvad er det rigtige at gøre?</strong>
+        De er nået frem til vidt forskellige svar — men overraskende ens konklusioner om din situation.
+        Vælg det etiske system, du bedst kan identificere dig med. Det vil forme resten af denne undersøgelse.
+      </p>
+
+      <div class="philosophers" id="philosopher-grid">
+
+        <div class="philosopher-card" data-philosopher="kant" onclick="selectPhilosopher('kant', this)">
+          <div class="philosopher-header">
+            <span class="philosopher-name">Immanuel Kant</span>
+            <span class="philosopher-ism">Pligtetik</span>
+          </div>
+          <p class="philosopher-quote">"Handl kun efter den maksime, du samtidig kan ønske at gøre til en almen lov."</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du handler efter principper, der gælder for alle. Dine valg er kun etiske, hvis du ville ønske, at alle traf de samme valg.</p>
+        </div>
+
+        <div class="philosopher-card" data-philosopher="bentham" onclick="selectPhilosopher('bentham', this)">
+          <div class="philosopher-header">
+            <span class="philosopher-name">Bentham / Mill</span>
+            <span class="philosopher-ism">Nytteetik</span>
+          </div>
+          <p class="philosopher-quote">"Det størst mulige velvære for det størst mulige antal."</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du maksimerer lykke og mindsker lidelse for flest mulige. Effektiv altruisme er i bund og grund nytteetik med et regneark.</p>
+        </div>
+
+        <div class="philosopher-card" data-philosopher="rawls" onclick="selectPhilosopher('rawls', this)">
+          <div class="philosopher-header">
+            <span class="philosopher-name">John Rawls</span>
+            <span class="philosopher-ism">Retfærdighedsetik</span>
+          </div>
+          <p class="philosopher-quote">"Bag uvidenhedens slør — hvad ville du vælge?"</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du ville træffe det samme valg, selv hvis du ikke vidste, hvem du ville blive: rig eller fattig, dansk eller ikke.</p>
+        </div>
+
+        <div class="philosopher-card" data-philosopher="aristotle" onclick="selectPhilosopher('aristotle', this)">
+          <div class="philosopher-header">
+            <span class="philosopher-name">Aristoteles</span>
+            <span class="philosopher-ism">Dydsetik</span>
+          </div>
+          <p class="philosopher-quote">"Lykke er sjælens aktivitet i overensstemmelse med dyd."</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du lever i overensstemmelse med dine dyder. Det handler ikke om regler eller konsekvenser — men om, hvem du er.</p>
+        </div>
+
+      </div>
+
+      <p class="select-hint" id="select-hint">Vælg én for at fortsætte ↑</p>
+    </section>
+
+    <!-- SEKTION 2: BEREGNER -->
+    <section class="section fade-in" id="section-calculator" style="display:none;">
+      <p class="section-label">02 — Altruistisk rådighedskapacitet</p>
+
+      <p class="calculator-intro" id="calc-intro-text">
+        Nu ved du, hvad det vil sige at handle rigtigt. Lad os se, hvor du står.
+      </p>
+
+      <!-- INDKOMST -->
+      <div class="input-group">
+        <label class="input-label" for="income">Månedlig nettoindkomst</label>
+        <div class="input-row">
+          <span class="input-currency">DKK</span>
+          <input type="number" id="income" placeholder="0" min="0" oninput="onIncomeChange()" />
+        </div>
+        <p class="input-hint">Det beløb, der lander på din konto.</p>
+      </div>
+
+      <!-- SAMMENLIGNING 1 - INDKOMST -->
+      <div class="comparison-flash" id="flash-income"></div>
+
+      <!-- FASTE UDGIFTER -->
+      <div class="input-group">
+        <label class="input-label" for="rent">Husleje / boligudgifter</label>
+        <div class="input-row">
+          <span class="input-currency">DKK</span>
+          <input type="number" id="rent" placeholder="0" min="0" oninput="onExpenseChange()" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="food">Mad og dagligvarer</label>
+        <div class="input-row">
+          <span class="input-currency">DKK</span>
+          <input type="number" id="food" placeholder="0" min="0" oninput="onExpenseChange()" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="transport">Transport</label>
+        <div class="input-row">
+          <span class="input-currency">DKK</span>
+          <input type="number" id="transport" placeholder="0" min="0" oninput="onExpenseChange()" />
+        </div>
+      </div>
+
+      <!-- SAMMENLIGNING 2 - UDGIFTER -->
+      <div class="comparison-flash" id="flash-expenses"></div>
+
+      <!-- LIVSSTIL -->
+      <div class="input-group">
+        <label class="input-label" for="lifestyle">Livsstil (kaffe, restauranter, streaming, tøj, m.m.)</label>
+        <div class="input-row">
+          <span class="input-currency">DKK</span>
+          <input type="number" id="lifestyle" placeholder="0" min="0" oninput="onLifestyleChange()" />
+        </div>
+        <p class="input-hint">Vær ærlig. Algoritmen ved det alligevel.</p>
+      </div>
+
+      <!-- SAMMENLIGNING 3 - LIVSSTIL -->
+      <div class="comparison-flash" id="flash-lifestyle"></div>
+
+      <!-- TRIVSEL -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <label class="input-label" for="wellbeing">Trivselsniveau</label>
+          <span class="slider-value" id="wellbeing-label">5 / 10</span>
+        </div>
+        <input type="range" id="wellbeing" min="1" max="10" value="5" oninput="onWellbeingChange()" />
+        <div class="slider-labels">
+          <span>Klarer mig</span>
+          <span>Har det godt</span>
+          <span>Optimal</span>
+        </div>
+        <p class="input-hint" style="margin-top:0.8rem;" id="wellbeing-comment">Dit velvære er en variabel i beregningen.</p>
+      </div>
+
+      <!-- KAPACITET -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <label class="input-label" for="capacity">Overskud og kapacitet</label>
+          <span class="slider-value" id="capacity-label">5 / 10</span>
+        </div>
+        <input type="range" id="capacity" min="1" max="10" value="5" oninput="onCapacityChange()" />
+        <div class="slider-labels">
+          <span>Meget lidt</span>
+          <span>Noget</span>
+          <span>Masser</span>
+        </div>
+        <p class="input-hint" style="margin-top:0.8rem;" id="capacity-comment">Kapacitet er en forudsætning for at give. Systemet tager højde for det.</p>
+      </div>
+
+      <!-- SAMMENLIGNING 4 - TRIVSEL/KAPACITET -->
+      <div class="comparison-flash" id="flash-wellness"></div>
+
+      <button class="calc-btn" id="calc-btn" onclick="calculate()" disabled>
+        Beregn min moralske status
+      </button>
+    </section>
+
+    <!-- SEKTION 3: RESULTAT -->
+    <section class="section" id="result-section">
+      <p class="section-label">03 — Vurdering</p>
+
+      <div class="result-block">
+        <p class="result-verdict" id="result-verdict"></p>
+        <div class="result-score-row">
+          <div class="result-score-item">
+            <p class="result-score-label">Rådighedsbeløb</p>
+            <p class="result-score-value" id="score-available"></p>
+          </div>
+          <div class="result-score-item">
+            <p class="result-score-label">Donationskvotient</p>
+            <p class="result-score-value" id="score-donation"></p>
+          </div>
+          <div class="result-score-item">
+            <p class="result-score-label">Godhedsstatus</p>
+            <p class="result-score-value" id="score-status"></p>
+          </div>
+        </div>
+        <div class="result-philosopher-comment">
+          <strong id="philosopher-comment-label"></strong>
+          <span id="philosopher-comment-text"></span>
+        </div>
+        <div class="others-said" id="others-said-block">
+          <p class="others-said-label">De andre filosoffer ville have sagt:</p>
+          <div id="others-said-list"></div>
+        </div>
+      </div>
+
+      <!-- DONATIONER -->
+      <p class="donation-intro">
+        Hvad kan du gøre? Her er organisationer, som er vurderet til at skabe dokumenteret effekt.
+      </p>
+
+      <p class="donation-group-label">Internationalt — mest effekt pr. krone</p>
+      <div class="donation-list">
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">Against Malaria Foundation</span>
+            <span class="donation-card-stat">~3.500 kr. pr. liv reddet</span>
+          </div>
+          <p class="donation-card-desc">Distribuerer myggenet i Sydafrika og Sydøstasien. Malaria dræber ca. 600.000 mennesker om året — primært børn under 5.</p>
+          <a class="donation-card-link" href="https://www.againstmalaria.com" target="_blank" rel="noopener">againstmalaria.com ↗</a>
+        </div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">Malaria Consortium</span>
+            <span class="donation-card-stat">Sæsonbehandling, ~6 kr. pr. barn</span>
+          </div>
+          <p class="donation-card-desc">Forebyggende malariamedicin til børn i de måneder, hvor sygdommen rammer hårdest. Dokumenteret effekt fra adskillige kontrollerede studier.</p>
+          <a class="donation-card-link" href="https://www.malariaconsortium.org" target="_blank" rel="noopener">malariaconsortium.org ↗</a>
+        </div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">GiveDirectly</span>
+            <span class="donation-card-stat">Kontantoverførsler uden mellemled</span>
+          </div>
+          <p class="donation-card-desc">Sender penge direkte til ekstremt fattige familier i Kenya og Uganda. Ingen nødhjælpslogik. Ingen beslutning om hvad de "burde" bruge det på.</p>
+          <a class="donation-card-link" href="https://www.givedirectly.org" target="_blank" rel="noopener">givedirectly.org ↗</a>
+        </div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">Helen Keller International</span>
+            <span class="donation-card-stat">~2 kr. pr. barn pr. år</span>
+          </div>
+          <p class="donation-card-desc">A-vitamintilskud til børn under 5. Mangel på A-vitamin kan føre til blindhed og død. Enkel intervention, stærk dokumentation.</p>
+          <a class="donation-card-link" href="https://www.hki.org" target="_blank" rel="noopener">hki.org ↗</a>
+        </div>
+      </div>
+
+      <p class="donation-group-label">Dansk — tæt på og gennemsigtig</p>
+      <div class="donation-list">
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">Læger uden Grænser</span>
+            <span class="donation-card-stat">Admin: ~4,9%</span>
+          </div>
+          <p class="donation-card-desc">Verdens største medicinske nødhjælpsorganisation. Akut lægehjælp i mere end 70 lande. I 2024 hjalp de millioner af patienter — uanset hvem de var.</p>
+          <a class="donation-card-link" href="https://msf.dk" target="_blank" rel="noopener">msf.dk ↗</a>
+        </div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">ADRA Danmark</span>
+            <span class="donation-card-stat">Admin: ~3,1%</span>
+          </div>
+          <p class="donation-card-desc">Nødhjælp og langsigtet udviklingsarbejde i konfliktramte områder. Administrationsprocenten er opgjort efter branchestandarder — ikke markedsføring.</p>
+          <a class="donation-card-link" href="https://adra.dk" target="_blank" rel="noopener">adra.dk ↗</a>
+        </div>
+        <div class="donation-card">
+          <div class="donation-card-header">
+            <span class="donation-card-name">Red Barnet</span>
+            <span class="donation-card-stat">Admin: ~6,6%</span>
+          </div>
+          <p class="donation-card-desc">Arbejder for børns rettigheder globalt — i konfliktzoner, ved naturkatastrofer og i de huller, hvor andre ikke kommer.</p>
+          <a class="donation-card-link" href="https://www.redbarnet.dk" target="_blank" rel="noopener">redbarnet.dk ↗</a>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <p>Objektiv Kritique har ingen tilknytning til, aftale med eller interesse i nogen af ovenstående organisationer.</p>
+        <p>De internationale organisationer er listet på baggrund af GiveWells research, som du er velkommen til at læse og betvivle på <a href="https://www.givewell.org" target="_blank" rel="noopener" style="color:var(--muted);">givewell.org</a>.</p>
+      </div>
+
+      <p class="admin-note">
+        En lav administrationsprocent betyder ikke nødvendigvis, at organisationen gør mest muligt godt. Det indrømmer organisationernes egen brancheforening.*<br><br>
+        * ISOBRO, brancheorganisationen for danske indsamlingsorganisationer.
+      </p>
+
+      <!-- KANINHUL -->
+      <div class="rabbit-hole">
+        <p class="rabbit-hole-label" id="rabbit-label"></p>
+        <button class="rabbit-btn" onclick="restartWithNewPhilosopher()">Hvad ville <span id="next-philosopher-name">en anden filosof</span> have sagt?</button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="footer-brand">OBJEKTIV KRITIQUE™ — Danmarks Kunstneriske Vagthund</p>
+    <p class="footer-tags">
+      <span>SATIRE</span><span>·</span><span>NON-PROFIT</span><span>·</span><span>objektivkritique.com</span>
+    </p>
+    <p style="font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--muted);letter-spacing:0.06em;margin-top:1rem;line-height:1.8;">
+      Ingen cookies. Ingen tracking. Ingen personoplysninger indsamles eller opbevares på nogen måde.<br>
+      Alt kører lokalt i din browser. Vi ved ingenting om dig. Ikke engang hvad du svarede.
+    </p>
+  </footer>
+
+  <script>
+    // =====================
+    // STATE
+    // =====================
+    let selectedPhilosopher = null;
+    let hasCalculated = false;
+
+    const philosophers = {
+      kant: {
+        name: 'Kant',
+        fullName: 'Immanuel Kant',
+        ism: 'Pligtetik',
+        calcIntro: 'Du har valgt pligtetikken. Det betyder, at dine handlinger bedømmes ud fra principper — ikke resultater. Lad os se, om dine principper holder, når vi regner på dem.',
+        commentFn: (available, donation, wellbeing, capacity) => {
+          const pct = Math.round((donation / (available || 1)) * 100);
+          if (wellbeing < 4) return `Kant ville bemærke, at du hævder at have det dårligt. Men en pligtmæssig analyse ændrer ikke konklusionen: hvis alle med din indkomst brugte samme argument, ville ingen nogensinde donere. Pligten gælder uanset dit humør.`;
+          if (pct < 5) return `Hvad nu hvis alle med din indkomst traf det samme valg? Kant ville kalde det en universallov — og konstatere, at en verden hvor ingen med din økonomi donerer mere end ${pct}%, er en verden du næppe selv ville vælge at leve i.`;
+          return `Kant ville nikke. Du handler efter et princip, du kan ønske at alle følger. Det er ikke det samme som at sige, at du er et godt menneske. Men det er et skridt.`;
+        },
+        othersFn: (donation, wellbeing) => [
+          { name: 'Bentham', text: `ville have sat et tal på det. Og tallet ville have gjort dig urolig.` },
+          { name: 'Rawls', text: `ville have spurgt: ville du have valgt dette beløb, hvis du ikke vidste, om du var dig — eller nogen fra Mozambique?` },
+          { name: 'Aristoteles', text: `ville have ignoreret beløbet og spurgt om din karakter. Er det generøsitet — eller beregning?` }
+        ]
+      },
+      bentham: {
+        name: 'Bentham',
+        fullName: 'Bentham / Mill',
+        ism: 'Nytteetik',
+        calcIntro: 'Du har valgt nytteetikken — det samme fundament som effektiv altruisme. Lykke skal maksimeres. Lidelse skal minimeres. Alt andet er støj. Lad os kvantificere din indsats.',
+        commentFn: (available, donation, wellbeing, capacity) => {
+          const annual = donation * 12;
+          const lives = (annual / 3500).toFixed(2);
+          const nets = Math.round(annual / 50);
+          if (wellbeing < 4) return `Din trivselsscore er lav. Systemet registrerer dette — og justerer. Anbefalet tiltag: restitution i op til 4 uger, efterfulgt af genoptagelse af donationsplan. Lidelse er en variabel. Også din.`;
+          return `${annual.toLocaleString('da-DK')} kr. om året svarer til ${lives} forebyggede dødsfald — eller ${nets} myggenet. Bentham ville ikke spørge om du har det godt. Han ville spørge om du gør det.`;
+        },
+        othersFn: (donation, wellbeing) => [
+          { name: 'Kant', text: `ville have ignoreret tallene og spurgt om princippet bag din beslutning.` },
+          { name: 'Rawls', text: `ville have påpeget, at du valgte dette beløb velvidende om, hvem du er. Det er ikke neutralt.` },
+          { name: 'Aristoteles', text: `ville have sagt, at et godt menneske ikke donerer for at blive fri for dårlig samvittighed.` }
+        ]
+      },
+      rawls: {
+        name: 'Rawls',
+        fullName: 'John Rawls',
+        ism: 'Retfærdighedsetik',
+        calcIntro: 'Du har valgt retfærdighedsetikken. Forestil dig, at du ikke vidste, hvem du ville blive født som. Dansk eller ikke. Rig eller fattig. Sund eller syg. Ville du stadig synes, din økonomi var rimelig?',
+        commentFn: (available, donation, wellbeing, capacity) => {
+          if (wellbeing < 4) return `Rawls ville anerkende din situation. Men bag uvidenhedens slør ville du ikke vide, at du har det dårligt. Du ville vide, at du måske er et barn i Sahel. Det ændrer beregningen.`;
+          const pct = Math.round((donation / (available || 1)) * 100);
+          return `Bag uvidenhedens slør — ville du have valgt de præmisser, din økonomi hviler på? ${pct}% til andre. Resten til dig selv. Rawls ville ikke kalde det uretfærdigt. Han ville kalde det et valg. Det er ikke det samme.`;
+        },
+        othersFn: (donation, wellbeing) => [
+          { name: 'Kant', text: `ville have kaldt det en pligt — ikke et valg. Det er en vigtig skelnen.` },
+          { name: 'Bentham', text: `ville have lavet et regneark. Det ville have set anderledes ud.` },
+          { name: 'Aristoteles', text: `ville have spurgt, om du er den type person, der naturligt handler retfærdigt — eller om du gør det, fordi du blev spurgt.` }
+        ]
+      },
+      aristotle: {
+        name: 'Aristoteles',
+        fullName: 'Aristoteles',
+        ism: 'Dydsetik',
+        calcIntro: 'Du har valgt dydsetikken. Det handler ikke om regler eller kalkuler — men om hvem du er. Er du den type person, der naturligt handler godt? Lad os undersøge det.',
+        commentFn: (available, donation, wellbeing, capacity) => {
+          if (capacity < 4) return `Aristoteles kendte begrebet om den gyldne middelvej. Han ville ikke kræve det umulige af dig. Men han ville spørge: er dit lave overskud et vilkår — eller en vane?`;
+          if (wellbeing < 4) return `Et dydig liv kræver, at man har det godt nok til at handle godt. Aristoteles ville sige, at du først skal tage vare på dig selv. Men han ville tilføje: pas på, at det ikke bliver en undskyldning.`;
+          return `Aristoteles ville ikke spørge om beløbet. Han ville spørge: er generøsitet en del af din karakter — eller er dette en beregning? Et godt menneske donerer ikke for at undgå dårlig samvittighed. Det gør det, fordi det er den slags menneske, det er.`;
+        },
+        othersFn: (donation, wellbeing) => [
+          { name: 'Kant', text: `ville have sagt, at karakter er irrelevant. Kun principper tæller.` },
+          { name: 'Bentham', text: `ville have omregnet din generøsitet til DALY-ækvivalenter og fundet den utilstrækkelig.` },
+          { name: 'Rawls', text: `ville have spurgt, om du ville have valgt det samme, hvis du ikke vidste, hvem du var.` }
+        ]
+      }
+    };
+
+    // Filosof-specifikke sammenligninger
+    const philosopherComparisons = {
+      kant: {
+        income: [
+          (v) => v > 60000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Hvad nu hvis alle med din indkomst valgte at beholde det hele? Kant ville kalde det en universallov — og konstatere, at den ikke holder.` : null,
+          (v) => v > 30000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Kant ville spørge: kan du ønske, at alle i din situation handler præcis som du gør? Det er det eneste spørgsmål, der tæller.` : null,
+          (v) => v > 0 ? `Den gennemsnitlige dagindkomst i Niger er ca. <strong>8 kr.</strong> Din månedlige er ${Math.round(v / 8).toLocaleString('da-DK')} gange højere. Pligten gælder uanset om du selv har bemærket denne forskel.` : null,
+        ],
+        lifestyle: [
+          (v) => v > 500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til forbrug, du ikke strengt taget behøver. Kant ville ikke kalde det syndigt. Han ville spørge: kunne du ønske det som en universel lov? At alle i din situation gør det samme?` : null,
+          (v) => v > 1500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til valgfrit forbrug. En pligtetisk analyse skelner ikke mellem kaffe og køkkenrenovering. Den spørger kun: er dette et princip, du ville vælge for alle?` : null,
+          (v) => v > 3000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Kant ville ikke dømme dig. Men han ville notere, at et princip om at beholde alt over et vist punkt — gentagent af alle — er et princip, der koster liv andre steder.` : null,
+        ],
+        expenses: [
+          (rent, food, transport) => {
+            const sum = rent + food + transport;
+            return sum > 5000 ? `Dine faste udgifter er <strong>${sum.toLocaleString('da-DK')} kr.</strong> om måneden. Kant ville spørge: er dette et udgiftsniveau, du ville ønske som universallov — for alle med din indkomst?` : null;
+          }
+        ],
+      },
+      bentham: {
+        income: [
+          (v) => v > 60000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Ifølge nytteetikken har den marginale glæde af din næste tusindkrone en brøkdel af den glæde, den samme krone ville skabe i et lavindkomstland. Det er matematik, ikke moral.` : null,
+          (v) => v > 30000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Bentham ville have omregnet dette til lykkeenheder og sammenlignet med effekten andetsteds. Resultatet ville ikke have været flatterende.` : null,
+          (v) => v > 0 ? `Den gennemsnitlige dagindkomst i Niger er ca. <strong>8 kr.</strong> Bentham opererede med det princip, at alle menneskers lykke tæller lige meget. Dette tal er ikke neutralt.` : null,
+        ],
+        lifestyle: [
+          (v) => v > 500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til livsstil. Det er ${Math.round(v / 60)} flade øl. Eller ${Math.round(v / 180)} måneder med malariamedicin til et barn. Bentham ville ikke bebrejde dig. Han ville bare sætte tallene ved siden af hinanden.` : null,
+          (v) => v > 1500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Ifølge GiveWells beregninger svarer det til ${(v * 12 / 3500).toFixed(1)} forebyggede dødsfald om året. Dette er information. Hvad du gør med den, er dit valg.` : null,
+          (v) => v > 3000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til valgfrit forbrug. Peter Singer — nytteetikkens mest konsekvente nutidige stemme — ville have bedt dig om at give, indtil det begynder at gøre ondt. Vi er ikke der endnu.` : null,
+        ],
+        expenses: [
+          (rent, food, transport) => {
+            const sum = rent + food + transport;
+            const nets = Math.round(sum / 50);
+            return sum > 5000 ? `Dine faste udgifter er <strong>${sum.toLocaleString('da-DK')} kr.</strong> om måneden — svarende til ${nets} myggenet. Bentham ville notere, at dette tal ikke er moralsk neutralt.` : null;
+          }
+        ],
+      },
+      rawls: {
+        income: [
+          (v) => v > 60000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Bag uvidenhedens slør — ville du have valgt det samfund, der producerer denne fordeling? Rawls ville ikke svare for dig. Men han ville insistere på, at du svarer selv.` : null,
+          (v) => v > 30000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Rawls ville spørge: vidste du på forhånd, at du ville ende her — eller var det tilfældigt? Og hvad skylder du dem, der landede et andet sted?` : null,
+          (v) => v > 0 ? `Den gennemsnitlige dagindkomst i Niger er ca. <strong>8 kr.</strong> Forestil dig, at du ikke vidste, om du ville blive født i Danmark eller Niger. Ville du stadig synes, din situation var retfærdig?` : null,
+        ],
+        lifestyle: [
+          (v) => v > 500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til valgfrit forbrug. Bag uvidenhedens slør ville du ikke vide, om du er den, der køber — eller den, der aldrig har råd. Rawls ville minde dig om det.` : null,
+          (v) => v > 1500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Rawls mente, at ulighed kun er retfærdig, hvis den gavner de dårligst stillede. Dit streaminabonnement gavner ikke dem. Det er ikke en anklage. Det er en definition.` : null,
+          (v) => v > 3000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til forbrug, der primært gavner dig selv. Rawls ville ikke forbyde det. Men han ville spørge: er dette det samfund, du ville vælge, hvis du ikke vidste, hvem du ville være i det?` : null,
+        ],
+        expenses: [
+          (rent, food, transport) => {
+            const sum = rent + food + transport;
+            return sum > 5000 ? `Dine faste udgifter er <strong>${sum.toLocaleString('da-DK')} kr.</strong> om måneden. Bag uvidenhedens slør ville du ikke vide, om du er den, der betaler denne husleje — eller den, der ikke har råd til nogen.` : null;
+          }
+        ],
+      },
+      aristotle: {
+        income: [
+          (v) => v > 60000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Aristoteles ville ikke spørge om det er retfærdigt. Han ville spørge: gør denne indkomst dig til et bedre menneske — eller bare til et mere behageligt et?` : null,
+          (v) => v > 30000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. Aristoteles kendte begrebet om den gyldne middelvej — hverken for lidt eller for meget. Han efterlod det åbent, hvad "for meget" er. Det er det stadig.` : null,
+          (v) => v > 0 ? `Den gennemsnitlige dagindkomst i Niger er ca. <strong>8 kr.</strong> Aristoteles ville ikke omregne dette til moral. Han ville spørge: hvad siger det om din karakter, at du kender dette tal — og lever som du gør?` : null,
+        ],
+        lifestyle: [
+          (v) => v > 500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til vaner og valgfrit forbrug. Aristoteles ville ikke kalde det forkert. Han ville spørge: er disse vaner udtryk for, hvem du er — eller hvem du er blevet?` : null,
+          (v) => v > 1500 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden. En hund koster mere end den reddede. Et kæledyr er kærlighed — og en udgift, der har en omkostning andetsteds. Aristoteles ville kalde dette en karakterprøve, ikke en regning.` : null,
+          (v) => v > 3000 ? `<strong>${v.toLocaleString('da-DK')} kr.</strong> om måneden til forbrug. Aristoteles mente, at overdrivelse af nydelse er et tegn på manglende selvkontrol. Han mente også, at generøsitet er en dyd — ikke en pligt. Forskellen er vigtig.` : null,
+        ],
+        expenses: [
+          (rent, food, transport) => {
+            const sum = rent + food + transport;
+            return sum > 5000 ? `Dine faste udgifter er <strong>${sum.toLocaleString('da-DK')} kr.</strong> om måneden. Aristoteles ville ikke bedømme tallet. Han ville spørge: lever du inden for dine midler på en måde, der afspejler, hvem du ønsker at være?` : null;
+          }
+        ],
+      },
+    };
+
+    // Fælles sammenligninger (udgifter og wellness er ikke filosof-specifikke)
+    const comparisons = {
+      income: [], // bruges ikke direkte — se philosopherComparisons
+      expenses: [], // filosof-specifik — se philosopherComparisons
+      lifestyle: [], // bruges ikke direkte — se philosopherComparisons
+      wellness: [
+        (wb, cap) => wb < 4 && cap < 4 ? `Du har både lav trivsel og lavt overskud. Systemet registrerer dette som en <strong>kapacitetsbegrænsning</strong>. Anbefalet tiltag: stabiliser egen situation først. Derefter: genoptag beregning.` : null,
+        (wb, cap) => wb >= 7 && cap >= 7 ? `Du har det godt og har overskud. Aristoteles ville kalde det en mulighed. Rawls ville kalde det et privilegium. Kant ville kalde det en pligt. De er enige om <strong>konklusionen</strong>.` : null,
+        (wb, cap) => (wb >= 4 && cap >= 4 && !(wb >= 7 && cap >= 7)) ? `Middelmådig trivsel og moderat kapacitet. Det er den tilstand, de fleste er i. Det ændrer ikke beregningens konklusion — bare dens tålmodighed.` : null,
+      ]
+    };
+
+    const statusLabels = [
+      { max: 2, label: 'Arbejder på det' },
+      { max: 5, label: 'Under middel' },
+      { max: 8, label: 'Godkendt' },
+      { max: 12, label: 'Kompetent' },
+      { max: 99, label: 'Eksemplarisk*' }
+    ];
+
+    // =====================
+    // FILOSOFI VALG
+    // =====================
+    function selectPhilosopher(key, el) {
+      selectedPhilosopher = key;
+      document.querySelectorAll('.philosopher-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('select-hint').textContent = '✓ Valgt. Rul ned for at fortsætte.';
+
+      // Vis beregner
+      const calcSection = document.getElementById('section-calculator');
+      calcSection.style.display = 'block';
+      setTimeout(() => calcSection.classList.add('visible'), 50);
+
+      // Sæt intro tekst
+      document.getElementById('calc-intro-text').textContent = philosophers[key].calcIntro;
+
+      // Dot 2
+      document.getElementById('dot-2').classList.add('active');
+
+      // Genberegn alle flash-beskeder med filosof-specifikt indhold
+      refreshAllFlashes();
+
+      // Scroll til
+      setTimeout(() => {
+        calcSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+
+    function refreshAllFlashes() {
+      onIncomeChange();
+      onExpenseChange();
+      onLifestyleChange();
+      const wb = parseInt(document.getElementById('wellbeing').value);
+      const cap = parseInt(document.getElementById('capacity').value);
+      updateWellnessFlash(wb, cap);
+    }
+
+    // =====================
+    // BEREGNER INPUT
+    // =====================
+    function showFlash(id, html) {
+      const el = document.getElementById(id);
+      if (!html) { el.classList.remove('visible'); return; }
+      el.innerHTML = `<p class="comparison-flash-label">Vidste du at</p><p class="comparison-flash-text">${html}</p>`;
+      el.classList.add('visible');
+    }
+
+    function onIncomeChange() {
+      const v = parseInt(document.getElementById('income').value) || 0;
+      const philKey = selectedPhilosopher || 'bentham';
+      const incomeComps = philosopherComparisons[philKey].income;
+      let msg = null;
+      for (const fn of incomeComps) {
+        msg = fn(v);
+        if (msg) break;
+      }
+      showFlash('flash-income', msg);
+      tryEnableCalcBtn();
+    }
+
+    function onExpenseChange() {
+      const rent = parseInt(document.getElementById('rent').value) || 0;
+      const food = parseInt(document.getElementById('food').value) || 0;
+      const transport = parseInt(document.getElementById('transport').value) || 0;
+      const philKey = selectedPhilosopher || 'bentham';
+      const expenseComps = philosopherComparisons[philKey].expenses;
+      let msg = null;
+      for (const fn of expenseComps) {
+        msg = fn(rent, food, transport);
+        if (msg) break;
+      }
+      showFlash('flash-expenses', msg);
+      tryEnableCalcBtn();
+    }
+
+    function onLifestyleChange() {
+      const v = parseInt(document.getElementById('lifestyle').value) || 0;
+      const philKey = selectedPhilosopher || 'bentham';
+      const lifestyleComps = philosopherComparisons[philKey].lifestyle;
+      let msg = null;
+      for (const fn of [...lifestyleComps].reverse()) {
+        msg = fn(v);
+        if (msg) break;
+      }
+      showFlash('flash-lifestyle', msg);
+      tryEnableCalcBtn();
+    }
+
+    function onWellbeingChange() {
+      const wb = parseInt(document.getElementById('wellbeing').value);
+      const cap = parseInt(document.getElementById('capacity').value);
+      document.getElementById('wellbeing-label').textContent = `${wb} / 10`;
+
+      const comments = [
+        [1, 3, 'Dit velvære er lavt. Systemet noterer dette som en legitim begrænsning — foreløbigt.'],
+        [4, 6, 'Moderat trivsel. Tilstrækkeligt til at overveje andre.'],
+        [7, 10, 'God trivsel. Kapaciteten til at handle godt er til stede.'],
+      ];
+      for (const [min, max, text] of comments) {
+        if (wb >= min && wb <= max) { document.getElementById('wellbeing-comment').textContent = text; break; }
+      }
+      updateWellnessFlash(wb, cap);
+    }
+
+    function onCapacityChange() {
+      const wb = parseInt(document.getElementById('wellbeing').value);
+      const cap = parseInt(document.getElementById('capacity').value);
+      document.getElementById('capacity-label').textContent = `${cap} / 10`;
+
+      const comments = [
+        [1, 3, 'Lavt overskud er en reel begrænsning. Systemet tager højde for det.'],
+        [4, 6, 'Moderat kapacitet. Nok til at begynde.'],
+        [7, 10, 'Højt overskud. Det er en variabel med konsekvenser.'],
+      ];
+      for (const [min, max, text] of comments) {
+        if (cap >= min && cap <= max) { document.getElementById('capacity-comment').textContent = text; break; }
+      }
+      updateWellnessFlash(wb, cap);
+    }
+
+    function updateWellnessFlash(wb, cap) {
+      let msg = null;
+      for (const fn of comparisons.wellness) {
+        msg = fn(wb, cap);
+        if (msg) break;
+      }
+      showFlash('flash-wellness', msg);
+    }
+
+    function tryEnableCalcBtn() {
+      const income = parseInt(document.getElementById('income').value) || 0;
+      const rent = parseInt(document.getElementById('rent').value) || 0;
+      const food = parseInt(document.getElementById('food').value) || 0;
+      document.getElementById('calc-btn').disabled = income === 0;
+    }
+
+    // =====================
+    // FILOSOF-SPECIFIKKE DONATIONSLOGIKKER
+    // =====================
+
+    function calcKant(available, income, wellbeing, capacity) {
+      // Fast princip: 10% af rådighedsbeløb for alle — pligten er ens uanset indkomst.
+      // Ingen wellness-nedjustering. Pligten gælder uanset humør.
+      if (available <= 0) return { pct: 0, amount: 0, rationale: 'nul' };
+      const pct = 10;
+      const amount = Math.round(available * (pct / 100));
+      return { pct, amount, rationale: 'princip' };
+    }
+
+    function calcBentham(available, income, wellbeing, capacity) {
+      // Progressiv nytte-logik: jo mere du har, jo højere pct.
+      // Marginalnytten af din næste krone falder — effekten andetsteds forbliver konstant.
+      // Wellness nedjusterer kun minimalt — lidelse er en variabel, men ikke en undskyldning.
+      if (available <= 0) return { pct: 0, amount: 0, rationale: 'nul' };
+      let pct;
+      if (available < 1000)       { pct = 5; }
+      else if (available < 3000)  { pct = 10; }
+      else if (available < 6000)  { pct = 18; }
+      else if (available < 12000) { pct = 25; }
+      else                        { pct = 30; }
+      // Minimal wellness-justering
+      if (wellbeing < 4) pct = Math.max(5, pct - 3);
+      const amount = Math.round(available * (pct / 100));
+      return { pct, amount, rationale: 'nytte' };
+    }
+
+    function calcRawls(available, income, wellbeing, capacity) {
+      // Progressiv bag uvidenhedens slør: ville du have valgt dette samfund?
+      // Tager højde for indkomstniveau relativt — dem øverst skylder mest.
+      // Wellness tæller moderat: Rawls anerkender sårbarhed, men ikke privilegerets fritagelse.
+      if (available <= 0) return { pct: 0, amount: 0, rationale: 'nul' };
+      let pct;
+      if (income < 20000)         { pct = 3; }
+      else if (income < 35000)    { pct = 7; }
+      else if (income < 50000)    { pct = 12; }
+      else if (income < 70000)    { pct = 17; }
+      else                        { pct = 22; }
+      // Wellbeing-justering: Rawls er rimelig, men ikke blød
+      if (wellbeing < 4 && capacity < 4) pct = Math.max(3, pct - 5);
+      else if (wellbeing < 4) pct = Math.max(3, pct - 2);
+      const amount = Math.round(available * (pct / 100));
+      return { pct, amount, rationale: 'retfærdighed' };
+    }
+
+    function calcAristotle(available, income, wellbeing, capacity) {
+      // Dydsetik: generøsitet er en dyd, ikke en pligt.
+      // Trivslen og kapaciteten tæller tungt — et dydig liv kræver balance.
+      // Aristoteles er den eneste der accepterer et lavt beløb uden bebrejdelse — hvis trivslen er lav.
+      if (available <= 0) return { pct: 0, amount: 0, rationale: 'nul' };
+      // Basiskvotient — moderat
+      let pct;
+      if (available < 2000)       { pct = 4; }
+      else if (available < 5000)  { pct = 7; }
+      else if (available < 10000) { pct = 10; }
+      else                        { pct = 13; }
+      // Trivsel og kapacitet justerer markant — mere end hos de andre
+      const wellnessScore = (wellbeing + capacity) / 2;
+      if (wellnessScore < 3)      { pct = Math.max(2, Math.round(pct * 0.5)); }
+      else if (wellnessScore < 5) { pct = Math.round(pct * 0.75); }
+      else if (wellnessScore > 7) { pct = Math.round(pct * 1.25); }
+      const amount = Math.round(available * (pct / 100));
+      return { pct, amount, rationale: 'dyd' };
+    }
+
+    const donationLogic = { kant: calcKant, bentham: calcBentham, rawls: calcRawls, aristotle: calcAristotle };
+
+    const verdicts = {
+      kant: (available, amount, pct, wellbeing, capacity) => {
+        if (amount <= 0) return `Kant kræver ikke det umulige. Men han kræver noget. Dit rådighedsbeløb er nul — det er et vilkår, ikke en dom.`;
+        return `Pligten er enkel: <em>${pct}%</em> af dit rådighedsbeløb — <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Det er det princip, Kant ville universalisere. Ikke mere. Ikke mindre. For alle.`;
+      },
+      bentham: (available, amount, pct, wellbeing, capacity) => {
+        if (amount <= 0) return `Bentham kan ikke maksimere nytten med et rådighedsbeløb på nul. Systemet anbefaler at du forbedrer din situation — og derefter vender tilbage med tal.`;
+        const annual = amount * 12;
+        const lives = (annual / 3500).toFixed(2);
+        return `<em>${amount.toLocaleString('da-DK')} kr.</em> om måneden — <em>${pct}%</em> af dit rådighedsbeløb. Det er ${annual.toLocaleString('da-DK')} kr. om året. Svarende til <em>${lives} forebyggede dødsfald</em>. Bentham ville ikke kalde det godt nok. Han ville kalde det et udgangspunkt.`;
+      },
+      rawls: (available, amount, pct, wellbeing, capacity) => {
+        if (amount <= 0) return `Bag uvidenhedens slør ville du ikke vide, at dit rådighedsbeløb er nul. Du ville vide, at det måske er nul fordi du blev født det forkerte sted. Det ændrer perspektivet.`;
+        return `Bag uvidenhedens slør — ville du have valgt dette samfund? Rawls estimerer, at din position forpligter dig til <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Det er <em>${pct}%</em> af dit rådighedsbeløb. Ikke fordi det maksimerer nytten. Men fordi det er retfærdigt.`;
+      },
+      aristotle: (available, amount, pct, wellbeing, capacity) => {
+        if (amount <= 0) return `Aristoteles ville ikke bebrejde dig. Men han ville spørge: er dine udgifter et vilkår — eller en vane? Det er et vigtigt spørgsmål at stille sig selv.`;
+        if ((wellbeing + capacity) / 2 < 3) return `Aristoteles kendte den gyldne middelvej. Han ville sige: tag vare på dig selv først. <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden er det, systemet estimerer du kan give uden at kompromittere din egen balance. Det er ikke lidt.`;
+        return `Generøsitet er en dyd — og dyder skal praktiseres for at sidde fast. Aristoteles estimerer <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden — <em>${pct}%</em> af dit rådighedsbeløb. Ikke fordi du er forpligtet. Men fordi det er den slags menneske, du ønsker at være.`;
+      },
+    };
+
+    // =====================
+    // BEREGN
+    // =====================
+    function calculate() {
+      if (!selectedPhilosopher) return;
+
+      const income = parseInt(document.getElementById('income').value) || 0;
+      const rent = parseInt(document.getElementById('rent').value) || 0;
+      const food = parseInt(document.getElementById('food').value) || 0;
+      const transport = parseInt(document.getElementById('transport').value) || 0;
+      const lifestyle = parseInt(document.getElementById('lifestyle').value) || 0;
+      const wellbeing = parseInt(document.getElementById('wellbeing').value);
+      const capacity = parseInt(document.getElementById('capacity').value);
+
+      const totalExpenses = rent + food + transport + lifestyle;
+      const available = Math.max(0, income - totalExpenses);
+
+      // Filosof-specifik beregning
+      const { pct: donationPct, amount: donationAmount } = donationLogic[selectedPhilosopher](available, income, wellbeing, capacity);
+
+      // Status score — baseret på filosoffens egen logik
+      const statusScore = Math.round((donationPct / 2) + (wellbeing / 2) + (capacity / 2));
+      let statusLabel = 'Ukendt';
+      for (const s of statusLabels) {
+        if (statusScore <= s.max) { statusLabel = s.label; break; }
+      }
+
+      // Filosof-specifik kommentar og dom
+      const phil = philosophers[selectedPhilosopher];
+      const commentText = phil.commentFn(available, donationAmount, wellbeing, capacity);
+      const othersData = phil.othersFn(donationAmount, wellbeing);
+      const verdict = verdicts[selectedPhilosopher](available, donationAmount, donationPct, wellbeing, capacity);
+
+      // Populate
+      document.getElementById('result-verdict').innerHTML = verdict;
+      document.getElementById('score-available').textContent = available.toLocaleString('da-DK') + ' kr.';
+      document.getElementById('score-donation').textContent = donationAmount.toLocaleString('da-DK') + ' kr./md.';
+      document.getElementById('score-status').textContent = statusLabel;
+      document.getElementById('philosopher-comment-label').textContent = `${phil.fullName} (${phil.ism})`;
+      document.getElementById('philosopher-comment-text').textContent = commentText;
+
+      // Others
+      const othersList = document.getElementById('others-said-list');
+      othersList.innerHTML = '';
+      for (const o of othersData) {
+        const div = document.createElement('div');
+        div.className = 'others-said-item';
+        div.innerHTML = `<span>${o.name}</span><span>${o.text}</span>`;
+        othersList.appendChild(div);
+      }
+
+      // Kaninhul tekst
+      const otherPhilosophers = Object.keys(philosophers).filter(k => k !== selectedPhilosopher);
+      const nextKey = otherPhilosophers[Math.floor(Math.random() * otherPhilosophers.length)];
+      const nextPhil = philosophers[nextKey];
+      document.getElementById('next-philosopher-name').textContent = nextPhil.fullName;
+      document.getElementById('rabbit-label').textContent = `Du valgte ${phil.fullName}. Der er tre andre svar.`;
+
+      // Show result
+      const resultSection = document.getElementById('result-section');
+      resultSection.style.display = 'block';
+      document.getElementById('dot-3').classList.add('active');
+
+      setTimeout(() => {
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+
+      hasCalculated = true;
+    }
+
+    // =====================
+    // RESTART
+    // =====================
+    function restartWithNewPhilosopher() {
+      // Reset filosofi valg
+      selectedPhilosopher = null;
+      document.querySelectorAll('.philosopher-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('select-hint').textContent = 'Vælg én for at fortsætte ↑';
+
+      // Skjul beregner og resultat
+      document.getElementById('section-calculator').style.display = 'none';
+      document.getElementById('section-calculator').classList.remove('visible');
+      document.getElementById('result-section').style.display = 'none';
+
+      // Reset dots
+      document.getElementById('dot-2').classList.remove('active');
+      document.getElementById('dot-3').classList.remove('active');
+
+      // Scroll til top
+      document.getElementById('section-philosophy').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // =====================
+    // SCROLL ANIMATIONS
+    // =====================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
