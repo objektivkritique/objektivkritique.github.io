@@ -13,7 +13,7 @@
       --text: #e8e4df;
       --gold: #d4a574;
       --red: #c45c5c;
-      --muted: #6b6560;
+      --muted: #999;
       --border: #1e1e1e;
       --card: #111111;
       --card-hover: #161616;
@@ -621,13 +621,13 @@
 
   <nav class="nav">
     <a href="https://objektivkritique.com/index.html" class="nav-back">← Forsiden</a>
-    <span class="nav-brand">Objektiv Kritique™</span>
+    <span class="nav-brand">Objektiv Kritique</span>
   </nav>
 
   <div class="hero">
     <p class="projekt-tag">Projekt 05 — Effektiv Altruisme</p>
     <h1>Er du et <em>godt</em> menneske?</h1>
-    <p class="hero-sub">En algoritmisk undersøgelse af din moralske kapacitet, rådighedsevne og altruistiske potentiale.</p>
+    <p class="hero-sub">Får du også dårlig samvittighed, når du køber en flat white for tredje dag i træk? Denne side undersøger, om du faktisk har råd til at hjælpe andre — og hvad filosoffer gennem tiderne ville have sagt om det.</p>
     <p style="font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.07em;margin-top:1.2rem;line-height:1.8;">
       Vi tracker dig ikke og indsamler ingen personoplysninger.<br>
       Alt kører lokalt i din browser. Vi ved ingenting om dig.
@@ -662,7 +662,7 @@
             <span class="philosopher-ism">Pligtetik</span>
           </div>
           <p class="philosopher-quote">"Handl kun efter den maksime, du samtidig kan ønske at gøre til en almen lov."</p>
-          <p class="philosopher-desc">Du handler rigtigt, hvis du handler efter principper, der gælder for alle. Dine valg er kun etiske, hvis du ville ønske, at alle traf de samme valg.</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du ville ønske, at alle i din situation gjorde det samme. Ikke fordi det er praktisk — men fordi det er den eneste rimelige regel.</p>
         </div>
 
         <div class="philosopher-card" data-philosopher="bentham" onclick="selectPhilosopher('bentham', this)">
@@ -671,7 +671,7 @@
             <span class="philosopher-ism">Nytteetik</span>
           </div>
           <p class="philosopher-quote">"Det størst mulige velvære for det størst mulige antal."</p>
-          <p class="philosopher-desc">Du handler rigtigt, hvis du maksimerer lykke og mindsker lidelse for flest mulige. Effektiv altruisme er i bund og grund nytteetik med et regneark.</p>
+          <p class="philosopher-desc">Du handler rigtigt, hvis du gør mest muligt godt for flest mulige mennesker. Effektiv altruisme er denne tanke med et regneark i hånden.</p>
         </div>
 
         <div class="philosopher-card" data-philosopher="rawls" onclick="selectPhilosopher('rawls', this)">
@@ -680,7 +680,7 @@
             <span class="philosopher-ism">Retfærdighedsetik</span>
           </div>
           <p class="philosopher-quote">"Bag uvidenhedens slør — hvad ville du vælge?"</p>
-          <p class="philosopher-desc">Du handler rigtigt, hvis du ville træffe det samme valg, selv hvis du ikke vidste, hvem du ville blive: rig eller fattig, dansk eller ikke.</p>
+          <p class="philosopher-desc">Forestil dig, at du ikke vidste, om du ville blive født rig eller fattig, i Danmark eller et sted med meget lidt. Ville du stadig synes, din økonomi var retfærdig?</p>
         </div>
 
         <div class="philosopher-card" data-philosopher="aristotle" onclick="selectPhilosopher('aristotle', this)">
@@ -689,7 +689,7 @@
             <span class="philosopher-ism">Dydsetik</span>
           </div>
           <p class="philosopher-quote">"Lykke er sjælens aktivitet i overensstemmelse med dyd."</p>
-          <p class="philosopher-desc">Du handler rigtigt, hvis du lever i overensstemmelse med dine dyder. Det handler ikke om regler eller konsekvenser — men om, hvem du er.</p>
+          <p class="philosopher-desc">Det handler ikke om regler eller tal. Det handler om, hvem du er som menneske — og om dine valg afspejler det bedste i dig.</p>
         </div>
 
       </div>
@@ -712,7 +712,7 @@
           <span class="input-currency">DKK</span>
           <input type="number" id="income" placeholder="0" min="0" oninput="onIncomeChange()" />
         </div>
-        <p class="input-hint">Det beløb, der lander på din konto.</p>
+        <p class="input-hint">Det beløb du får udbetalt efter skat hver måned.</p>
       </div>
 
       <!-- SAMMENLIGNING 1 - INDKOMST -->
@@ -753,7 +753,7 @@
           <span class="input-currency">DKK</span>
           <input type="number" id="lifestyle" placeholder="0" min="0" oninput="onLifestyleChange()" />
         </div>
-        <p class="input-hint">Vær ærlig. Algoritmen ved det alligevel.</p>
+        <p class="input-hint">Kaffe, takeaway, streaming, tøj, sport, apps — alt det der ikke er husleje og mad.</p>
       </div>
 
       <!-- SAMMENLIGNING 3 - LIVSSTIL -->
@@ -767,11 +767,11 @@
         </div>
         <input type="range" id="wellbeing" min="1" max="10" value="5" oninput="onWellbeingChange()" />
         <div class="slider-labels">
-          <span>Klarer mig</span>
-          <span>Har det godt</span>
-          <span>Optimal</span>
+          <span>Ikke særlig godt</span>
+          <span>Nogenlunde</span>
+          <span>Rigtig godt</span>
         </div>
-        <p class="input-hint" style="margin-top:0.8rem;" id="wellbeing-comment">Dit velvære er en variabel i beregningen.</p>
+        <p class="input-hint" style="margin-top:0.8rem;" id="wellbeing-comment">Har du det godt? Det har faktisk betydning for, hvad der er rimeligt at forvente af dig.</p>
       </div>
 
       <!-- KAPACITET -->
@@ -782,18 +782,18 @@
         </div>
         <input type="range" id="capacity" min="1" max="10" value="5" oninput="onCapacityChange()" />
         <div class="slider-labels">
-          <span>Meget lidt</span>
-          <span>Noget</span>
-          <span>Masser</span>
+          <span>Ingenting tilbage</span>
+          <span>Lidt at give af</span>
+          <span>Masser af overskud</span>
         </div>
-        <p class="input-hint" style="margin-top:0.8rem;" id="capacity-comment">Kapacitet er en forudsætning for at give. Systemet tager højde for det.</p>
+        <p class="input-hint" style="margin-top:0.8rem;" id="capacity-comment">Har du overskud i hverdagen? Det spiller ind på, hvad der er realistisk for dig.</p>
       </div>
 
       <!-- SAMMENLIGNING 4 - TRIVSEL/KAPACITET -->
       <div class="comparison-flash" id="flash-wellness"></div>
 
       <button class="calc-btn" id="calc-btn" onclick="calculate()" disabled>
-        Beregn min moralske status
+        Beregn — er du et godt menneske?
       </button>
     </section>
 
@@ -805,15 +805,15 @@
         <p class="result-verdict" id="result-verdict"></p>
         <div class="result-score-row">
           <div class="result-score-item">
-            <p class="result-score-label">Rådighedsbeløb</p>
+            <p class="result-score-label">Penge til overs</p>
             <p class="result-score-value" id="score-available"></p>
           </div>
           <div class="result-score-item">
-            <p class="result-score-label">Donationskvotient</p>
+            <p class="result-score-label">Hvad du kan give</p>
             <p class="result-score-value" id="score-donation"></p>
           </div>
           <div class="result-score-item">
-            <p class="result-score-label">Godhedsstatus</p>
+            <p class="result-score-label">Din status</p>
             <p class="result-score-value" id="score-status"></p>
           </div>
         </div>
@@ -822,14 +822,14 @@
           <span id="philosopher-comment-text"></span>
         </div>
         <div class="others-said" id="others-said-block">
-          <p class="others-said-label">De andre filosoffer ville have sagt:</p>
+          <p class="others-said-label">Hvad ville de andre filosoffer have sagt?</p>
           <div id="others-said-list"></div>
         </div>
       </div>
 
       <!-- DONATIONER -->
       <p class="donation-intro">
-        Hvad kan du gøre? Her er organisationer, som er vurderet til at skabe dokumenteret effekt.
+        Hvad kan du konkret gøre? Her er organisationer, der er dokumenteret gode til at bruge penge, så de rent faktisk hjælper.
       </p>
 
       <p class="donation-group-label">Internationalt — mest effekt pr. krone</p>
@@ -902,7 +902,7 @@
       </div>
 
       <p class="admin-note">
-        En lav administrationsprocent betyder ikke nødvendigvis, at organisationen gør mest muligt godt. Det indrømmer organisationernes egen brancheforening.*<br><br>
+        En lav administrationsprocent — altså hvor lidt en organisation bruger på kontorer og løn — betyder ikke nødvendigvis, at de gør mest muligt godt. Det indrømmer organisationernes egen brancheforening.*<br><br>
         * ISOBRO, brancheorganisationen for danske indsamlingsorganisationer.
       </p>
 
@@ -939,67 +939,67 @@
         name: 'Kant',
         fullName: 'Immanuel Kant',
         ism: 'Pligtetik',
-        calcIntro: 'Du har valgt pligtetikken. Det betyder, at dine handlinger bedømmes ud fra principper — ikke resultater. Lad os se, om dine principper holder, når vi regner på dem.',
+        calcIntro: 'Du har valgt Kant. Han mente, at du kun handler rigtigt, hvis du ville have, at alle andre i din situation gjorde det samme. Lad os se, hvad det betyder for dig.',
         commentFn: (available, donation, wellbeing, capacity) => {
           const pct = Math.round((donation / (available || 1)) * 100);
           if (wellbeing < 4) return `Kant ville bemærke, at du hævder at have det dårligt. Men en pligtmæssig analyse ændrer ikke konklusionen: hvis alle med din indkomst brugte samme argument, ville ingen nogensinde donere. Pligten gælder uanset dit humør.`;
-          if (pct < 5) return `Hvad nu hvis alle med din indkomst traf det samme valg? Kant ville kalde det en universallov — og konstatere, at en verden hvor ingen med din økonomi donerer mere end ${pct}%, er en verden du næppe selv ville vælge at leve i.`;
-          return `Kant ville nikke. Du handler efter et princip, du kan ønske at alle følger. Det er ikke det samme som at sige, at du er et godt menneske. Men det er et skridt.`;
+          if (pct < 5) return `Kant ville spørge: hvad nu hvis alle med din indkomst valgte det samme som dig? Ville det være en god verden at leve i? Det er hans eneste målestok.`;
+          return `Kant ville nikke. Du handler efter et princip, der godt kan gælde for alle. Det er ikke det samme som at sige, at du er et godt menneske — men det er et skridt i den rigtige retning.`;
         },
         othersFn: (donation, wellbeing) => [
-          { name: 'Bentham', text: `ville have sat et tal på det. Og tallet ville have gjort dig urolig.` },
-          { name: 'Rawls', text: `ville have spurgt: ville du have valgt dette beløb, hvis du ikke vidste, om du var dig — eller nogen fra Mozambique?` },
-          { name: 'Aristoteles', text: `ville have ignoreret beløbet og spurgt om din karakter. Er det generøsitet — eller beregning?` }
+          { name: 'Bentham', text: `ville have regnet det ud i antal reddede liv. Og det ville have gjort dig urolig.` },
+          { name: 'Rawls', text: `ville have spurgt: ville du have valgt det samme, hvis du ikke vidste, om du var dig — eller et barn i Mozambique?` },
+          { name: 'Aristoteles', text: `ville have ignoreret beløbet og i stedet spurgt: er du den slags person, der naturligt giver — eller gør du det kun, når nogen regner på det?` }
         ]
       },
       bentham: {
         name: 'Bentham',
         fullName: 'Bentham / Mill',
         ism: 'Nytteetik',
-        calcIntro: 'Du har valgt nytteetikken — det samme fundament som effektiv altruisme. Lykke skal maksimeres. Lidelse skal minimeres. Alt andet er støj. Lad os kvantificere din indsats.',
+        calcIntro: 'Du har valgt Bentham. Han mente, at det eneste der tæller er, hvor meget godt du kan gøre for flest mulige mennesker. Lad os regne på det.',
         commentFn: (available, donation, wellbeing, capacity) => {
           const annual = donation * 12;
           const lives = (annual / 3500).toFixed(2);
           const nets = Math.round(annual / 50);
-          if (wellbeing < 4) return `Din trivselsscore er lav. Systemet registrerer dette — og justerer. Anbefalet tiltag: restitution i op til 4 uger, efterfulgt af genoptagelse af donationsplan. Lidelse er en variabel. Også din.`;
+          if (wellbeing < 4) return `Du har det ikke godt lige nu. Bentham ville faktisk tage det alvorligt — din lidelse tæller lige så meget som andres. Prøv at komme på fode, og kom tilbage.`;
           return `${annual.toLocaleString('da-DK')} kr. om året svarer til ${lives} forebyggede dødsfald — eller ${nets} myggenet. Bentham ville ikke spørge om du har det godt. Han ville spørge om du gør det.`;
         },
         othersFn: (donation, wellbeing) => [
-          { name: 'Kant', text: `ville have ignoreret tallene og spurgt om princippet bag din beslutning.` },
-          { name: 'Rawls', text: `ville have påpeget, at du valgte dette beløb velvidende om, hvem du er. Det er ikke neutralt.` },
-          { name: 'Aristoteles', text: `ville have sagt, at et godt menneske ikke donerer for at blive fri for dårlig samvittighed.` }
+          { name: 'Kant', text: `ville have ignoreret tallene og spurgt: er det her et princip, du ville ønske alle fulgte?` },
+          { name: 'Rawls', text: `ville have sagt: du valgte dette beløb, fordi du ved, hvem du er. Hvad ville du have valgt, hvis du ikke vidste det?` },
+          { name: 'Aristoteles', text: `ville have sagt: et godt menneske giver, fordi det er den slags person, det er — ikke for at slippe for dårlig samvittighed.` }
         ]
       },
       rawls: {
         name: 'Rawls',
         fullName: 'John Rawls',
         ism: 'Retfærdighedsetik',
-        calcIntro: 'Du har valgt retfærdighedsetikken. Forestil dig, at du ikke vidste, hvem du ville blive født som. Dansk eller ikke. Rig eller fattig. Sund eller syg. Ville du stadig synes, din økonomi var rimelig?',
+        calcIntro: 'Du har valgt Rawls. Han stillede ét spørgsmål: hvad ville du have valgt, hvis du ikke vidste, om du ville blive født rig eller fattig, i Danmark eller i Niger? Lad os se, hvad dit svar betyder.',
         commentFn: (available, donation, wellbeing, capacity) => {
-          if (wellbeing < 4) return `Rawls ville anerkende din situation. Men bag uvidenhedens slør ville du ikke vide, at du har det dårligt. Du ville vide, at du måske er et barn i Sahel. Det ændrer beregningen.`;
+          if (wellbeing < 4) return `Rawls ville forstå din situation. Men han ville minde dig om: bag det slør han talte om, ville du ikke vide, at du er den, der har det svært — du ville måske være det barn i Sahel. Det ændrer perspektivet lidt.`;
           const pct = Math.round((donation / (available || 1)) * 100);
           return `Bag uvidenhedens slør — ville du have valgt de præmisser, din økonomi hviler på? ${pct}% til andre. Resten til dig selv. Rawls ville ikke kalde det uretfærdigt. Han ville kalde det et valg. Det er ikke det samme.`;
         },
         othersFn: (donation, wellbeing) => [
-          { name: 'Kant', text: `ville have kaldt det en pligt — ikke et valg. Det er en vigtig skelnen.` },
-          { name: 'Bentham', text: `ville have lavet et regneark. Det ville have set anderledes ud.` },
-          { name: 'Aristoteles', text: `ville have spurgt, om du er den type person, der naturligt handler retfærdigt — eller om du gør det, fordi du blev spurgt.` }
+          { name: 'Kant', text: `ville have sagt: det er ikke et valg, det er en pligt. Og pligten gælder for alle med din indkomst.` },
+          { name: 'Bentham', text: `ville have omregnet dit beløb til antal reddede liv. Tallet ville have set anderledes ud.` },
+          { name: 'Aristoteles', text: `ville have spurgt: er du naturligt retfærdig — eller gør du det kun, fordi nogen spurgte?` }
         ]
       },
       aristotle: {
         name: 'Aristoteles',
         fullName: 'Aristoteles',
         ism: 'Dydsetik',
-        calcIntro: 'Du har valgt dydsetikken. Det handler ikke om regler eller kalkuler — men om hvem du er. Er du den type person, der naturligt handler godt? Lad os undersøge det.',
+        calcIntro: 'Du har valgt Aristoteles. Han mente ikke, at moral handler om regler eller tal. Det handler om, hvem du er som menneske. Lad os se, hvad dine tal siger om det.',
         commentFn: (available, donation, wellbeing, capacity) => {
-          if (capacity < 4) return `Aristoteles kendte begrebet om den gyldne middelvej. Han ville ikke kræve det umulige af dig. Men han ville spørge: er dit lave overskud et vilkår — eller en vane?`;
-          if (wellbeing < 4) return `Et dydig liv kræver, at man har det godt nok til at handle godt. Aristoteles ville sige, at du først skal tage vare på dig selv. Men han ville tilføje: pas på, at det ikke bliver en undskyldning.`;
-          return `Aristoteles ville ikke spørge om beløbet. Han ville spørge: er generøsitet en del af din karakter — eller er dette en beregning? Et godt menneske donerer ikke for at undgå dårlig samvittighed. Det gør det, fordi det er den slags menneske, det er.`;
+          if (capacity < 4) return `Aristoteles talte om balance. Han ville ikke kræve det umulige af dig. Men han ville stille ét spørgsmål: er du presset af omstændighederne — eller er det en vane, du kan ændre?`;
+          if (wellbeing < 4) return `Aristoteles ville sige: pas på dig selv først. Men han ville tilføje med et smil: pas på, at det ikke bare bliver en undskyldning for aldrig at komme i gang.`;
+          return `Aristoteles ville ikke kigge på tallene. Han ville spørge: giver du, fordi du er den slags person der giver — eller fordi du fik dårlig samvittighed? Det er faktisk en forskel, der betyder noget.`;
         },
         othersFn: (donation, wellbeing) => [
-          { name: 'Kant', text: `ville have sagt, at karakter er irrelevant. Kun principper tæller.` },
-          { name: 'Bentham', text: `ville have omregnet din generøsitet til DALY-ækvivalenter og fundet den utilstrækkelig.` },
-          { name: 'Rawls', text: `ville have spurgt, om du ville have valgt det samme, hvis du ikke vidste, hvem du var.` }
+          { name: 'Kant', text: `ville have sagt: karakter er ligegyldigt. Det eneste der tæller er, om du følger et princip alle kan følge.` },
+          { name: 'Bentham', text: `ville have omregnet din generøsitet til antal reddede liv — og sandsynligvis fundet den for lille.` },
+          { name: 'Rawls', text: `ville have stillet ét spørgsmål: ville du have valgt det samme, hvis du ikke vidste, om du var dig?` }
         ]
       }
     };
@@ -1087,9 +1087,9 @@
       expenses: [], // filosof-specifik — se philosopherComparisons
       lifestyle: [], // bruges ikke direkte — se philosopherComparisons
       wellness: [
-        (wb, cap) => wb < 4 && cap < 4 ? `Du har både lav trivsel og lavt overskud. Systemet registrerer dette som en <strong>kapacitetsbegrænsning</strong>. Anbefalet tiltag: stabiliser egen situation først. Derefter: genoptag beregning.` : null,
-        (wb, cap) => wb >= 7 && cap >= 7 ? `Du har det godt og har overskud. Aristoteles ville kalde det en mulighed. Rawls ville kalde det et privilegium. Kant ville kalde det en pligt. De er enige om <strong>konklusionen</strong>.` : null,
-        (wb, cap) => (wb >= 4 && cap >= 4 && !(wb >= 7 && cap >= 7)) ? `Middelmådig trivsel og moderat kapacitet. Det er den tilstand, de fleste er i. Det ændrer ikke beregningens konklusion — bare dens tålmodighed.` : null,
+        (wb, cap) => wb < 4 && cap < 4 ? `Du har det ikke godt og har ikke meget overskud. Det er en reel begrænsning. Prøv at stabilisere din egen situation først — og kom tilbage bagefter.` : null,
+        (wb, cap) => wb >= 7 && cap >= 7 ? `Du har det godt og har overskud. Aristoteles ville kalde det en mulighed. Rawls ville kalde det et heldigt tilfælde. Kant ville kalde det en pligt. Alle tre peger i samme retning.` : null,
+        (wb, cap) => (wb >= 4 && cap >= 4 && !(wb >= 7 && cap >= 7)) ? `Du har det nogenlunde og har lidt at give af. Det er der, de fleste befinder sig. Konklusionen er den samme — bare lidt mere tålmodig.` : null,
       ]
     };
 
@@ -1196,9 +1196,9 @@
       document.getElementById('wellbeing-label').textContent = `${wb} / 10`;
 
       const comments = [
-        [1, 3, 'Dit velvære er lavt. Systemet noterer dette som en legitim begrænsning — foreløbigt.'],
-        [4, 6, 'Moderat trivsel. Tilstrækkeligt til at overveje andre.'],
-        [7, 10, 'God trivsel. Kapaciteten til at handle godt er til stede.'],
+        [1, 3, 'Du har det ikke godt lige nu. Det tæller. Ikke alle filosoffer er enige om hvor meget — men det tæller.'],
+        [4, 6, 'Du klarer dig. Det er nok til at begynde at tænke på andre.'],
+        [7, 10, 'Du har det godt. Det er et godt udgangspunkt for at hjælpe andre.'],
       ];
       for (const [min, max, text] of comments) {
         if (wb >= min && wb <= max) { document.getElementById('wellbeing-comment').textContent = text; break; }
@@ -1212,9 +1212,9 @@
       document.getElementById('capacity-label').textContent = `${cap} / 10`;
 
       const comments = [
-        [1, 3, 'Lavt overskud er en reel begrænsning. Systemet tager højde for det.'],
-        [4, 6, 'Moderat kapacitet. Nok til at begynde.'],
-        [7, 10, 'Højt overskud. Det er en variabel med konsekvenser.'],
+        [1, 3, 'Lavt overskud er en reel begrænsning. Det er der taget højde for.'],
+        [4, 6, 'Du har lidt at give af. Nok til at det giver mening.'],
+        [7, 10, 'Du har masser af overskud. Det er de fleste filosoffer enige om, at du bør bruge.'],
       ];
       for (const [min, max, text] of comments) {
         if (cap >= min && cap <= max) { document.getElementById('capacity-comment').textContent = text; break; }
@@ -1311,7 +1311,7 @@
     const verdicts = {
       kant: (available, amount, pct, wellbeing, capacity) => {
         if (amount <= 0) return `Kant kræver ikke det umulige. Men han kræver noget. Dit rådighedsbeløb er nul — det er et vilkår, ikke en dom.`;
-        return `Pligten er enkel: <em>${pct}%</em> af dit rådighedsbeløb — <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Det er det princip, Kant ville universalisere. Ikke mere. Ikke mindre. For alle.`;
+        return `Kant holder det enkelt: <em>${pct}%</em> af det du har til overs — <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Samme procent for alle. Det er den eneste regel, der er retfærdig for alle.`;
       },
       bentham: (available, amount, pct, wellbeing, capacity) => {
         if (amount <= 0) return `Bentham kan ikke maksimere nytten med et rådighedsbeløb på nul. Systemet anbefaler at du forbedrer din situation — og derefter vender tilbage med tal.`;
@@ -1321,12 +1321,12 @@
       },
       rawls: (available, amount, pct, wellbeing, capacity) => {
         if (amount <= 0) return `Bag uvidenhedens slør ville du ikke vide, at dit rådighedsbeløb er nul. Du ville vide, at det måske er nul fordi du blev født det forkerte sted. Det ændrer perspektivet.`;
-        return `Bag uvidenhedens slør — ville du have valgt dette samfund? Rawls estimerer, at din position forpligter dig til <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Det er <em>${pct}%</em> af dit rådighedsbeløb. Ikke fordi det maksimerer nytten. Men fordi det er retfærdigt.`;
+        return `Forestil dig, at du ikke vidste, om du var dig — eller en tilfældig person et andet sted i verden. Rawls mener, at du i så fald ville vælge at give <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden. Det er <em>${pct}%</em> af det du har til overs. Ikke af pligt — men fordi det er fair.`;
       },
       aristotle: (available, amount, pct, wellbeing, capacity) => {
         if (amount <= 0) return `Aristoteles ville ikke bebrejde dig. Men han ville spørge: er dine udgifter et vilkår — eller en vane? Det er et vigtigt spørgsmål at stille sig selv.`;
         if ((wellbeing + capacity) / 2 < 3) return `Aristoteles kendte den gyldne middelvej. Han ville sige: tag vare på dig selv først. <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden er det, systemet estimerer du kan give uden at kompromittere din egen balance. Det er ikke lidt.`;
-        return `Generøsitet er en dyd — og dyder skal praktiseres for at sidde fast. Aristoteles estimerer <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden — <em>${pct}%</em> af dit rådighedsbeløb. Ikke fordi du er forpligtet. Men fordi det er den slags menneske, du ønsker at være.`;
+        return `At give er ikke en pligt — det er en vane, der former dig. Aristoteles mener, at du kan give <em>${amount.toLocaleString('da-DK')} kr.</em> om måneden — <em>${pct}%</em> af det du har til overs. Ikke fordi nogen tvinger dig. Men fordi det er den slags person, du gerne vil være.`;
       },
     };
 
@@ -1386,7 +1386,7 @@
       const nextKey = otherPhilosophers[Math.floor(Math.random() * otherPhilosophers.length)];
       const nextPhil = philosophers[nextKey];
       document.getElementById('next-philosopher-name').textContent = nextPhil.fullName;
-      document.getElementById('rabbit-label').textContent = `Du valgte ${phil.fullName}. Der er tre andre svar.`;
+      document.getElementById('rabbit-label').textContent = `Du valgte ${phil.fullName}. Tre andre filosoffer ville have svaret anderledes.`;
 
       // Show result
       const resultSection = document.getElementById('result-section');
