@@ -95,12 +95,23 @@
 
     /* FÆLLES PANEL */
     .panel-wrap { max-width: 580px; width: 100%; }
+    @media (min-width: 1024px) {
+      .panel-wrap { max-width: 760px; }
+      .pg { padding: 4rem 3rem; }
+      .verdict { font-size: 1.5rem; max-width: 640px; }
+      .pill-wrap svg { width: 360px; height: 108px; }
+      .pill-wrap svg[viewBox] { width: 360px; }
+    }
     .ptag {
-      font-size: 9px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: .8rem;
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: .02em;
+      text-transform: none;
+      color: #c8c4bf;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
       text-align: center;
     }
     .dname {
@@ -120,7 +131,7 @@
       margin-bottom: 1.75rem;
     }
     .full-img {
-      width: 100%;
+      width: 60%;
       display: block;
       margin: 0 auto 2rem;
       border: 1px solid #222;
