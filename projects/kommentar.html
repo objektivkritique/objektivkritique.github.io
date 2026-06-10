@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projekt 06 — Objektiv Kritique</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #0a0a0a;
+      color: #e8e4df;
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+    }
+
+    .pg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 3rem 1.5rem;
+    }
+    .pg.on { display: flex; }
+
+    /* FORSIDE */
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: #888;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .verdict {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      color: #e8e4df;
+      text-align: center;
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 3rem;
+    }
+    .verdict em { font-style: italic; color: #d4a574; }
+    .pills {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    .pill-wrap { cursor: pointer; }
+    .pill-wrap svg { display: block; }
+    .foot {
+      font-size: 9px;
+      letter-spacing: .12em;
+      color: #888;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* FÆLLES PANEL */
+    .panel-wrap { max-width: 580px; width: 100%; }
+    .ptag {
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: .8rem;
+      text-align: center;
+    }
+    .dname {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 600;
+      color: #d4a574;
+      text-align: center;
+      margin-bottom: .3rem;
+      line-height: 1.2;
+    }
+    .dsub {
+      font-size: 9px;
+      color: #888;
+      text-align: center;
+      letter-spacing: .1em;
+      margin-bottom: 1.75rem;
+    }
+    .full-img {
+      width: 100%;
+      display: block;
+      margin: 0 auto 2rem;
+      border: 1px solid #222;
+    }
+    .sec { margin-bottom: 1.75rem; }
+    .slabel {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: .5rem;
+      padding-bottom: .35rem;
+      border-bottom: 1px solid #282828;
+    }
+    .body {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #c8c4bf;
+    }
+    .clist { list-style: none; }
+    .clist li {
+      font-family: 'Crimson Pro', serif;
+      font-size: .97rem;
+      color: #c8c4bf;
+      line-height: 1.55;
+      padding: .45rem 0;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      gap: .65rem;
+      align-items: flex-start;
+    }
+    .clist li:last-child { border-bottom: none; }
+    .cn {
+      font-size: 8px;
+      color: #c45c5c;
+      margin-top: .3rem;
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+    }
+    .pbox { border: 1px solid #282828; padding: 1.1rem; margin-top: .4rem; }
+    .ptext {
+      font-family: 'Crimson Pro', serif;
+      font-size: .97rem;
+      color: #aaa;
+      line-height: 1.7;
+      font-style: italic;
+    }
+    .back {
+      font-size: 9px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #888;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-top: 2rem;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: .5rem;
+      transition: color .15s;
+      font-family: 'Space Mono', monospace;
+    }
+    .back:hover { color: #e8e4df; }
+    .disc {
+      font-size: 8px;
+      color: #666;
+      text-align: center;
+      margin-top: 1rem;
+      letter-spacing: .04em;
+      font-family: 'Space Mono', monospace;
+      line-height: 1.6;
+    }
+
+    /* REACH */
+    .rtitle {
+      font-family: 'Crimson Pro', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 600;
+      color: #c45c5c;
+      text-align: center;
+      margin-bottom: .3rem;
+    }
+    .reach-preamble {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #c8c4bf;
+      margin-bottom: 1.75rem;
+    }
+    .acro {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      margin-bottom: 1.75rem;
+      padding: 1.1rem;
+      border: 1px solid #282828;
+    }
+    .arow { display: flex; gap: 0; align-items: baseline; }
+    .al {
+      font-size: 13px;
+      color: #c45c5c;
+      width: 16px;
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+    }
+    .aw {
+      font-size: 10px;
+      color: #d4a574;
+      font-family: 'Space Mono', monospace;
+    }
+    .reach-goal {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #e8e4df;
+      border-left: 2px solid #c45c5c;
+      padding: .6rem 1rem;
+      margin-bottom: 2rem;
+    }
+    .week-block { margin-bottom: 2.25rem; }
+    .week-label {
+      font-size: 9px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #c45c5c;
+      margin-bottom: .4rem;
+      font-family: 'Space Mono', monospace;
+    }
+    .week-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #d4a574;
+      margin-bottom: .75rem;
+    }
+    .week-img {
+      width: 100%;
+      display: block;
+      border: 1px solid #222;
+      margin-bottom: .5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- FORSIDE -->
+<div class="pg on" id="pg-main">
+  <div class="eyebrow">Objektiv Kritique — Projekt 06</div>
+  <p class="verdict">Du har modtaget dette link, fordi din kommentar <em>fortjener det.</em></p>
+
+  <div class="pills">
+
+    <div class="pill-wrap" onclick="show('diagnosis')" style="filter:drop-shadow(0 6px 18px rgba(30,80,180,0.5));">
+      <svg viewBox="0 0 300 90" width="300" height="90" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="cl-b"><rect x="0" y="0" width="300" height="90" rx="45" ry="45"/></clipPath>
+          <linearGradient id="bg-b" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3a72cc"/>
+            <stop offset="40%" stop-color="#1a4a8a"/>
+            <stop offset="100%" stop-color="#0d2a52"/>
+          </linearGradient>
+          <linearGradient id="bg-y" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0cc30"/>
+            <stop offset="40%" stop-color="#c8a820"/>
+            <stop offset="100%" stop-color="#8a7010"/>
+          </linearGradient>
+          <linearGradient id="shine-b" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="white" stop-opacity="0.18"/>
+            <stop offset="50%" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="300" height="90" rx="45" ry="45" fill="url(#bg-b)"/>
+        <rect x="150" y="0" width="150" height="90" fill="url(#bg-y)" clip-path="url(#cl-b)"/>
+        <line x1="150" y1="2" x2="150" y2="88" stroke="#0a0a0a" stroke-width="2"/>
+        <rect x="0" y="0" width="300" height="90" rx="45" ry="45" fill="url(#shine-b)"/>
+        <ellipse cx="150" cy="18" rx="110" ry="10" fill="white" fill-opacity="0.07"/>
+        <text x="75" y="36" text-anchor="middle" fill="#deeeff" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">HVAD ER DER</text>
+        <text x="75" y="50" text-anchor="middle" fill="#deeeff" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">GALT MED MIN</text>
+        <text x="75" y="64" text-anchor="middle" fill="#deeeff" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">KOMMENTAR?</text>
+        <text x="225" y="41" text-anchor="middle" fill="#3a2800" font-family="monospace" font-size="9" font-weight="bold">DIAGNOSE</text>
+        <text x="225" y="55" text-anchor="middle" fill="#3a2800" font-family="monospace" font-size="9">IDF-2</text>
+      </svg>
+    </div>
+
+    <div class="pill-wrap" onclick="show('reach')" style="filter:drop-shadow(0 6px 18px rgba(180,30,30,0.5));">
+      <svg viewBox="0 0 300 90" width="300" height="90" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="cl-r"><rect x="0" y="0" width="300" height="90" rx="45" ry="45"/></clipPath>
+          <linearGradient id="bg-r" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#cc3333"/>
+            <stop offset="40%" stop-color="#8a1a1a"/>
+            <stop offset="100%" stop-color="#4a0d0d"/>
+          </linearGradient>
+          <linearGradient id="bg-y2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f0cc30"/>
+            <stop offset="40%" stop-color="#c8a820"/>
+            <stop offset="100%" stop-color="#8a7010"/>
+          </linearGradient>
+          <linearGradient id="shine-r" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="white" stop-opacity="0.18"/>
+            <stop offset="50%" stop-color="white" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="300" height="90" rx="45" ry="45" fill="url(#bg-r)"/>
+        <rect x="150" y="0" width="150" height="90" fill="url(#bg-y2)" clip-path="url(#cl-r)"/>
+        <line x1="150" y1="2" x2="150" y2="88" stroke="#0a0a0a" stroke-width="2"/>
+        <rect x="0" y="0" width="300" height="90" rx="45" ry="45" fill="url(#shine-r)"/>
+        <ellipse cx="150" cy="18" rx="110" ry="10" fill="white" fill-opacity="0.07"/>
+        <text x="75" y="36" text-anchor="middle" fill="#ffe8e8" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">HVAD HAR JEG</text>
+        <text x="75" y="50" text-anchor="middle" fill="#ffe8e8" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">ÆGTE BRUG FOR</text>
+        <text x="75" y="64" text-anchor="middle" fill="#ffe8e8" font-family="monospace" font-size="10" font-weight="bold" letter-spacing="0.4">LIGE NU?</text>
+        <text x="225" y="41" text-anchor="middle" fill="#3a2800" font-family="monospace" font-size="9" font-weight="bold">BEHANDLING</text>
+        <text x="225" y="55" text-anchor="middle" fill="#3a2800" font-family="monospace" font-size="9">REACH</text>
+      </svg>
+    </div>
+
+  </div>
+  <div class="foot">Vælg din pille — Ingen af dem er gode nyheder</div>
+</div>
+
+<!-- BLÅ PILLE: DIAGNOSE -->
+<div class="pg" id="pg-diagnosis">
+  <div class="ptag">Du lider muligvis af</div>
+  <div class="dname">Impulsiv Diskursforstyrrelse</div>
+  <div class="dsub">IDF-2 &nbsp;·&nbsp; Klassificeret 2007 &nbsp;·&nbsp; Revideret 2024</div>
+  <div class="panel-wrap">
+    <img class="full-img" src="../assets/kommentar/01brain.png" alt="Inflammeret hjerne med tom kommentarboks">
+    <div class="sec">
+      <div class="slabel">Beskrivelse</div>
+      <p class="body">Impulsiv Diskursforstyrrelse er karakteriseret ved manglende evne til at bearbejde information, inden man reagerer på det. Det gør sig især gældende på sociale medier, hvor man kan blive fristet til at udgyde irrelevante kommentarer, der afsporer debatten. Efter mere end 20 år med sociale medier er tilstanden stadig ubehandlet hos et overraskende stort antal brugere.</p>
+    </div>
+    <div class="sec">
+      <div class="slabel">Diagnostiske kriterier — mindst 2 skal være opfyldt</div>
+      <ul class="clist">
+        <li><span class="cn">01</span>Kommentaren er skrevet inden eller uden opslaget er færdiglæst.</li>
+        <li><span class="cn">02</span>Kommentaren handler om noget andet end det, opslaget handler om.</li>
+        <li><span class="cn">03</span>Kommentaren simplificerer en problemstilling i en skadelig grad.</li>
+        <li><span class="cn">04</span>Kommentaren ville ikke være skrevet, hvis afsenderen havde sovet på det.</li>
+      </ul>
+    </div>
+    <div class="sec">
+      <div class="slabel">Prognose</div>
+      <div class="pbox">
+        <p class="ptext">De fleste, der lider af Impulsiv Diskursforstyrrelse, oplever ikke, at de har et problem — hvilket er en del af tilstanden. Symptomerne forværres i perioder med stærke følelser, lav kapacitet og politisk valgkamp.</p>
+      </div>
+    </div>
+  </div>
+  <button class="back" onclick="show('main')">← Tilbage</button>
+  <div class="disc">Dette er ikke medicinsk rådgivning. Eller måske er det.</div>
+</div>
+
+<!-- RØD PILLE: REACH -->
+<div class="pg" id="pg-reach">
+  <div class="rtitle">REACH-programmet</div>
+  <div class="dsub">6-ugers individuelt forløb &nbsp;·&nbsp; Ingen venteliste</div>
+  <div class="panel-wrap">
+    <p class="reach-preamble">Du har valgt den røde pille, der fortæller dig, hvad du ægte har brug for. Du har brug for det 6 uger lange REACH-program:</p>
+    <div class="acro">
+      <div class="arow"><span class="al">R</span><span class="aw">Rigtig</span></div>
+      <div class="arow"><span class="al">E</span><span class="aw">Effektiv</span></div>
+      <div class="arow"><span class="al">A</span><span class="aw">Afledning</span></div>
+      <div class="arow"><span class="al">C</span><span class="aw">Gennem</span></div>
+      <div class="arow"><span class="al">H</span><span class="aw">Kropslig Handling</span></div>
+    </div>
+    <div class="reach-goal">
+      Målet er, at du efter 6 uger kan nå dit eget underliv med din mund. Dine kommentarer på sociale medier bliver automatisk blidere og mere brugbare, når du dagligt stimulerer dig selv.
+    </div>
+    <div class="week-block">
+      <div class="week-label">Uge 1–2</div>
+      <div class="week-title">Indledende øvelser</div>
+      <img class="week-img" src="../assets/kommentar/02uge1-2.png" alt="Seated forward fold og cat-cow">
+    </div>
+    <div class="week-block">
+      <div class="week-label">Uge 3–4</div>
+      <div class="week-title">Primære øvelser</div>
+      <img class="week-img" src="../assets/kommentar/03uge3-4.png" alt="Standing toe touch, straddle stretch og spinal rotation">
+    </div>
+    <div class="week-block">
+      <div class="week-label">Uge 5–6</div>
+      <div class="week-title">Vedligeholdelse og integration</div>
+      <img class="week-img" src="../assets/kommentar/04uge5-6.png" alt="Fuld integration">
+    </div>
+    <div class="pbox">
+      <p class="ptext">Deltagere, der gennemfører REACH, bruger markant mindre tid på sociale medier. Årsagerne er ikke videnskabeligt underbygget, men tid væk fra skærmen og en gladere libido kan sagtens være plausible forklaringer.</p>
+    </div>
+  </div>
+  <button class="back" onclick="show('main')">← Tilbage</button>
+  <div class="disc">REACH er et satirisk behandlingsprogram. Effekten er ikke klinisk dokumenteret. Uge 5–6 er dog reel.</div>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.pg').forEach(function(el) {
+      el.classList.remove('on');
+    });
+    document.getElementById('pg-' + id).classList.add('on');
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
