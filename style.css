@@ -41,12 +41,12 @@ body::before {
 a { color: inherit; }
 
 .container {
-  max-width: 920px;
+  width: min(92vw, 1400px);
   margin: 0 auto;
-  padding: 40px 24px 80px;
+  padding: 40px 0 80px;
 }
 
-.narrow { max-width: 640px; }
+.narrow { max-width: 700px; }
 
 .site-header {
   display: flex;
@@ -97,19 +97,20 @@ a { color: inherit; }
   text-align: center;
 }
 
+.hero h1 { max-width: 900px; }
+.hero p { max-width: 600px; }
+
 .hero-logo {
   width: min(260px, 62vw);
   display: block;
   margin: 0 auto 22px;
 }
 
-.hero .eyebrow {
-  text-align: center;
-}
+.hero .eyebrow { text-align: center; }
 
 h1 {
   font-family: 'Space Mono', monospace;
-  font-size: clamp(32px, 8vw, 64px);
+  font-size: clamp(32px, 5vw, 64px);
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 32px;
@@ -118,12 +119,13 @@ h1 {
 
 h2 {
   font-family: 'Space Mono', monospace;
-  font-size: clamp(24px, 5vw, 40px);
+  font-size: clamp(22px, 3vw, 40px);
   line-height: 1.2;
   margin-bottom: 24px;
 }
 
-h3 {  word-break: break-word;
+h3 {
+  word-break: break-word;
   overflow-wrap: break-word;
   font-size: 24px;
   font-weight: 500;
@@ -192,16 +194,12 @@ p {
 .project-card {
   display: block;
   background: var(--surface);
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--danger);
   padding: 24px;
   color: var(--text);
   text-decoration: none;
   min-height: 300px;
   transition: all 0.25s ease;
-}
-
-.project-card {
-  border-left-color: var(--danger);
 }
 
 .project-card:hover {
@@ -212,7 +210,6 @@ p {
 
 .muted-card {
   opacity: 1;
-  border-left-color: var(--danger);
 }
 
 .project-card p {
@@ -270,7 +267,7 @@ p {
 }
 
 @media (max-width: 760px) {
-  .container { padding: 28px 18px 60px; }
+  .container { width: 100%; padding: 28px 18px 60px; }
   .site-header { flex-direction: column; margin-bottom: 48px; }
   .nav { justify-content: flex-start; }
   .project-grid, .split { grid-template-columns: 1fr; }
@@ -279,12 +276,7 @@ p {
 }
 
 @media (min-width: 1024px) {
-  .container { max-width: 1100px; padding: 56px 48px 100px; }
-  .narrow { max-width: 780px; }
   body { font-size: 20px; }
-  h1 { font-size: 72px; }
-  h2 { font-size: 44px; }
-  .project-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .project-card { min-height: 320px; padding: 32px; }
   .section { padding: 96px 0; }
   .site-header { margin-bottom: 96px; }
