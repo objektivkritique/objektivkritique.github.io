@@ -85,7 +85,17 @@ a { color: inherit; }
 
 .nav a:hover { color: var(--accent); }
 
-.hero { padding: 24px 0 80px; }
+.hero {
+  padding: 24px 0 80px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero h1, .hero p, .hero .privacy-note, .hero .button {
+  text-align: center;
+}
 
 .hero-logo {
   width: min(260px, 62vw);
