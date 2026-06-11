@@ -91,10 +91,12 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
-.hero h1, .hero p, .hero .privacy-note, .hero .button {
+.hero h1, .hero p, .hero .privacy-note {
   text-align: center;
+  width: 100%;
 }
 
 .hero h1 { max-width: 900px; }
