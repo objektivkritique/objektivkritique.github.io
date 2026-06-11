@@ -7,87 +7,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 <style>
-  body {
-    background: #0a0a0a;
-    color: #e8e4df;
+  body { background: #0a0a0a; color: #e8e4df; }
+
+  .video-embed {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 32px 0 40px;
+    border: 1px solid #222;
   }
-  .teaser-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    text-align: center;
-    padding: 40px 0;
+
+  .video-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
 
   .cover-art {
     width: 100%;
     max-width: 480px;
-    aspect-ratio: 1 / 1;
-    margin: 0 auto 40px;
-    border: 1px solid var(--border);
+    margin: 0 auto 48px;
+    display: block;
   }
 
   .cover-art img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
+    border: 1px solid #222;
   }
 
-  .teaser-title {
+  .article-content {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .article-content h2 {
     font-family: 'Space Mono', monospace;
-    font-size: clamp(24px, 6vw, 36px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 16px;
-    color: var(--text);
-  }
-
-  .teaser-subtitle {
-    font-size: 20px;
-    font-weight: 300;
-    color: var(--text-dim);
-    margin-bottom: 32px;
-    font-style: italic;
-    max-width: 480px;
-    line-height: 1.6;
-  }
-
-  .teaser-date {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(32px, 8vw, 56px);
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-  }
-
-  .teaser-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 48px;
+    color: #d4a574;
+    margin-top: 48px;
+    margin-bottom: 20px;
   }
 
-  .teaser-back {
+  .article-content h3 {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: #e8e4df;
+  }
+
+  .article-content p {
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    color: #e8e4df;
+  }
+
+  .article-content strong {
+    color: #d4a574;
+    font-weight: 500;
+  }
+
+  .article-content em {
+    color: #999;
+    font-style: italic;
+  }
+
+  .fact-box {
+    border-left: 3px solid #d4a574;
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: #141414;
+  }
+
+  .fact-box p {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .fact-box p:last-child { margin-bottom: 0; }
+
+  .back-link {
+    display: inline-block;
     font-family: 'Space Mono', monospace;
     font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: #8a857e;
     text-decoration: none;
-    border: 1px solid var(--border);
+    border: 1px solid #222;
     padding: 14px 28px;
+    margin-top: 48px;
     transition: all 0.3s ease;
   }
 
-  .teaser-back:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+  .back-link:hover {
+    border-color: #d4a574;
+    color: #d4a574;
+  }
+
+  .page-title {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(28px, 6vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: #e8e4df;
+  }
+
+  .page-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    color: #8a857e;
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+
+  .page-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8a857e;
+    margin-bottom: 12px;
   }
 </style>
 </head>
@@ -99,19 +145,86 @@
   </header>
 
   <main>
-    <div class="teaser-page">
+    <div class="article-content">
+
+      <div class="page-label">Projekt 03</div>
+      <div class="page-title">Abdul & Katja</div>
+      <p class="page-subtitle">En satiresang, ingen turde skrive. En musikvideo, ingen turde producere.</p>
+
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/-het_lRDSfY" allowfullscreen></iframe>
+      </div>
+
       <div class="cover-art">
         <img src="../assets/abdul/abdulcover.jpg" alt="Abdul 2026 — Cover">
       </div>
 
-      <div class="teaser-title">Abdul & Katja</div>
+      <h2>BAGGRUND</h2>
 
-      <p class="teaser-subtitle">En satirisk musikvideo om identitet, social kontrol og dobbeltmoral. 20 års jubilæum.</p>
+      <p>I 2006 blev en sang skrevet til en gymnasierevy et sted i Danmark. Den handlede om en arketype, alle kender fra det danske gymnasieliv: ham der spiller gangster men stadig bor hjemme hos mor. Ham der er hardcore muslim til hverdag men knepper "hvide svin" til festerne. Ham der rækker fuck af politiet fra passagersædet i sin storebrors Polo.</p>
 
-      <div class="teaser-date">12. JUNI</div>
-      <div class="teaser-label">Premiere 2026</div>
+      <p>Sangen hed Abdulsangen. Den gik viralt via infrarød og Bluetooth, før noget hed viralt. Folk lagde den op på YouTube med hjemmelavede musikvideoer. Kommentarsporene eksploderede. Stort set alle unge i Danmark har på et tidspunkt hørt den.</p>
 
-      <a href="../index.html" class="teaser-back">← Tilbage</a>
+      <p>Sangen blev aldrig officielt udgivet. Indtil nu.</p>
+
+      <p>Objektiv Kritique har fået overdraget rettighederne til sangen og produceret en ny version med opdateret tekst og en musikvideo i anledning af 20 års jubilæet.</p>
+
+      <h2>HVORFOR ER DEN STADIG RELEVANT?</h2>
+
+      <p>Den dobbeltmoral og sociale kontrol, sangen satiriserer, foregår stadig på danske gymnasier. Lige nu. I dag.</p>
+
+      <p>I maj 2026 afdækkede Berlingske, at tre gymnasier i hovedstadsområdet er udtaget i det såkaldte parallelsamfundstilsyn, fordi muslimske elever systematisk overvåger hinanden: Hvem faster? Hvem drikker? Hvem taler med det modsatte køn? Elever der pludselig tager tørklæde på fra den ene dag til den anden. Folk uden tilknytning til skolen, der møder op for at holde øje med de unge.</p>
+
+      <p>Det er 2026. Ikke 2006.</p>
+
+      <h2>NOGLE TAL OG FAKTA</h2>
+
+      <div class="fact-box">
+        <p>I 2006, da sangen blev skrevet, fandtes "ghettolisten" ikke engang. Den kom først i 2010.</p>
+        <p>I 2020 var der 15 parallelsamfund i Danmark. I 2025 er tallet faldet til 5 (Gellerupparken, Bispehaven, Vollsmose, Sundparken og Tåstrupgård).</p>
+        <p>Dansk Folkeparti nåede sit højdepunkt i 2015 med 21,1% af stemmerne (37 mandater), primært drevet af integrationsdiskussionen.</p>
+        <p>Socialdemokratiet gik til valg i 2019 på stram udlændingepolitik.</p>
+        <p>EU-Domstolen undersøger i 2025-2026, om hele den danske parallelsamfundslovgivning er direkte forskelsbehandling. Generaladvokaten har allerede sagt ja.</p>
+      </div>
+
+      <p>Det politiske marked for den debat, Abdulsangen handler om, har eksisteret uafbrudt i 30 år, så det er altså ikke et modefænomen. Det er et strukturelt problem, selvom højrefløjen forsøger at simplificere det til at handle om en særlig religion.</p>
+
+      <h2>MEN MÅ MAN LAVE SATIRE OM ISLAM?</h2>
+
+      <p>Ja. Satire er beskyttet af <strong>Artikel 10 i Den Europæiske Menneskerettighedskonvention (EMRK)</strong>.</p>
+
+      <p>Men retssagerne, der har været, er et minefelt.</p>
+
+      <p>I 1991 afviste Den Europæiske Menneskerettighedsdomstol (EMD) en klage fra muslimer over Salman Rushdies "De sataniske vers" med begrundelsen, at religionsfrihed ikke indebærer en ret til ikke at blive krænket.</p>
+
+      <p>I Holland blev Geert Wilders frikendt for opildning til had, fordi hans kritik var rettet mod islam som religion, ikke mod individuelle muslimer.</p>
+
+      <p>Men i 2018 (E.S. mod Østrig) gik EMD den modsatte vej og dømte en kvinde, der havde kaldt profeten Muhammad pædofil under et seminar. Domstolen mente, at udtalelsen truede "den religiøse fred." Mange akademikere har rystet på hovedet og kritiseret dommen ret massivt og argumenteret for, at EMD har trodset medlemsstaternes ønsker om at beskytte ytringsfrihedsretlige principper - og i stedet har legitimeret blasfemilove gennem bagdøren.</p>
+
+      <p>En masterafhandling fra Universiteit van Amsterdam (2023) gennemgik samtlige 23 sager fra 2007 til 2021, hvor EMD diskuterede satire. Konklusionen: Domstolens tilgang er inkonsistent og præget af en manglende forståelse for satirens særlige karakter.</p>
+
+      <div class="fact-box">
+        <p><strong>Abdulsangen satiriserer ikke islam som religion.</strong> Den satiriserer den dobbeltmoral, der opstår, når unge mænd bruger religion som identitetsmarkør og magtredskab, mens de selv bryder alle reglerne. Det er ikke blasfemi. Det er social kommentar.</p>
+      </div>
+
+      <p>Abdulsangen blev skrevet i 2006, samme år som Muhammedkrisen eksploderede. Jyllands-Postens kulturredaktør Flemming Rose bestilte dengang tegningerne, fordi han mente, at selvcensur om islam var ved at brede sig i Europa. En fransk appeldomstol fastslog senere, at tegningerne satiriserede en minoritet af ekstremister inden for islam og ikke udgjorde et personligt angreb på muslimer som gruppe.</p>
+
+      <p>20 år senere er spørgsmålet stadig ubesvaret: Har vi ytringsfrihed, eller har vi ytringsfrihed med en usynlig undtagelsesparagraf for religion?</p>
+
+      <h2>DET TEOLOGISKE PERSPEKTIV</h2>
+
+      <p>Inden for islamisk teologi er latterliggørelse af religionen langt alvorligere end i de fleste andre traditioner. Ifølge islamisk lærdom kan hån af Koranen, sunnaen eller profeten potentielt betragtes som <em>riddah</em> (frafald), der sætter personen uden for islam. Det er ikke bare en holdning. Det er en teologisk position med konsekvenser.</p>
+
+      <p>Det forklarer, hvorfor reaktionerne på satire om islam er mere intense end satire om f.eks. kristendom, og det gør debatten om ytringsfrihed versus religiøs følelse til noget helt centralt.</p>
+
+      <h2>OM DENNE VERSION</h2>
+
+      <p>Denne 2026-version er ny-produceret med opdateret tekst. "Abdul" er en arketype, ikke en bestemt person. Musikvideoen er produceret med AI-værktøjer: ChatGPT Images til key frames, Seedance til animation og CapCut til redigering.</p>
+
+      <p>Sangen handler om fænomenet, ikke om én person.</p>
+
+      <a class="back-link" href="../index.html">← Tilbage</a>
+
     </div>
   </main>
 
