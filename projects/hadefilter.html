@@ -9,31 +9,31 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:#0a0a0a;color:#e8e4df;font-family:'Space Mono',monospace;min-height:100vh;}
-.hf{width:min(92vw,1300px);margin:0 auto;padding:3rem 1.5rem;}
+.hf{width:min(92vw,1300px);margin:0 auto;padding:3rem 1.5rem;font-size:16px;}
 @media(min-width:1024px){.hf{padding:4rem 3rem;font-size:18px;}}
 .hf-header{text-align:center;margin-bottom:2.5rem;border-bottom:1px solid #1e1e1e;padding-bottom:2rem;}
-.hf-logo{font-size:11px;letter-spacing:.3em;color:#777;text-transform:uppercase;margin-bottom:.5rem;}
+.hf-logo{font-size:11px;letter-spacing:.3em;color:#aaa;text-transform:uppercase;margin-bottom:.5rem;}
 .hf-title{font-size:2.8rem;font-weight:700;color:#d4a574;letter-spacing:-.02em;margin-bottom:.5rem;}
-.hf-sub{font-size:12px;color:#777;letter-spacing:.15em;}
-.hf-tagline{font-size:14px;color:#aaa;margin-top:1rem;font-style:italic;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto;}
-.hf-sources{font-size:10px;color:#666;line-height:1.7;margin-top:1rem;padding-top:1rem;border-top:1px solid #1a1a1a;max-width:500px;margin-left:auto;margin-right:auto;text-align:center;}
+.hf-sub{font-size:12px;color:#aaa;letter-spacing:.15em;}
+.hf-tagline{font-size:14px;color:#c8c4bf;margin-top:1rem;font-style:italic;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto;}
+.hf-sources{font-size:13px;color:#999;line-height:1.7;margin-top:1rem;padding-top:1rem;border-top:1px solid #1a1a1a;max-width:500px;margin-left:auto;margin-right:auto;text-align:center;}
 
 .hf-filters{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem 2.5rem;margin-bottom:1.5rem;}
 @media(max-width:560px){.hf-filters{grid-template-columns:1fr;}}
 .hf-filter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;}
-.hf-filter-name{font-size:11px;letter-spacing:.15em;color:#ccc;text-transform:uppercase;}
+.hf-filter-name{font-size:11px;letter-spacing:.15em;color:#e8e4df;text-transform:uppercase;}
 .hf-filter-val{font-size:14px;font-weight:700;color:#d4a574;}
-.hf-filter-desc{font-size:10px;color:#777;line-height:1.5;margin-bottom:6px;}
+.hf-filter-desc{font-size:13px;color:#aaa;line-height:1.5;margin-bottom:6px;}
 .hf-filter-scale{display:flex;justify-content:space-between;margin-top:4px;}
-.hf-filter-scale span{font-size:9px;color:#777;width:18px;text-align:center;}
+.hf-filter-scale span{font-size:11px;color:#aaa;width:18px;text-align:center;}
 input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:#222;outline:none;border-radius:1px;}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#d4a574;cursor:pointer;}
 input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#d4a574;cursor:pointer;border:none;}
 
 .hf-selects{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
 @media(max-width:560px){.hf-selects{grid-template-columns:1fr 1fr;}}
-.hf-sel-name{font-size:10px;letter-spacing:.15em;color:#777;text-transform:uppercase;margin-bottom:4px;}
-.hf-sel-desc{font-size:10px;color:#666;margin-top:3px;line-height:1.4;}
+.hf-sel-name{font-size:13px;letter-spacing:.15em;color:#aaa;text-transform:uppercase;margin-bottom:4px;}
+.hf-sel-desc{font-size:13px;color:#999;margin-top:3px;line-height:1.4;}
 select{background:#111;border:1px solid #222;color:#e8e4df;padding:6px 10px;font-family:'Space Mono',monospace;font-size:12px;width:100%;border-radius:2px;cursor:pointer;}
 select:focus{outline:1px solid #d4a574;}
 
@@ -44,47 +44,47 @@ select:focus{outline:1px solid #d4a574;}
 .section.visible{display:block;}
 
 .result-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;}
-.badge{background:#c45c5c;color:#fff;font-size:9px;letter-spacing:.2em;padding:4px 10px;border-radius:2px;text-transform:uppercase;}
+.badge{background:#c45c5c;color:#fff;font-size:11px;letter-spacing:.2em;padding:4px 10px;border-radius:2px;text-transform:uppercase;}
 .result-title{font-size:18px;color:#c45c5c;font-weight:700;}
 .target-name{font-size:2.2rem;color:#e8e4df;font-weight:700;margin-bottom:1.5rem;line-height:1.2;}
 
 .meters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
 @media(max-width:560px){.meters{grid-template-columns:1fr;}}
 .meter{background:#111;border:1px solid #1e1e1e;padding:1rem;border-radius:2px;}
-.meter-label{font-size:9px;letter-spacing:.2em;color:#777;text-transform:uppercase;margin-bottom:6px;}
+.meter-label{font-size:11px;letter-spacing:.2em;color:#aaa;text-transform:uppercase;margin-bottom:6px;}
 .meter-val{font-size:22px;font-weight:700;}
-.meter-desc{font-size:10px;color:#777;margin-top:6px;line-height:1.5;}
+.meter-desc{font-size:13px;color:#aaa;margin-top:6px;line-height:1.5;}
 .meter-bar{height:2px;background:#222;margin-top:8px;border-radius:1px;overflow:hidden;}
 .meter-fill{height:100%;transition:width .7s ease;}
 
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
 @media(max-width:400px){.stat-grid{grid-template-columns:1fr;}}
 .stat{background:#0f0f0f;border:1px solid #1e1e1e;padding:10px 12px;border-radius:2px;}
-.stat-label{font-size:10px;color:#777;margin-bottom:4px;}
+.stat-label{font-size:13px;color:#aaa;margin-bottom:4px;}
 .stat-val{font-size:13px;color:#d4a574;}
-.stat-src{font-size:9px;color:#555;margin-top:3px;}
+.stat-src{font-size:11px;color:#555;margin-top:3px;}
 
 .twist{border:1px solid #d4a574;padding:1.25rem;border-radius:2px;margin-bottom:1.5rem;background:#0d0b08;}
-.twist-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:8px;}
+.twist-label{font-size:11px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:8px;}
 .twist-text{font-size:13px;color:#bbb;line-height:1.7;}
 .twist-text strong{color:#e8e4df;}
-.alt{font-size:12px;color:#777;margin-top:10px;}
+.alt{font-size:12px;color:#aaa;margin-top:10px;}
 .alt span{color:#999;}
 
 .mirror{background:#0d0b08;border:1px solid #d4a574;padding:1.5rem;border-radius:2px;text-align:center;margin-bottom:2rem;}
-.mirror-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:1rem;}
+.mirror-label{font-size:11px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:1rem;}
 .mirror-text{font-size:15px;color:#e8e4df;line-height:1.7;}
 .mirror-sub{font-size:12px;color:#888;margin-top:.75rem;line-height:1.6;}
 
 .kaninhul{border-top:1px solid #1e1e1e;padding-top:2rem;margin-top:1rem;}
-.kaninhul-intro{font-size:11px;color:#666;letter-spacing:.2em;text-transform:uppercase;text-align:center;margin-bottom:1.5rem;}
+.kaninhul-intro{font-size:11px;color:#999;letter-spacing:.2em;text-transform:uppercase;text-align:center;margin-bottom:1.5rem;}
 
 .kh-tabs{display:flex;gap:8px;margin-bottom:2rem;}
 .kh-tab{flex:1;background:#111;border:1px solid #222;color:#555;padding:14px 8px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:all .2s;text-align:center;line-height:1.5;}
 .kh-tab:hover{border-color:#444;color:#aaa;}
 .kh-tab.active{border-color:#d4a574;color:#d4a574;background:#0d0b08;}
 .kh-tab .tab-num{display:block;font-size:20px;font-weight:700;margin-bottom:4px;}
-.kh-tab .tab-label{display:block;font-size:10px;}
+.kh-tab .tab-label{display:block;font-size:13px;}
 
 .kh-panel{display:none;}
 .kh-panel.active{display:block;}
@@ -96,52 +96,52 @@ select:focus{outline:1px solid #d4a574;}
 .hist-card.active{border-color:#c45c5c;background:#150e0e;}
 .hist-year{font-size:20px;color:#c45c5c;font-weight:700;margin-bottom:4px;}
 .hist-group{font-size:12px;color:#aaa;margin-bottom:4px;}
-.hist-place{font-size:10px;color:#666;}
+.hist-place{font-size:13px;color:#999;}
 
 .hist-detail{background:#0f0f0f;border:1px solid #1e1e1e;padding:1.25rem;border-radius:2px;margin-bottom:1.5rem;}
-.hist-detail-title{font-size:11px;letter-spacing:.2em;color:#777;text-transform:uppercase;margin-bottom:1rem;}
+.hist-detail-title{font-size:11px;letter-spacing:.2em;color:#aaa;text-transform:uppercase;margin-bottom:1rem;}
 .arg-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #1a1a1a;}
 .arg-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
 .arg-col{flex:1;}
-.arg-head{font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
+.arg-head{font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px;}
 .arg-then .arg-head{color:#c45c5c;}
 .arg-now .arg-head{color:#d4a574;}
 .arg-text{font-size:12px;color:#aaa;line-height:1.5;}
 .arg-arrow{color:#444;margin-top:16px;flex-shrink:0;font-size:14px;}
 
 .hist-mirror{background:#0d0b08;border:1px solid #c45c5c;padding:1.25rem;border-radius:2px;margin-bottom:1rem;text-align:center;}
-.hist-mirror-label{font-size:9px;letter-spacing:.25em;color:#c45c5c;text-transform:uppercase;margin-bottom:.75rem;}
+.hist-mirror-label{font-size:11px;letter-spacing:.25em;color:#c45c5c;text-transform:uppercase;margin-bottom:.75rem;}
 .hist-mirror-text{font-size:14px;color:#e8e4df;line-height:1.7;}
 .hist-mirror-sub{font-size:11px;color:#888;margin-top:.5rem;line-height:1.6;}
 
 .bias-intro{font-size:12px;color:#888;margin-bottom:1rem;line-height:1.6;}
-.bias-topic{font-size:11px;color:#666;margin-bottom:1rem;text-align:center;letter-spacing:.08em;text-transform:uppercase;}
+.bias-topic{font-size:11px;color:#999;margin-bottom:1rem;text-align:center;letter-spacing:.08em;text-transform:uppercase;}
 .bias-toggle{display:flex;gap:8px;margin-bottom:1.5rem;}
-.bias-btn{flex:1;padding:12px 8px;border:1px solid #222;background:#111;color:#777;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;text-align:center;line-height:1.6;}
+.bias-btn{flex:1;padding:12px 8px;border:1px solid #222;background:#111;color:#aaa;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;text-align:center;line-height:1.6;}
 .bias-btn:hover{border-color:#444;color:#aaa;}
 .bias-btn.active-c{border-color:#c45c5c;color:#c45c5c;background:#150e0e;}
 .bias-btn.active-n{border-color:#d4a574;color:#d4a574;background:#0d0b08;}
 .bias-stats{display:grid;gap:8px;margin-bottom:1rem;}
 .bias-stat{display:flex;align-items:center;gap:12px;background:#111;border:1px solid #1e1e1e;padding:10px 12px;border-radius:2px;}
 .bias-stat-text{flex:1;font-size:12px;color:#bbb;line-height:1.4;}
-.bias-stat-src{font-size:10px;color:#666;margin-top:2px;}
+.bias-stat-src{font-size:13px;color:#999;margin-top:2px;}
 .bias-stat-pct{font-size:16px;font-weight:700;min-width:50px;text-align:right;}
 .bias-exp{padding:1rem;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:2px;font-size:12px;color:#888;line-height:1.7;margin-bottom:1.5rem;}
 .bias-exp strong{color:#bbb;}
 
 .bias-mirror{background:#0d0b08;border:1px solid #d4a574;padding:1.25rem;border-radius:2px;text-align:center;}
-.bias-mirror-label{font-size:9px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:.75rem;}
+.bias-mirror-label{font-size:11px;letter-spacing:.25em;color:#d4a574;text-transform:uppercase;margin-bottom:.75rem;}
 .bias-mirror-text{font-size:14px;color:#e8e4df;line-height:1.7;}
 .bias-mirror-sub{font-size:11px;color:#888;margin-top:.5rem;line-height:1.6;}
 
 .reset-bar{text-align:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #1e1e1e;}
-.reset-btn{background:transparent;border:1px solid #333;color:#666;padding:10px 24px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:.1em;}
+.reset-btn{background:transparent;border:1px solid #333;color:#999;padding:10px 24px;font-family:'Space Mono',monospace;font-size:11px;cursor:pointer;border-radius:2px;transition:all .15s;letter-spacing:.1em;}
 .reset-btn:hover{border-color:#d4a574;color:#d4a574;}
 
 .hf-footer{margin-top:4rem;border-top:1px solid #1e1e1e;padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:2rem;}
-.hf-footer-l{font-size:10px;color:#555;letter-spacing:.1em;line-height:1.9;}
-.hf-footer-r{font-size:10px;color:#555;text-align:right;line-height:1.9;}
-.tag{display:inline-block;background:#111;border:1px solid #1e1e1e;color:#666;font-size:9px;padding:2px 8px;border-radius:2px;letter-spacing:.1em;margin-right:4px;}
+.hf-footer-l{font-size:13px;color:#555;letter-spacing:.1em;line-height:1.9;}
+.hf-footer-r{font-size:13px;color:#555;text-align:right;line-height:1.9;}
+.tag{display:inline-block;background:#111;border:1px solid #1e1e1e;color:#999;font-size:11px;padding:2px 8px;border-radius:2px;letter-spacing:.1em;margin-right:4px;}
 
 .pulse{animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
@@ -166,49 +166,49 @@ select:focus{outline:1px solid #d4a574;}
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Kriminalitetsfrygt</span><span class="hf-filter-val" id="v-krim">5</span></div>
       <div class="hf-filter-desc">Hvor utryg føler du dig i hverdagen? Bekymrer du dig om indbrud, vold, gadekriminalitet — eller føler du dig generelt sikker?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Ingen frygt</span><span style="font-size:9px;color:#888;">Konstant utryg</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Ingen frygt</span><span style="font-size:11px;color:#888;">Konstant utryg</span></div>
       <input id="sl-krim" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-krim').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Økonomisk utilfredshed</span><span class="hf-filter-val" id="v-oek">5</span></div>
       <div class="hf-filter-desc">Oplever du, at andre grupper uretmæssigt trækker på fællesskabets ressourcer, mens du selv kæmper?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Systemet er retfærdigt</span><span style="font-size:9px;color:#888;">Andre snylter</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Systemet er retfærdigt</span><span style="font-size:11px;color:#888;">Andre snylter</span></div>
       <input id="sl-oek" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-oek').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Kulturel tryghed</span><span class="hf-filter-val" id="v-kult">5</span></div>
       <div class="hf-filter-desc">Føler du, at det Danmark du voksede op i er ved at forsvinde? At normer og skikke er under pres fra udefrakommende forandringer?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Danmark er fint</span><span style="font-size:9px;color:#888;">Alt er forandret</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Danmark er fint</span><span style="font-size:11px;color:#888;">Alt er forandret</span></div>
       <input id="sl-kult" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-kult').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Vrede på systemet</span><span class="hf-filter-val" id="v-sys">5</span></div>
       <div class="hf-filter-desc">Stoler du på politikere, medier og institutioner — eller er magten korrupt og ude af trit med virkeligheden?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Fuld tillid</span><span style="font-size:9px;color:#888;">Systemet lyver</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Fuld tillid</span><span style="font-size:11px;color:#888;">Systemet lyver</span></div>
       <input id="sl-sys" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-sys').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Nostalgi-indeks</span><span class="hf-filter-val" id="v-nos">5</span></div>
       <div class="hf-filter-desc">Var tingene bedre før? Vurderer du nutiden negativt sammenlignet med en fortid, der føltes mere overskuelig og ærlig?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Nu er bedst</span><span style="font-size:9px;color:#888;">Før var bedre</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Nu er bedst</span><span style="font-size:11px;color:#888;">Før var bedre</span></div>
       <input id="sl-nos" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-nos').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Nulsumstænkning</span><span class="hf-filter-val" id="v-nul">5</span></div>
       <div class="hf-filter-desc">Tror du, at andres fremgang sker på din bekostning — at det i bund og grund handler om at beskytte sit eget?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Alle kan vinde</span><span style="font-size:9px;color:#888;">Enten dem eller os</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Alle kan vinde</span><span style="font-size:11px;color:#888;">Enten dem eller os</span></div>
       <input id="sl-nul" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-nul').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
     <div>
       <div class="hf-filter-top"><span class="hf-filter-name">Intolerance over for intolerance</span><span class="hf-filter-val" id="v-intol">5</span></div>
       <div class="hf-filter-desc">Filosoffen Karl Popper påpegede, at et tolerant samfund må sætte grænser for intolerance — ellers undergraver den sig selv. Hvor meget fylder din vrede over dem, der hader andre?</div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:9px;color:#888;">Lad folk hade</span><span style="font-size:9px;color:#888;">Had mod haderne</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:11px;color:#888;">Lad folk hade</span><span style="font-size:11px;color:#888;">Had mod haderne</span></div>
       <input id="sl-intol" type="range" min="1" max="10" value="5" step="1" oninput="document.getElementById('v-intol').textContent=this.value">
       <div class="hf-filter-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
     </div>
@@ -314,8 +314,8 @@ select:focus{outline:1px solid #d4a574;}
         <div class="bias-intro" id="bias-intro-text"></div>
         <div class="bias-topic" id="bias-topic"></div>
         <div class="bias-toggle">
-          <button class="bias-btn active-c" id="btn-c" onclick="setBias('confirm')">BEKRÆFT FORDOMME<br><span style="font-size:10px;opacity:.7">Vis data der bekræfter</span></button>
-          <button class="bias-btn" id="btn-n" onclick="setBias('nuance')">NUANCER BILLEDET<br><span style="font-size:10px;opacity:.7">Vis samme data i kontekst</span></button>
+          <button class="bias-btn active-c" id="btn-c" onclick="setBias('confirm')">BEKRÆFT FORDOMME<br><span style="font-size:13px;opacity:.7">Vis data der bekræfter</span></button>
+          <button class="bias-btn" id="btn-n" onclick="setBias('nuance')">NUANCER BILLEDET<br><span style="font-size:13px;opacity:.7">Vis samme data i kontekst</span></button>
         </div>
         <div class="bias-stats" id="bias-stats"></div>
         <div class="bias-exp" id="bias-exp"></div>
@@ -337,7 +337,7 @@ select:focus{outline:1px solid #d4a574;}
     <div class="hf-footer-l">OBJEKTIV KRITIQUE™<br>Danmarks Kunstneriske Vagthund<br>objektivkritique.com</div>
     <div class="hf-footer-r">
       <span class="tag">SATIRE</span><span class="tag">NON-PROFIT</span><br>
-      <span style="font-size:9px;display:block;margin-top:6px;line-height:1.7;">Målet er ikke at bygge verdens mest effektive hadeværktøj.<br>Målet er at bygge verdens mest ærlige spejl.</span>
+      <span style="font-size:11px;display:block;margin-top:6px;line-height:1.7;">Målet er ikke at bygge verdens mest effektive hadeværktøj.<br>Målet er at bygge verdens mest ærlige spejl.</span>
     </div>
   </div>
 
